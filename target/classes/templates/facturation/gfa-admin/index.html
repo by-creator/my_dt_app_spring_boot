@@ -8,7 +8,7 @@
 
 <th:block layout:fragment="styles">
 <style>
-    .gfa-tabs { display:flex; gap:4px; border-bottom:2px solid #e8e8f0; margin-bottom:28px; flex-wrap:wrap; }
+    .gfa-tabs { display:flex; gap:4px; border-bottom:2px solid #e8e8f0; margin-bottom:28px; flex-wrap:wrap; background:#fff; padding:0 10px; }
     .gfa-tabs .gtab { padding:10px 20px; font-size:13px; font-weight:600; color:#6c757d; cursor:pointer; background:none; border:none; border-bottom:3px solid transparent; margin-bottom:-2px; transition:.2s; display:flex; align-items:center; gap:7px; }
     .gfa-tabs .gtab:hover { color:#4B49AC; }
     .gfa-tabs .gtab.active { color:#4B49AC; border-bottom-color:#4B49AC; }
@@ -30,7 +30,7 @@
     .border-red    { border-color:#dc3545!important; }
 
     /* Table card */
-    .gfa-card { background:#fff; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.06); padding:28px 24px; }
+    .gfa-card { background:#fff; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.06); padding:28px 24px; max-width: 1040px; margin: 0 auto; }
     .gfa-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap; gap:12px; }
     .gfa-card-title { font-size:20px; font-weight:700; color:#191C24; display:flex; align-items:center; gap:10px; }
     .btn-new { background:#4B49AC; color:#fff; border:none; border-radius:8px; padding:9px 18px; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; transition:background .2s; }
@@ -114,8 +114,9 @@
 
     <div class="gfa-tabs">
         <button class="gtab active" onclick="gfaTab(event,'tab-vue-globale')"><i class="fas fa-chart-bar"></i> Vue globale</button>
-        <button class="gtab" onclick="gfaTab(event,'tab-agents')"><i class="fas fa-user-tie"></i> Agents</button>
         <button class="gtab" onclick="gfaTab(event,'tab-services')"><i class="fas fa-briefcase"></i> Services</button>
+        <button class="gtab" onclick="gfaTab(event,'tab-guichets')"><i class="fas fa-desktop"></i> Guichets</button>
+        <button class="gtab" onclick="gfaTab(event,'tab-agents')"><i class="fas fa-user-tie"></i> Agents</button>
         <button class="gtab" onclick="gfaTab(event,'tab-tickets')"><i class="fas fa-ticket-alt"></i> Tickets</button>
         <button class="gtab" onclick="gfaTab(event,'tab-parametres')"><i class="fas fa-cog"></i> Paramètres</button>
     </div>
@@ -143,6 +144,19 @@
     </div>
 
     <!-- Services -->
+    <div id="tab-guichets" class="gtab-pane">
+        <div class="gfa-card">
+            <div class="gfa-card-header">
+                <div class="gfa-card-title"><i class="fas fa-desktop" style="font-size:22px"></i> Guichets</div>
+                <button class="btn-new" onclick="openGuichetModal()"><i class="fas fa-plus"></i> Nouveau guichet</button>
+            </div>
+            <table class="gfa-table">
+                <thead><tr><th>Nom du guichet</th><th>Infos du guichet</th><th>Service</th><th>Actions</th></tr></thead>
+                <tbody id="guichets-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+
     <div id="tab-services" class="gtab-pane">
         <div class="gfa-card">
             <div class="gfa-card-header">
@@ -234,6 +248,24 @@
     </div>
 
     <!-- Service Modal -->
+    <div id="guichet-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'guichet-overlay')">
+        <div class="gfa-modal">
+            <button class="modal-close" onclick="closeModal('guichet-overlay')">&times;</button>
+            <h5 id="guichet-modal-title">Nouveau guichet</h5>
+            <input type="hidden" id="guichet-id"/>
+            <label>Nom du guichet</label>
+            <input type="text" id="guichet-numero" placeholder="ex: Guichet 1"/>
+            <label>Infos du guichet</label>
+            <input type="text" id="guichet-infos" placeholder="ex: Zone import"/>
+            <label>Service</label>
+            <select id="guichet-service"><option value="">-- Sélectionner --</option></select>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('guichet-overlay')">Annuler</button>
+                <button class="btn-save" onclick="saveGuichet()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
     <div id="service-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'service-overlay')">
         <div class="gfa-modal">
             <button class="modal-close" onclick="closeModal('service-overlay')">&times;</button>
@@ -296,32 +328,50 @@ function renderServices() {
             <td>${s.nom}</td>
             <td>${s.prefixe}</td>
             <td>
-                <button class="btn-icon btn-edit"   onclick="openServiceModal(${s.id})"><i class="fas fa-pen"></i></button>
+                <button class="btn-icon btn-edit" onclick="openServiceModal(${s.id})"><i class="fas fa-pen"></i></button>
                 <button class="btn-icon btn-delete" onclick="confirmDelete('service',${s.id},'${s.nom}')"><i class="fas fa-trash"></i></button>
+            </td>
+        </tr>`).join('');
+}
+
+function renderGuichets(){
+    const tbody = document.getElementById('guichets-tbody');
+    const filterGuichet = document.getElementById('filter-guichet');
+    if (filterGuichet) {
+        filterGuichet.innerHTML = '<option value="">Tous les guichets</option>' +
+            _guichets.map(g => `<option>${g.numero}</option>`).join('');
+    }
+    if (!_guichets.length) {
+     tbody.innerHTML = '<tr><td colspan="4" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun guichet</td></tr>';
+        return;
+    }
+    tbody.innerHTML = _guichets.map(g => `
+        <tr>
+        <td>${g.numero}</td>
+        <td>${g.infos || '—'}</td>
+            <td>${g.serviceNom || '—'}</td>
+            <td>
+            <button class="btn-icon btn-edit" onclick="openGuichetModal(${g.id})"><i class="fas fa-pen"></i></button>
+                <button class="btn-icon btn-delete" onclick="confirmDelete('guichet',${g.id},'${g.numero}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`).join('');
 }
 
 function renderAgents() {
     const tbody = document.getElementById('agents-tbody');
-    const filterGuichet = document.getElementById('filter-guichet');
-    if (filterGuichet) {
-        filterGuichet.innerHTML = '<option value="">Tous les guichets</option>' +
-            _guichets.map(g => `<option>${g.numero}</option>`).join('');
-    }
     if (!_agents.length) {
         tbody.innerHTML = '<tr><td colspan="5" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun agent</td></tr>';
         return;
     }
     tbody.innerHTML = _agents.map(a => `
         <tr>
-           <td>${a.nom}</td>
+            <td>${a.nom}</td>
             <td>${a.prenom || '—'}</td>
-            <td>${a.serviceNom || '—'}</td>
             <td>${a.guichetNumero || '—'}</td>
+            <td>${a.serviceNom || '—'}</td>
             <td>
-                <button class="btn-icon btn-edit"   onclick="openAgentModal(${a.id})"><i class="fas fa-pen"></i></button>
-                <button class="btn-icon btn-delete" onclick="confirmDelete('agent',${a.id},'${a.nom} ${a.prenom || ''}')"><i class="fas fa-trash"></i></button>
+                <button class="btn-icon btn-edit" onclick="openAgentModal(${a.id})"><i class="fas fa-pen"></i></button>
+                <button class="btn-icon btn-delete" onclick="confirmDelete('agent',${a.id},'${a.nom}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`).join('');
 }
@@ -353,6 +403,7 @@ async function refreshAll() {
     ]);
     renderServices();
     renderAgents();
+    renderGuichets();
     renderVueGlobale();
 }
 

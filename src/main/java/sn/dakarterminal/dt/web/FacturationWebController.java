@@ -55,6 +55,18 @@ public class FacturationWebController {
         return "facturation/remises/index";
     }
 
+    @GetMapping("/unify")
+    public String unify(Model model) {
+        model.addAttribute("pageTitle", "Gestion Unify");
+        return "facturation/unify/index";
+    }
+
+    @GetMapping("/ies")
+    public String ies(Model model) {
+        model.addAttribute("pageTitle", "Gestion IES");
+        return "facturation/ies/index";
+    }
+
     @GetMapping("/gfa-admin")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_U')")
     public String gfaAdmin(Model model) {

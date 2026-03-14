@@ -171,6 +171,10 @@
            th:classappend="${currentUri == '/facturation' or currentUri == '/facturation/' or currentUri.contains('/dashboard')} ? 'active'">
             <i class="fas fa-file-invoice-dollar"></i> Tableau de bord
         </a>
+        <a th:href="@{/facturation/guichet}"
+           th:classappend="${currentUri.contains('/guichet')} ? 'active'">
+            <i class="fas fa-desktop"></i> Guichet GFA
+        </a>
         <a th:href="@{/facturation/validations}"
            th:classappend="${currentUri.contains('/validations')} ? 'active'">
             <i class="fas fa-check-double"></i> Gestion des validations
@@ -179,10 +183,15 @@
            th:classappend="${currentUri.contains('/remises')} ? 'active'">
             <i class="fas fa-percent"></i> Gestion de remises
         </a>
-        <a th:href="@{/facturation/guichet}"
-           th:classappend="${currentUri.contains('/guichet')} ? 'active'">
-            <i class="fas fa-desktop"></i> Guichet
+        <a th:href="@{/facturation/unify}"
+           th:classappend="${currentUri.contains('/unify')} ? 'active'">
+            <i class="fas fa-solid fa-clipboard"></i> Gestion Unify
         </a>
+        <a th:href="@{/facturation/ies}"
+           th:classappend="${currentUri.contains('/ies')} ? 'active'">
+            <i class="fas fa-solid fa-users"></i> Gestion IES
+        </a>
+
 
         <div class="nav-section-title" sec:authorize="hasAnyRole('ADMIN','SUPER_U')">Administration</div>
         <a th:href="@{/facturation/gfa-admin}"
