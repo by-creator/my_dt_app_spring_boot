@@ -8,28 +8,12 @@
 
 <th:block layout:fragment="styles">
     <style>
-
-        /* Settings */
-    .ies-form {
-        max-width: 560px;
-    }
-    .ies-form .form-group label {
-        font-size: 13px;
-        font-weight: 600;
-        color: #444;
-    }
-    .ies-form .form-control {
-        border-radius: 8px;
-        font-size: 13px;
-        height: 42px;
-    }
-
         .module-tabs {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
             border-bottom: 2px solid #e8e8f0;
-            margin-bottom: 22px;
+            margin-bottom: 28px;
             background: #fff;
             padding: 0 8px;
         }
@@ -50,41 +34,91 @@
             transition: color .2s;
         }
 
-        .module-tab:hover {
-            color: #4B49AC;
-        }
+        .module-tab:hover { color: #4B49AC; }
 
         .module-tab.active {
             color: #4B49AC;
             border-bottom-color: #4B49AC;
         }
 
-        .module-pane {
-            display: none;
-        }
+        .module-pane { display: none; }
+        .module-pane.active { display: block; }
 
-        .module-pane.active {
-            display: block;
-        }
-
-        .module-card {
+        .ies-card {
             background: #fff;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
-            padding: 20px;
+            padding: 28px 24px;
+            max-width: 640px;
         }
 
-        .module-title {
+        .ies-card-title {
             font-size: 20px;
             font-weight: 700;
             color: #191C24;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .module-text {
+        .ies-card-subtitle {
+            font-size: 13px;
             color: #6c757d;
+            margin-bottom: 24px;
+        }
+
+        .ies-form { max-width: 560px; }
+
+        .ies-form .form-group {
             margin-bottom: 0;
         }
+
+        .ies-form .form-group + .form-group {
+            margin-top: 16px;
+        }
+
+        .ies-form .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .ies-form .form-control {
+            border-radius: 8px;
+            font-size: 13px;
+            height: 42px;
+            border: 1px solid #dee2e6;
+            padding: 9px 13px;
+            width: 100%;
+            color: #343a40;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .ies-form .form-control:focus {
+            border-color: #4B49AC;
+            box-shadow: none;
+        }
+
+        .btn-ies-save {
+            background: #4B49AC;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 22px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-ies-save:hover { background: #3e3d99; }
     </style>
 </th:block>
 
@@ -103,65 +137,74 @@
         </button>
     </div>
 
+    <!-- Lien d'accès -->
     <div id="ies-lien-acces" class="module-pane active">
-        <div class="module-card">
-            <h5 class="module-title">Lien d'accès</h5>
-            <p class="module-text">Accès et redirection vers la plateforme IES.</p>
-        </div>
-        <form class="ies-form" method="post" th:action="@{/facturation/gfa-admin/wifi-settings}">
-            <div class="form-group">
-                <label for="link_ies_email">Email</label>
-                <input id="link_ies_email" name="link_ies_email" type="email" class="form-control" maxlength="100" required
-                       th:value="${wifiSettings != null ? wifiSettings.ssid : ''}"/>
+        <div class="ies-card">
+            <div class="ies-card-title">
+                <i class="fas fa-link" style="font-size:20px;color:#4B49AC"></i> Lien d'accès
             </div>
-            <button type="submit" class="btn-save">
-                <i class="fas fa-save mr-1"></i> Envoyer
-            </button>
-        </form>
+            <p class="ies-card-subtitle">Accès et redirection vers la plateforme IES.</p>
+            <form class="ies-form" method="post" th:action="@{/facturation/ies/lien-acces}">
+                <div class="form-group">
+                    <label for="link_ies_email">Email</label>
+                    <input id="link_ies_email" name="email" type="email" class="form-control"
+                           maxlength="100" required placeholder="ex: utilisateur@ies.sn"/>
+                </div>
+                <button type="submit" class="btn-ies-save">
+                    <i class="fas fa-paper-plane"></i> Envoyer
+                </button>
+            </form>
+        </div>
     </div>
 
+    <!-- Création de compte -->
     <div id="ies-creation-compte" class="module-pane">
-        <div class="module-card">
-            <h5 class="module-title">Création de compte</h5>
-            <p class="module-text">Procédure de création et d'activation d'un compte IES.</p>
+        <div class="ies-card">
+            <div class="ies-card-title">
+                <i class="fas fa-user-plus" style="font-size:20px;color:#4B49AC"></i> Création de compte
+            </div>
+            <p class="ies-card-subtitle">Procédure de création et d'activation d'un compte IES.</p>
+            <form class="ies-form" method="post" th:action="@{/facturation/ies/creation-compte}">
+                <div class="form-group">
+                    <label for="create_ies_email">Email</label>
+                    <input id="create_ies_email" name="email" type="email" class="form-control"
+                           maxlength="100" required placeholder="ex: utilisateur@ies.sn"/>
+                </div>
+                <div class="form-group">
+                    <label for="create_ies_password">Mot de passe</label>
+                    <input id="create_ies_password" name="password" type="password" class="form-control"
+                           maxlength="100" required placeholder="••••••••"/>
+                </div>
+                <button type="submit" class="btn-ies-save">
+                    <i class="fas fa-paper-plane"></i> Envoyer
+                </button>
+            </form>
         </div>
-        <form class="ies-form" method="post" th:action="@{/facturation/gfa-admin/wifi-settings}">
-            <div class="form-group">
-                <label for="create_ies_email">Email</label>
-                <input id="create_ies_email" name="create_ies_email" type="email" class="form-control" maxlength="100" required
-                       th:value="${wifiSettings != null ? wifiSettings.ssid : ''}"/>
-            </div>
-            <div class="form-group">
-                <label for="create_ies_password">Mot de passe</label>
-                <input id="create_ies_password" name="create_ies_password" type="password" class="form-control" maxlength="100"
-                       th:value="${wifiSettings != null ? wifiSettings.password : ''}"/>
-            </div>
-            <button type="submit" class="btn-save">
-                <i class="fas fa-save mr-1"></i> Envoyer
-            </button>
-        </form>
     </div>
 
+    <!-- Réinitialisation de mot de passe -->
     <div id="ies-reset-password" class="module-pane">
-        <div class="module-card">
-            <h5 class="module-title">Réinitialisation de mot de passe</h5>
-            <p class="module-text">Assistance et étapes pour réinitialiser le mot de passe IES.</p>
+        <div class="ies-card">
+            <div class="ies-card-title">
+                <i class="fas fa-key" style="font-size:20px;color:#4B49AC"></i> Réinitialisation de mot de passe
+            </div>
+            <p class="ies-card-subtitle">Assistance et étapes pour réinitialiser le mot de passe IES.</p>
+            <form class="ies-form" method="post" th:action="@{/facturation/ies/reset-password}">
+                <div class="form-group">
+                    <label for="reset_ies_email">Email</label>
+                    <input id="reset_ies_email" name="email" type="email" class="form-control"
+                           maxlength="100" required placeholder="ex: utilisateur@ies.sn"/>
+                </div>
+                <div class="form-group">
+                    <label for="reset_ies_password">Nouveau mot de passe</label>
+                    <input id="reset_ies_password" name="password" type="password" class="form-control"
+                           maxlength="100" required placeholder="••••••••"/>
+                </div>
+                <button type="submit" class="btn-ies-save">
+                    <i class="fas fa-paper-plane"></i> Envoyer
+                </button>
+            </form>
         </div>
-        <form class="ies-form" method="post" th:action="@{/facturation/gfa-admin/wifi-settings}">
-            <div class="form-group">
-                <label for="reset_ies_email">Email</label>
-                <input id="reset_ies_email" name="reset_ies_email" type="email" class="form-control" maxlength="100" required
-                       th:value="${wifiSettings != null ? wifiSettings.ssid : ''}"/>
-            </div>
-            <div class="form-group">
-                <label for="reset_ies_password">Mot de passe</label>
-                <input id="reset_ies_password" name="reset_ies_password" type="password" class="form-control" maxlength="100"
-                       th:value="${wifiSettings != null ? wifiSettings.password : ''}"/>
-            </div>
-            <button type="submit" class="btn-save">
-                <i class="fas fa-save mr-1"></i> Envoyer
-            </button>
-        </form>
     </div>
 </div>
 
@@ -175,12 +218,9 @@
                 tab.addEventListener('click', function () {
                     tabs.forEach(t => t.classList.remove('active'));
                     panes.forEach(p => p.classList.remove('active'));
-
                     this.classList.add('active');
                     const targetPane = document.getElementById(this.dataset.target);
-                    if (targetPane) {
-                        targetPane.classList.add('active');
-                    }
+                    if (targetPane) targetPane.classList.add('active');
                 });
             });
         })();
