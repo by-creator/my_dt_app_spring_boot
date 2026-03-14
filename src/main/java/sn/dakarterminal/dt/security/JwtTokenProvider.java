@@ -16,10 +16,10 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${jwt.secret}")
+    @Value("${jwt.secret:dakarterminal-super-secret-key-for-jwt-signing-must-be-at-least-256-bits}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration}")
+    @Value("${jwt.expiration:86400000}")
     private long jwtExpiration;
 
     @Value("${jwt.refresh-expiration:604800000}")
