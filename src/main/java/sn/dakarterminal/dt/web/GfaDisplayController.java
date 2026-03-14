@@ -5,19 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import sn.dakarterminal.dt.entity.GfaWifiSettings;
+import sn.dakarterminal.dt.repository.GfaWifiSettingsRepository;
 import sn.dakarterminal.dt.repository.ServiceRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import sn.dakarterminal.dt.entity.GfaWifiSettings;
-import sn.dakarterminal.dt.repository.GfaWifiSettingsRepository;
-
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import sn.dakarterminal.dt.entity.GfaWifiSettings;
-import sn.dakarterminal.dt.repository.GfaWifiSettingsRepository;
+import sn.dakarterminal.dt.service.ScanTokenService;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -31,8 +23,8 @@ public class GfaDisplayController {
     private static final String DEFAULT_WIFI_PASSWORD = "";
 
     private final GfaWifiSettingsRepository gfaWifiSettingsRepository;
-
     private final ServiceRepository serviceRepository;
+    private final ScanTokenService scanTokenService;
 
     @GetMapping({"/display", "/display/"})
     public String display(Model model) {
@@ -49,21 +41,23 @@ public class GfaDisplayController {
         return "gfa/display/index";
     }
 
-    private String escapeWifi(String value) {
-        if (value == null) {
-            return "";
+    @GetMapping({"/ticket", "/ticket/"})
+    public String ticket(@RequestParam(required = false) String token, Model model) {
+        if (!scanTokenService.isValid(token)) {
+            return "gfa/ticket/invalid";
         }
+        model.addAttribute("token", token);
+        model.addAttribute("services", serviceRepository.findByActifTrue());
+        return "gfa/ticket/index";
+    }
+
+    private String escapeWifi(String value) {
+        if (value == null) return "";
         return value
                 .replace("\\", "\\\\")
                 .replace(";", "\\;")
                 .replace(",", "\\,")
                 .replace(":", "\\:")
                 .replace("\"", "\\\"");
-    }
-
-    @GetMapping({"/ticket", "/ticket/"})
-    public String ticket(Model model) {
-        model.addAttribute("services", serviceRepository.findByActifTrue());
-        return "gfa/ticket/index";
     }
 }

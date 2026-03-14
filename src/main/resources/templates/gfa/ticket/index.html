@@ -217,6 +217,9 @@
     <p>Gestion de la file d'attente</p>
 </div>
 
+<!-- Scan token (set by server, consumed on ticket creation) -->
+<div id="scan-token" th:data-token="${token}" style="display:none"></div>
+
 <!-- Service selection -->
 <div id="view-select">
     <div class="select-title">Choisissez votre service</div>
@@ -289,9 +292,14 @@
 const days   = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
 const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
 
+// Prevent back navigation to this page after ticket is taken
+history.replaceState(null, '', location.href);
+window.addEventListener('popstate', () => history.go(1));
+
 async function takeTicket(btn) {
     const serviceId = btn.dataset.id;
     const nom       = btn.dataset.nom;
+    const scanToken = document.getElementById('scan-token').dataset.token;
 
     // Disable all buttons to prevent double-click
     document.querySelectorAll('.service-btn').forEach(b => b.disabled = true);
@@ -300,8 +308,14 @@ async function takeTicket(btn) {
         const res = await fetch('/gfa/api/tickets', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ serviceId: Number(serviceId) })
+            body: JSON.stringify({ serviceId: Number(serviceId), scanToken: scanToken })
         });
+
+        if (res.status === 403) {
+            // Token expired or already used — redirect to invalid page
+            window.location.replace('/gfa/ticket');
+            return;
+        }
 
         if (!res.ok) throw new Error('Erreur serveur (' + res.status + ')');
 
@@ -320,6 +334,9 @@ async function takeTicket(btn) {
         document.getElementById('view-select').style.display = 'none';
         document.getElementById('view-ticket').style.display  = 'block';
         window.scrollTo(0, 0);
+
+        // Replace history so back button cannot go back to this page
+        history.replaceState(null, '', '/gfa/ticket/done');
 
     } catch (e) {
         document.querySelectorAll('.service-btn').forEach(b => b.disabled = false);
