@@ -5,9 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sn.dakarterminal.dt.entity.RattachementBl;
+import sn.dakarterminal.dt.repository.RattachementBlRepository;
 import sn.dakarterminal.dt.service.DematEmailService;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Controller
@@ -16,6 +17,7 @@ import java.util.Map;
 public class DematWebController {
 
     private final DematEmailService dematEmailService;
+    private final RattachementBlRepository rattachementBlRepository;
 
     @GetMapping({"", "/"})
     public String index() {
@@ -46,12 +48,20 @@ public class DematWebController {
             @RequestParam(required = false) MultipartFile fileBadShipping,
             @RequestParam(required = false) MultipartFile fileDeclaration) {
 
-        Map<String, String> fichiers = new LinkedHashMap<>();
-        fichiers.put("BL",           fileInfo(fileBl));
-        fichiers.put("BAD SHIPPING", fileInfo(fileBadShipping));
-        fichiers.put("DECLARATION",  fileInfo(fileDeclaration));
+        // Save to DB
+        RattachementBl rattachement = RattachementBl.builder()
+                .nom(nom)
+                .prenom(prenom)
+                .email(email)
+                .bl(numeroBl != null ? numeroBl : "")
+                .maisonTransit(maisonTransit)
+                .statut("EN_ATTENTE")
+                .build();
+        rattachementBlRepository.save(rattachement);
 
-        dematEmailService.sendValidationEmail(nom, prenom, email, numeroBl, maisonTransit, fichiers);
+        // Send email with attachments
+        dematEmailService.sendValidationEmail(nom, prenom, email, numeroBl, maisonTransit,
+                fileBl, fileBadShipping, fileDeclaration);
 
         return ResponseEntity.ok(Map.of("status", "ok"));
     }
@@ -72,24 +82,9 @@ public class DematWebController {
             @RequestParam(required = false) MultipartFile fileFacture,
             @RequestParam(required = false) MultipartFile fileDeclaration) {
 
-        Map<String, String> fichiers = new LinkedHashMap<>();
-        fichiers.put("DEMANDE MANUSCRITE", fileInfo(fileDemandeManuscrite));
-        fichiers.put("BAD SHIPPING",       fileInfo(fileBadShipping));
-        fichiers.put("BL",                 fileInfo(fileBl));
-        fichiers.put("FACTURE",            fileInfo(fileFacture));
-        fichiers.put("DECLARATION",        fileInfo(fileDeclaration));
-
-        dematEmailService.sendRemiseEmail(nom, prenom, email, numeroBl, maisonTransit, fichiers);
+        dematEmailService.sendRemiseEmail(nom, prenom, email, numeroBl, maisonTransit,
+                fileDemandeManuscrite, fileBadShipping, fileBl, fileFacture, fileDeclaration);
 
         return ResponseEntity.ok(Map.of("status", "ok"));
-    }
-
-    // ── Helpers ───────────────────────────────────────────────
-
-    private static String fileInfo(MultipartFile f) {
-        if (f == null || f.isEmpty()) return null;
-        String name = f.getOriginalFilename();
-        long kb = f.getSize() / 1024;
-        return (name != null ? name : "fichier") + " (" + kb + " Ko)";
     }
 }
