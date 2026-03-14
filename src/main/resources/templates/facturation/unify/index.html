@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/facturation}">
+<head>
+    <title>Gestion Unify</title>
+</head>
+<body>
+
+<th:block layout:fragment="styles">
+    <style>
+        .module-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e8e8f0;
+            margin-bottom: 22px;
+            background: #fff;
+            padding: 0 8px;
+        }
+
+        .module-tab {
+            border: none;
+            background: transparent;
+            color: #6c757d;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 16px;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: color .2s;
+        }
+
+        .module-tab:hover {
+            color: #4B49AC;
+        }
+
+        .module-tab.active {
+            color: #4B49AC;
+            border-bottom-color: #4B49AC;
+        }
+
+        .module-pane {
+            display: none;
+        }
+
+        .module-pane.active {
+            display: block;
+        }
+
+        .module-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
+            padding: 20px;
+        }
+
+        .module-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #191C24;
+            margin-bottom: 8px;
+        }
+
+        .module-text {
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <h4 class="mb-3" style="font-size:34px;font-weight:700;color:#191C24;">Gestion Unify</h4>
+
+    <div class="module-tabs" role="tablist" aria-label="Onglets Gestion Unify">
+        <button type="button" class="module-tab active" data-target="unify-formulaire">
+            <i class="fas fa-file-alt"></i> Formulaire de création
+        </button>
+        <button type="button" class="module-tab" data-target="unify-tiers">
+            <i class="fas fa-list"></i> Liste des tiers
+        </button>
+        <button type="button" class="module-tab" data-target="unify-tutoriel">
+            <i class="fas fa-book-open"></i> Tutoriel
+        </button>
+        <button type="button" class="module-tab" data-target="unify-admin">
+            <i class="fas fa-cog"></i> Admin
+        </button>
+    </div>
+
+    <div id="unify-formulaire" class="module-pane active">
+        <div class="module-card">
+            <h5 class="module-title">Formulaire de création</h5>
+            <p class="module-text">Espace dédié à la création des demandes Unify.</p>
+        </div>
+    </div>
+
+    <div id="unify-tiers" class="module-pane">
+        <div class="module-card">
+            <h5 class="module-title">Liste des tiers</h5>
+            <p class="module-text">Visualisez et gérez les tiers Unify.</p>
+        </div>
+    </div>
+
+    <div id="unify-tutoriel" class="module-pane">
+        <div class="module-card">
+            <h5 class="module-title">Tutoriel</h5>
+            <p class="module-text">Guides et documentation d'utilisation Unify.</p>
+        </div>
+    </div>
+
+    <div id="unify-admin" class="module-pane">
+        <div class="module-card">
+            <h5 class="module-title">Admin</h5>
+            <p class="module-text">Paramètres et administration de la section Unify.</p>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="scripts">
+    <script>
+        (function () {
+            const tabs = document.querySelectorAll('.module-tab');
+            const panes = document.querySelectorAll('.module-pane');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    panes.forEach(p => p.classList.remove('active'));
+
+                    this.classList.add('active');
+                    const targetPane = document.getElementById(this.dataset.target);
+                    if (targetPane) {
+                        targetPane.classList.add('active');
+                    }
+                });
+            });
+        })();
+    </script>
+</th:block>
+
+</body>
+</html>
