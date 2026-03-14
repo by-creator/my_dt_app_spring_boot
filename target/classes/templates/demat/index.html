@@ -4,6 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <title>Dakar Terminal — Tout faire à distance</title>
+    <link rel="icon" type="image/png" href="/img/image.png"/>
 
     <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
@@ -23,55 +24,30 @@
 
         /* ── HERO HEADER ── */
         .demat-hero {
-            background: linear-gradient(135deg, #1976D2 0%, #1565C0 60%, #0d47a1 100%);
-            border-radius: 0 0 40px 40px;
-            padding: 36px 24px 48px;
-            text-align: center;
-            color: #fff;
-            margin-bottom: 40px;
-        }
-        .demat-hero .brand-box {
-            display: inline-flex;
-            align-items: center;
             background: #fff;
-            border-radius: 8px;
-            padding: 8px 20px;
-            gap: 12px;
+            border-bottom: 1px solid #e8e8f0;
+            padding: 32px 24px 36px;
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .demat-hero .brand-logo {
+            height: 56px;
+            width: auto;
+            object-fit: contain;
             margin-bottom: 20px;
-        }
-        .demat-hero .brand-icon {
-            width: 44px; height: 44px;
-            background: #1565C0;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .demat-hero .brand-icon i { color: #fff; font-size: 20px; }
-        .demat-hero .brand-text {
-            text-align: left;
-            line-height: 1.2;
-        }
-        .demat-hero .brand-text .name {
-            font-size: 18px;
-            font-weight: 800;
-            color: #1565C0;
-            letter-spacing: .5px;
-        }
-        .demat-hero .brand-text .sub {
-            font-size: 11px;
-            color: #888;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
         .demat-hero h1 {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 800;
-            color: #fff;
-            margin-bottom: 8px;
+            color: #191C24;
+            margin-bottom: 6px;
         }
         .demat-hero p {
             font-size: 15px;
-            color: rgba(255,255,255,.85);
+            color: #888;
         }
 
         /* ── CARDS GRID ── */
@@ -84,8 +60,12 @@
             padding: 0 20px 60px;
         }
         @media (max-width: 576px) {
-            .demat-grid { grid-template-columns: 1fr; }
             .demat-hero h1 { font-size: 24px; }
+            .demat-grid { gap: 14px; padding: 0 12px 40px; }
+            .demat-card { padding: 20px 14px 18px; }
+            .demat-card .card-icon-wrap { width: 64px; height: 64px; font-size: 28px; }
+            .demat-card .card-title { font-size: 13px; }
+            .demat-card .card-desc { font-size: 11px; }
         }
 
         .demat-card {
@@ -156,13 +136,7 @@
 
 <!-- Hero -->
 <div class="demat-hero">
-    <div class="brand-box">
-        <div class="brand-icon"><i class="fas fa-globe"></i></div>
-        <div class="brand-text">
-            <div class="name">DAKAR TERMINAL</div>
-            <div class="sub">Sénégal</div>
-        </div>
-    </div>
+    <img src="/img/image.png" alt="Dakar Terminal" class="brand-logo"/>
     <h1>Tout faire à distance</h1>
     <p>Bienvenu(e) sur notre plateforme</p>
 </div>
@@ -170,7 +144,7 @@
 <!-- Cards -->
 <div class="demat-grid">
 
-    <a href="https://www.google.com" target="_blank" class="demat-card">
+    <a href="/demat/validation" class="demat-card">
         <div class="card-icon-wrap icon-validation">
             <i class="fas fa-clipboard-check"></i>
         </div>
@@ -200,7 +174,7 @@
         </div>
     </a>
 
-    <a href="https://www.google.com" target="_blank" class="demat-card">
+    <a href="/demat/remise" class="demat-card">
         <div class="card-icon-wrap icon-remise">
             <i class="fas fa-tags"></i>
         </div>

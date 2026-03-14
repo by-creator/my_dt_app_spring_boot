@@ -75,6 +75,35 @@
     .del-sub { font-size:12px; color:#aaa; }
     .modal-close { position:absolute; top:14px; right:16px; background:none; border:none; font-size:20px; cursor:pointer; color:#888; line-height:1; }
     .modal-close:hover { color:#333; }
+
+    /* Settings */
+    .settings-form {
+        max-width: 560px;
+    }
+    .settings-form .form-group label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #444;
+    }
+    .settings-form .form-control {
+        border-radius: 8px;
+        font-size: 13px;
+        height: 42px;
+    }
+    .btn-save {
+        background: #4B49AC;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 18px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .btn-save:hover { background: #3e3d99; }
+
+
+
 </style>
 </th:block>
 
@@ -85,9 +114,11 @@
 
     <div class="gfa-tabs">
         <button class="gtab active" onclick="gfaTab(event,'tab-vue-globale')"><i class="fas fa-chart-bar"></i> Vue globale</button>
-        <button class="gtab" onclick="gfaTab(event,'tab-agents')"><i class="fas fa-user-tie"></i> Agents</button>
         <button class="gtab" onclick="gfaTab(event,'tab-services')"><i class="fas fa-briefcase"></i> Services</button>
+        <button class="gtab" onclick="gfaTab(event,'tab-guichets')"><i class="fas fa-desktop"></i> Guichets</button>
+        <button class="gtab" onclick="gfaTab(event,'tab-agents')"><i class="fas fa-user-tie"></i> Agents</button>
         <button class="gtab" onclick="gfaTab(event,'tab-tickets')"><i class="fas fa-ticket-alt"></i> Tickets</button>
+        <button class="gtab" onclick="gfaTab(event,'tab-parametres')"><i class="fas fa-cog"></i> Paramètres</button>
     </div>
 
     <!-- Vue globale -->
@@ -106,13 +137,26 @@
                 <button class="btn-new" onclick="openAgentModal()"><i class="fas fa-plus"></i> Nouvel agent</button>
             </div>
             <table class="gfa-table">
-                <thead><tr><th>Nom du guichet</th><th>Infos du guichet</th><th>Service</th><th>Actions</th></tr></thead>
+                <thead><tr><th>Nom</th><th>Prénom</th><th>Service</th><th>Guichet</th><th>Actions</th></tr></thead>
                 <tbody id="agents-tbody"></tbody>
             </table>
         </div>
     </div>
 
     <!-- Services -->
+    <div id="tab-guichets" class="gtab-pane">
+        <div class="gfa-card">
+            <div class="gfa-card-header">
+                <div class="gfa-card-title"><i class="fas fa-desktop" style="font-size:22px"></i> Guichets</div>
+                <button class="btn-new" onclick="openGuichetModal()"><i class="fas fa-plus"></i> Nouveau guichet</button>
+            </div>
+            <table class="gfa-table">
+                <thead><tr><th>Nom du guichet</th><th>Infos du guichet</th><th>Service</th><th>Actions</th></tr></thead>
+                <tbody id="guichets-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+
     <div id="tab-services" class="gtab-pane">
         <div class="gfa-card">
             <div class="gfa-card-header">
@@ -149,6 +193,37 @@
         </div>
     </div>
 
+    <!-- Paramètres ── -->
+    <div id="tab-parametres" class="gtab-pane">
+        <div class="gfa-card">
+            <div class="gfa-card-header">
+                <div class="gfa-card-title">
+                    <i class="fas fa-wifi" style="font-size:22px"></i> Paramètres QR Wi-Fi
+                </div>
+            </div>
+
+            <form class="settings-form" method="post" th:action="@{/facturation/gfa-admin/wifi-settings}">
+                <div class="form-group">
+                    <label for="ssid">SSID</label>
+                    <input id="ssid" name="ssid" type="text" class="form-control" maxlength="100" required
+                           th:value="${wifiSettings != null ? wifiSettings.ssid : ''}"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input id="password" name="password" type="text" class="form-control" maxlength="100"
+                           th:value="${wifiSettings != null ? wifiSettings.password : ''}"/>
+                </div>
+                <button type="submit" class="btn-save">
+                    <i class="fas fa-save mr-1"></i> Enregistrer
+                </button>
+            </form>
+
+            <small class="text-muted d-block mt-3">
+                Ces paramètres sont utilisés pour générer le QR code Wi-Fi affiché sur <code>/gfa/display</code>.
+            </small>
+        </div>
+    </div>
+
     <!-- ── MODALS (must be inside layout:fragment="content") ── -->
 
     <!-- Agent Modal -->
@@ -157,12 +232,14 @@
             <button class="modal-close" onclick="closeModal('agent-overlay')">&times;</button>
             <h5 id="agent-modal-title">Nouvel agent</h5>
             <input type="hidden" id="agent-id"/>
-            <label>Nom du guichet</label>
-            <input type="text" id="agent-guichet" placeholder="ex: Guichet 1"/>
-            <label>Infos du guichet (agent)</label>
-            <input type="text" id="agent-infos" placeholder="ex: Mamadou DIOP"/>
+            <label>Nom</label>
+            <input type="text" id="agent-nom" placeholder="ex: DIOP"/>
+            <label>Prénom</label>
+            <input type="text" id="agent-prenom" placeholder="ex: Mamadou"/>
             <label>Service</label>
             <select id="agent-service"><option value="">-- Sélectionner --</option></select>
+            <label>Guichet</label>
+            <select id="agent-guichet"><option value="">-- Aucun --</option></select>
             <div class="modal-footer">
                 <button class="btn-cancel" onclick="closeModal('agent-overlay')">Annuler</button>
                 <button class="btn-save" onclick="saveAgent()">Enregistrer</button>
@@ -171,6 +248,24 @@
     </div>
 
     <!-- Service Modal -->
+    <div id="guichet-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'guichet-overlay')">
+        <div class="gfa-modal">
+            <button class="modal-close" onclick="closeModal('guichet-overlay')">&times;</button>
+            <h5 id="guichet-modal-title">Nouveau guichet</h5>
+            <input type="hidden" id="guichet-id"/>
+            <label>Nom du guichet</label>
+            <input type="text" id="guichet-numero" placeholder="ex: Guichet 1"/>
+            <label>Infos du guichet</label>
+            <input type="text" id="guichet-infos" placeholder="ex: Zone import"/>
+            <label>Service</label>
+            <select id="guichet-service"><option value="">-- Sélectionner --</option></select>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('guichet-overlay')">Annuler</button>
+                <button class="btn-save" onclick="saveGuichet()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
     <div id="service-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'service-overlay')">
         <div class="gfa-modal">
             <button class="modal-close" onclick="closeModal('service-overlay')">&times;</button>
@@ -178,7 +273,7 @@
             <input type="hidden" id="service-id"/>
             <label>Nom du service</label>
             <input type="text" id="service-nom" placeholder="ex: VALIDATION"/>
-            <label>Préfixe</label>
+            <label>Préfixe (optionnel)</label>
             <input type="text" id="service-prefixe" placeholder="ex: V" maxlength="5"/>
             <div class="modal-footer">
                 <button class="btn-cancel" onclick="closeModal('service-overlay')">Annuler</button>
@@ -206,6 +301,7 @@
 <script>
 // ── In-memory cache ──────────────────────────────────────────
 let _services = [];
+let _agents = [];
 let _guichets = [];
 
 // ── API helpers ──────────────────────────────────────────────
@@ -232,31 +328,50 @@ function renderServices() {
             <td>${s.nom}</td>
             <td>${s.prefixe}</td>
             <td>
-                <button class="btn-icon btn-edit"   onclick="openServiceModal(${s.id})"><i class="fas fa-pen"></i></button>
+                <button class="btn-icon btn-edit" onclick="openServiceModal(${s.id})"><i class="fas fa-pen"></i></button>
                 <button class="btn-icon btn-delete" onclick="confirmDelete('service',${s.id},'${s.nom}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`).join('');
 }
 
-function renderGuichets() {
-    const tbody = document.getElementById('agents-tbody');
+function renderGuichets(){
+    const tbody = document.getElementById('guichets-tbody');
     const filterGuichet = document.getElementById('filter-guichet');
     if (filterGuichet) {
         filterGuichet.innerHTML = '<option value="">Tous les guichets</option>' +
             _guichets.map(g => `<option>${g.numero}</option>`).join('');
     }
     if (!_guichets.length) {
-        tbody.innerHTML = '<tr><td colspan="4" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun agent</td></tr>';
+     tbody.innerHTML = '<tr><td colspan="4" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun guichet</td></tr>';
         return;
     }
     tbody.innerHTML = _guichets.map(g => `
         <tr>
-            <td>${g.numero}</td>
-            <td>${g.infos}</td>
+        <td>${g.numero}</td>
+        <td>${g.infos || '—'}</td>
             <td>${g.serviceNom || '—'}</td>
             <td>
-                <button class="btn-icon btn-edit"   onclick="openAgentModal(${g.id})"><i class="fas fa-pen"></i></button>
-                <button class="btn-icon btn-delete" onclick="confirmDelete('agent',${g.id},'${g.numero}')"><i class="fas fa-trash"></i></button>
+            <button class="btn-icon btn-edit" onclick="openGuichetModal(${g.id})"><i class="fas fa-pen"></i></button>
+                <button class="btn-icon btn-delete" onclick="confirmDelete('guichet',${g.id},'${g.numero}')"><i class="fas fa-trash"></i></button>
+            </td>
+        </tr>`).join('');
+}
+
+function renderAgents() {
+    const tbody = document.getElementById('agents-tbody');
+    if (!_agents.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun agent</td></tr>';
+        return;
+    }
+    tbody.innerHTML = _agents.map(a => `
+        <tr>
+            <td>${a.nom}</td>
+            <td>${a.prenom || '—'}</td>
+            <td>${a.guichetNumero || '—'}</td>
+            <td>${a.serviceNom || '—'}</td>
+            <td>
+                <button class="btn-icon btn-edit" onclick="openAgentModal(${a.id})"><i class="fas fa-pen"></i></button>
+                <button class="btn-icon btn-delete" onclick="confirmDelete('agent',${a.id},'${a.nom}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`).join('');
 }
@@ -281,11 +396,13 @@ function renderVueGlobale() {
 }
 
 async function refreshAll() {
-    [_services, _guichets] = await Promise.all([
+   [_services, _agents, _guichets] = await Promise.all([
         api('GET', '/gfa/api/services'),
+        api('GET', '/gfa/api/agents'),
         api('GET', '/gfa/api/guichets')
     ]);
     renderServices();
+    renderAgents();
     renderGuichets();
     renderVueGlobale();
 }
@@ -303,39 +420,53 @@ function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function closeOnBackdrop(e, id) { if (e.target === e.currentTarget) closeModal(id); }
 
-// ── Agent (guichet) CRUD ──────────────────────────────────────
+// ── Agent CRUD ──────────────────────────────────────
 function openAgentModal(id) {
-    document.getElementById('agent-id').value    = '';
-    document.getElementById('agent-guichet').value = '';
-    document.getElementById('agent-infos').value   = '';
-    const sel = document.getElementById('agent-service');
-    sel.innerHTML = '<option value="">-- Sélectionner --</option>' +
+    document.getElementById('agent-nom').value = '';
+    document.getElementById('agent-prenom').value   = '';
+
+    const serviceSel = document.getElementById('agent-service');
+    serviceSel.innerHTML = '<option value="">-- Sélectionner --</option>' +
         _services.map(s => `<option value="${s.id}">${s.nom}</option>`).join('');
+
+    const guichetSel = document.getElementById('agent-guichet');
+    guichetSel.innerHTML = '<option value="">-- Aucun --</option>' +
+        _guichets.map(g => `<option value="${g.id}">${g.numero}</option>`).join('');
+
     document.getElementById('agent-modal-title').textContent = 'Nouvel agent';
     if (id !== undefined) {
-        const g = _guichets.find(x => x.id === id);
-        if (g) {
-            document.getElementById('agent-modal-title').textContent = 'Modifier l\'agent';
-            document.getElementById('agent-id').value    = g.id;
-            document.getElementById('agent-guichet').value = g.numero;
-            document.getElementById('agent-infos').value   = g.infos;
-            sel.value = g.serviceId || '';
+        const a = _agents.find(x => x.id === id);
+        if (a) {
+            document.getElementById('agent-id').value = a.id;
+            document.getElementById('agent-nom').value = a.nom;
+            document.getElementById('agent-prenom').value = a.prenom || '';
+            serviceSel.value = a.serviceId || '';
+            guichetSel.value = a.guichetId || '';
         }
     }
     openModal('agent-overlay');
 }
 
 async function saveAgent() {
-    const numero    = document.getElementById('agent-guichet').value.trim();
-    const infos     = document.getElementById('agent-infos').value.trim();
+    const nom = document.getElementById('agent-nom').value.trim();
+    const prenom = document.getElementById('agent-prenom').value.trim();
     const serviceId = document.getElementById('agent-service').value;
-    if (!numero || !infos || !serviceId) { alert('Veuillez remplir tous les champs.'); return; }
+    const guichetId = document.getElementById('agent-guichet').value;
+    if (!nom) { alert('Le nom de l\'agent est obligatoire.'); return; }
+
+    const payload = {
+        nom,
+        prenom,
+        serviceId: serviceId ? Number(serviceId) : null,
+        guichetId: guichetId ? Number(guichetId) : null
+    };
+
     const rawId = document.getElementById('agent-id').value;
     try {
         if (rawId) {
-            await api('PUT', '/gfa/api/guichets/' + rawId, { numero, infos, serviceId: Number(serviceId) });
+            await api('PUT', '/gfa/api/agents/' + rawId, payload);
         } else {
-            await api('POST', '/gfa/api/guichets', { numero, infos, serviceId: Number(serviceId) });
+            await api('POST', '/gfa/api/agents', payload);
         }
         closeModal('agent-overlay');
         await refreshAll();
@@ -363,7 +494,7 @@ function openServiceModal(id) {
 async function saveService() {
     const nom     = document.getElementById('service-nom').value.trim().toUpperCase();
     const prefixe = document.getElementById('service-prefixe').value.trim().toUpperCase();
-    if (!nom || !prefixe) { alert('Veuillez remplir tous les champs.'); return; }
+    if (!nom) { alert('Le nom du service est obligatoire.'); return; }
     const rawId = document.getElementById('service-id').value;
     try {
         if (rawId) {
@@ -388,7 +519,7 @@ document.getElementById('delete-confirm-btn').addEventListener('click', async fu
     if (!_deleteCtx) return;
     try {
         if (_deleteCtx.type === 'agent') {
-            await api('DELETE', '/gfa/api/guichets/' + _deleteCtx.id);
+            await api('DELETE', '/gfa/api/agents/' + _deleteCtx.id);
         } else {
             await api('DELETE', '/gfa/api/services/' + _deleteCtx.id);
         }
