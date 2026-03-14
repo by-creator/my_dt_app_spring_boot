@@ -105,6 +105,7 @@ public class SecurityConfig {
                 .requestMatchers("/demat/**").permitAll()
                 .requestMatchers("/gfa/display/**").permitAll()
                 .requestMatchers("/gfa/ticket/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/gfa/api/scan-token").permitAll()
                 .requestMatchers(HttpMethod.POST, "/gfa/api/tickets").permitAll()
                 .requestMatchers("/facturation/**").hasAnyRole("ADMIN", "SUPER_U", "FACTURATION")
                 .requestMatchers("/", "/admin/**").hasAnyRole("ADMIN", "SUPER_U")

@@ -211,7 +211,7 @@
     </div>
     <div class="qr-card">
         <div class="qr-icon qr-icon-ticket"><i class="fas fa-ticket-alt"></i></div>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=http://localhost:8080/gfa/ticket" alt="QR Ticket"/>
+        <img id="ticket-qr-img" src="" alt="QR Ticket" style="opacity:.4"/>
         <div>
             <div class="qr-step">Étape 2</div>
             <div class="qr-title">Prendre un ticket</div>
@@ -308,6 +308,33 @@ function updateDisplay(ticket) {
     setTimeout(() => { card.classList.remove('flash'); numEl.classList.remove('highlight'); }, 2000);
 }
 
+function resetDisplay() {
+    document.getElementById('service-badge').textContent = '— SERVICE —';
+    document.getElementById('ticket-number').textContent = '—';
+    document.getElementById('guichet-name').textContent  = '—';
+    document.getElementById('agent-name').textContent    = 'En attente';
+}
+
+// ── Dynamic ticket QR code ────────────────────────────────────
+let _qrRefreshTimer = null;
+
+async function refreshTicketQr() {
+    try {
+        const res = await fetch('/gfa/api/scan-token');
+        if (!res.ok) return;
+        const data = await res.json();
+        const ticketUrl = window.location.origin + '/gfa/ticket?token=' + encodeURIComponent(data.token);
+        const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=' + encodeURIComponent(ticketUrl);
+        const img = document.getElementById('ticket-qr-img');
+        img.src = qrUrl;
+        img.style.opacity = '1';
+    } catch (e) { /* silent */ }
+
+    // Refresh every 4 minutes so token doesn't expire
+    clearTimeout(_qrRefreshTimer);
+    _qrRefreshTimer = setTimeout(refreshTicketQr, 4 * 60 * 1000);
+}
+
 // ── WebSocket ─────────────────────────────────────────────────
 function connectWS() {
     const sock = new SockJS('/ws');
@@ -328,12 +355,26 @@ function connectWS() {
             setTimeout(() => announce(ticket.numero, guichet), 950);
         });
 
+        // When a ticket is closed/absent/incomplet — clear display after 3s
+        client.subscribe('/topic/tickets/closed', function() {
+            setTimeout(resetDisplay, 3000);
+        });
+
+        // When a ticket is created — refresh QR so the next client must re-scan
+        client.subscribe('/topic/tickets/created', function() {
+            refreshTicketQr();
+        });
+
     }, function() {
         document.getElementById('ws-dot').classList.remove('connected');
         document.getElementById('ws-label').textContent = 'Déconnecté';
         setTimeout(connectWS, 3000);
     });
 }
+
+// Load first QR on page ready (called after activateAudio, but also on DOMContentLoaded
+// so it appears immediately even if user hasn't clicked yet)
+document.addEventListener('DOMContentLoaded', refreshTicketQr);
 </script>
 </body>
 </html>
