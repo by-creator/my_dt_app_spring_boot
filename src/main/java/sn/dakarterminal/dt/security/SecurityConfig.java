@@ -96,6 +96,7 @@ public class SecurityConfig {
             .securityMatcher("/", "/admin/**", "/facturation/**", "/demat/**", "/gfa/**", "/login", "/logout", "/ws/**")
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers("/ws/**")
+                .ignoringRequestMatchers("/gfa/api/**")
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
             .authorizeHttpRequests(auth -> auth
