@@ -8,361 +8,479 @@
 
 <th:block layout:fragment="styles">
 <style>
-    /* ── Tab nav ── */
-    .gfa-tabs {
-        display: flex;
-        gap: 4px;
-        border-bottom: 2px solid #e8e8f0;
-        margin-bottom: 28px;
-        flex-wrap: wrap;
+    .gfa-tabs { display:flex; gap:4px; border-bottom:2px solid #e8e8f0; margin-bottom:28px; flex-wrap:wrap; }
+    .gfa-tabs .gtab { padding:10px 20px; font-size:13px; font-weight:600; color:#6c757d; cursor:pointer; background:none; border:none; border-bottom:3px solid transparent; margin-bottom:-2px; transition:.2s; display:flex; align-items:center; gap:7px; }
+    .gfa-tabs .gtab:hover { color:#4B49AC; }
+    .gfa-tabs .gtab.active { color:#4B49AC; border-bottom-color:#4B49AC; }
+    .gtab-pane { display:none; } .gtab-pane.active { display:block; }
+
+    /* Stats */
+    .service-section { margin-bottom:32px; }
+    .service-label { font-size:12px; font-weight:700; letter-spacing:1.2px; color:#4B49AC; margin-bottom:14px; }
+    .stat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+    @media(max-width:992px){ .stat-grid{ grid-template-columns:repeat(3,1fr); } }
+    @media(max-width:576px){ .stat-grid{ grid-template-columns:repeat(2,1fr); } }
+    .stat-card { background:#fff; border-radius:10px; padding:18px 14px 14px; text-align:center; border:2px solid; }
+    .stat-card .stat-label { font-size:11px; color:#888; margin-bottom:8px; }
+    .stat-card .stat-value { font-size:28px; font-weight:700; color:#191C24; }
+    .border-dark   { border-color:#343a40!important; }
+    .border-yellow { border-color:#ffc107!important; }
+    .border-green  { border-color:#28a745!important; }
+    .border-teal   { border-color:#17a2b8!important; }
+    .border-red    { border-color:#dc3545!important; }
+
+    /* Table card */
+    .gfa-card { background:#fff; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.06); padding:28px 24px; }
+    .gfa-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap; gap:12px; }
+    .gfa-card-title { font-size:20px; font-weight:700; color:#191C24; display:flex; align-items:center; gap:10px; }
+    .btn-new { background:#4B49AC; color:#fff; border:none; border-radius:8px; padding:9px 18px; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; transition:background .2s; }
+    .btn-new:hover { background:#3e3d99; }
+    .gfa-table { width:100%; border-collapse:collapse; }
+    .gfa-table thead tr { background:#f8f9fa; }
+    .gfa-table th { padding:12px 16px; font-size:13px; font-weight:600; color:#555; text-align:left; border-bottom:1px solid #e8e8f0; }
+    .gfa-table td { padding:14px 16px; font-size:13px; color:#444; border-bottom:1px solid #f2f2f7; }
+    .gfa-table tbody tr:hover { background:#fafafa; }
+    .gfa-table tbody tr:last-child td { border-bottom:none; }
+    .btn-icon { border:none; border-radius:8px; width:34px; height:34px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; font-size:14px; transition:opacity .2s; margin-right:4px; }
+    .btn-icon:hover { opacity:.82; }
+    .btn-edit { background:#fd7e14; color:#fff; }
+    .btn-delete { background:#dc3545; color:#fff; }
+    .empty-table { text-align:center; padding:40px 0; color:#aaa; font-size:13px; }
+
+    /* Tickets */
+    .ticket-filters { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:20px; }
+    .ticket-filters select, .ticket-filters input[type=date] { border:1px solid #dee2e6; border-radius:6px; padding:7px 12px; font-size:13px; color:#444; font-family:inherit; }
+    .btn-filter { border:none; border-radius:6px; width:34px; height:34px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px; }
+    .btn-f-search { background:#17a2b8; color:#fff; }
+    .btn-f-reset  { background:#28a745; color:#fff; }
+    .btn-f-export { background:#fd7e14; color:#fff; }
+    .btn-f-clear  { background:#dc3545; color:#fff; }
+
+    /* Modal */
+    .gfa-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:1000; align-items:center; justify-content:center; }
+    .gfa-overlay.open { display:flex; }
+    .gfa-modal { background:#fff; border-radius:14px; padding:32px 28px; width:100%; max-width:440px; box-shadow:0 12px 48px rgba(0,0,0,.18); position:relative; }
+    .gfa-modal h5 { font-size:17px; font-weight:700; color:#191C24; margin-bottom:22px; }
+    .gfa-modal label { font-size:12px; font-weight:700; color:#555; display:block; margin-bottom:5px; margin-top:14px; }
+    .gfa-modal input, .gfa-modal select { width:100%; border:1px solid #dee2e6; border-radius:7px; padding:9px 13px; font-size:14px; font-family:inherit; color:#343a40; outline:none; transition:border-color .2s; }
+    .gfa-modal input:focus, .gfa-modal select:focus { border-color:#4B49AC; }
+    .gfa-modal .modal-footer { display:flex; justify-content:flex-end; gap:10px; margin-top:24px; }
+    .btn-cancel { background:#f2f2f7; color:#555; border:none; border-radius:7px; padding:9px 18px; font-size:13px; font-weight:600; cursor:pointer; }
+    .btn-cancel:hover { background:#e8e8f0; }
+    .btn-save { background:#4B49AC; color:#fff; border:none; border-radius:7px; padding:9px 18px; font-size:13px; font-weight:600; cursor:pointer; }
+    .btn-save:hover { background:#3e3d99; }
+    .btn-confirm-del { background:#dc3545; color:#fff; border:none; border-radius:7px; padding:9px 18px; font-size:13px; font-weight:600; cursor:pointer; }
+    .btn-confirm-del:hover { background:#b02a37; }
+    .del-msg { font-size:14px; color:#444; margin-bottom:4px; }
+    .del-sub { font-size:12px; color:#aaa; }
+    .modal-close { position:absolute; top:14px; right:16px; background:none; border:none; font-size:20px; cursor:pointer; color:#888; line-height:1; }
+    .modal-close:hover { color:#333; }
+
+    /* Settings */
+    .settings-form {
+        max-width: 560px;
     }
-    .gfa-tabs .gtab {
-        padding: 10px 20px;
+    .settings-form .form-group label {
         font-size: 13px;
         font-weight: 600;
-        color: #6c757d;
-        cursor: pointer;
-        background: none;
-        border: none;
-        border-bottom: 3px solid transparent;
-        margin-bottom: -2px;
-        transition: .2s;
-        display: flex; align-items: center; gap: 7px;
+        color: #444;
     }
-    .gfa-tabs .gtab:hover   { color: #4B49AC; }
-    .gfa-tabs .gtab.active  { color: #4B49AC; border-bottom-color: #4B49AC; }
-    .gtab-pane { display: none; }
-    .gtab-pane.active { display: block; }
-
-    /* ── Vue globale ── */
-    .service-section { margin-bottom: 32px; }
-    .service-label {
-        font-size: 12px; font-weight: 700;
-        letter-spacing: 1.2px;
-        color: #4B49AC;
-        margin-bottom: 14px;
+    .settings-form .form-control {
+        border-radius: 8px;
+        font-size: 13px;
+        height: 42px;
     }
-    .stat-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 14px;
-    }
-    @media (max-width: 992px) { .stat-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 576px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
-
-    .stat-card {
-        background: #fff;
-        border-radius: 10px;
-        padding: 18px 14px 14px;
-        text-align: center;
-        border: 2px solid;
-    }
-    .stat-card .stat-label {
-        font-size: 11px; color: #888;
-        margin-bottom: 8px;
-    }
-    .stat-card .stat-value {
-        font-size: 28px; font-weight: 700; color: #191C24;
-    }
-    .border-dark   { border-color: #343a40 !important; }
-    .border-yellow { border-color: #ffc107 !important; }
-    .border-green  { border-color: #28a745 !important; }
-    .border-teal   { border-color: #17a2b8 !important; }
-    .border-red    { border-color: #dc3545 !important; }
-
-    /* ── Tables ── */
-    .gfa-card {
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(0,0,0,.06);
-        padding: 28px 24px;
-    }
-    .gfa-card-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 22px;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-    .gfa-card-title {
-        font-size: 20px;
-        font-weight: 700;
-        color: #191C24;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .btn-new {
+    .btn-save {
         background: #4B49AC;
         color: #fff;
         border: none;
         border-radius: 8px;
-        padding: 9px 18px;
+        padding: 10px 18px;
         font-size: 13px;
         font-weight: 600;
         cursor: pointer;
-        display: flex; align-items: center; gap: 6px;
-        transition: background .2s;
     }
-    .btn-new:hover { background: #3e3d99; }
+    .btn-save:hover { background: #3e3d99; }
 
-    .gfa-table { width: 100%; border-collapse: collapse; }
-    .gfa-table thead tr {
-        background: #f8f9fa;
-    }
-    .gfa-table th {
-        padding: 12px 16px;
-        font-size: 13px;
-        font-weight: 600;
-        color: #555;
-        text-align: left;
-        border-bottom: 1px solid #e8e8f0;
-    }
-    .gfa-table td {
-        padding: 14px 16px;
-        font-size: 13px;
-        color: #444;
-        border-bottom: 1px solid #f2f2f7;
-    }
-    .gfa-table tbody tr:hover { background: #fafafa; }
-    .gfa-table tbody tr:last-child td { border-bottom: none; }
 
-    .btn-icon {
-        border: none;
-        border-radius: 8px;
-        width: 34px; height: 34px;
-        display: inline-flex; align-items: center; justify-content: center;
-        cursor: pointer;
-        font-size: 14px;
-        transition: opacity .2s;
-        margin-right: 4px;
-    }
-    .btn-icon:hover { opacity: .82; }
-    .btn-edit   { background: #fd7e14; color: #fff; }
-    .btn-delete { background: #dc3545; color: #fff; }
 
-    /* ── Tickets filters ── */
-    .ticket-filters {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-    .ticket-filters select,
-    .ticket-filters input[type=date] {
-        border: 1px solid #dee2e6;
-        border-radius: 6px;
-        padding: 7px 12px;
-        font-size: 13px;
-        color: #444;
-    }
-    .btn-filter {
-        border: none;
-        border-radius: 6px;
-        width: 34px; height: 34px;
-        display: inline-flex; align-items: center; justify-content: center;
-        cursor: pointer;
-        font-size: 15px;
-        transition: opacity .2s;
-    }
-    .btn-filter:hover { opacity: .8; }
-    .btn-f-search { background: #17a2b8; color: #fff; }
-    .btn-f-reset  { background: #28a745; color: #fff; }
-    .btn-f-export { background: #fd7e14; color: #fff; }
-    .btn-f-clear  { background: #dc3545; color: #fff; }
-
-    .empty-table-msg {
-        text-align: center;
-        padding: 40px 0;
-        color: #aaa;
-        font-size: 13px;
-    }
 </style>
 </th:block>
 
 <div layout:fragment="content">
-
     <div class="page-header">
         <h1><i class="fas fa-layer-group mr-2" style="color:#4B49AC"></i>Gfa Admin</h1>
     </div>
 
-    <!-- Tab navigation -->
     <div class="gfa-tabs">
-        <button class="gtab active" onclick="gfaTab(event,'tab-vue-globale')">
-            <i class="fas fa-chart-bar"></i> Vue globale
-        </button>
-        <button class="gtab" onclick="gfaTab(event,'tab-agents')">
-            <i class="fas fa-user-tie"></i> Agents
-        </button>
-        <button class="gtab" onclick="gfaTab(event,'tab-services')">
-            <i class="fas fa-briefcase"></i> Services
-        </button>
-        <button class="gtab" onclick="gfaTab(event,'tab-tickets')">
-            <i class="fas fa-ticket-alt"></i> Tickets
-        </button>
+        <button class="gtab active" onclick="gfaTab(event,'tab-vue-globale')"><i class="fas fa-chart-bar"></i> Vue globale</button>
+        <button class="gtab" onclick="gfaTab(event,'tab-agents')"><i class="fas fa-user-tie"></i> Agents</button>
+        <button class="gtab" onclick="gfaTab(event,'tab-services')"><i class="fas fa-briefcase"></i> Services</button>
+        <button class="gtab" onclick="gfaTab(event,'tab-tickets')"><i class="fas fa-ticket-alt"></i> Tickets</button>
+        <button class="gtab" onclick="gfaTab(event,'tab-parametres')"><i class="fas fa-cog"></i> Paramètres</button>
     </div>
 
-    <!-- ── TAB 1 : Vue globale ── -->
+    <!-- Vue globale -->
     <div id="tab-vue-globale" class="gtab-pane active">
         <h5 style="font-size:18px;font-weight:700;color:#191C24;margin-bottom:24px;">
             <i class="fas fa-chart-bar mr-2" style="color:#4B49AC"></i>Informations générales
         </h5>
-
-        <th:block th:each="service : ${ {'VALIDATION','FACTURATION','CAISSE','BAD'} }">
-        <div class="service-section">
-            <div class="service-label" th:text="${service}">SERVICE</div>
-            <div class="stat-grid">
-                <div class="stat-card border-dark">
-                    <div class="stat-label">En attente</div>
-                    <div class="stat-value">0</div>
-                </div>
-                <div class="stat-card border-yellow">
-                    <div class="stat-label">En cours</div>
-                    <div class="stat-value">0</div>
-                </div>
-                <div class="stat-card border-green">
-                    <div class="stat-label">Terminés</div>
-                    <div class="stat-value">0</div>
-                </div>
-                <div class="stat-card border-teal">
-                    <div class="stat-label">Incomplets</div>
-                    <div class="stat-value">0</div>
-                </div>
-                <div class="stat-card border-red">
-                    <div class="stat-label">Absents</div>
-                    <div class="stat-value">0</div>
-                </div>
-            </div>
-        </div>
-        </th:block>
+        <div id="vue-globale-content"></div>
     </div>
 
-    <!-- ── TAB 2 : Agents ── -->
+    <!-- Agents -->
     <div id="tab-agents" class="gtab-pane">
         <div class="gfa-card">
             <div class="gfa-card-header">
-                <div class="gfa-card-title">
-                    <i class="fas fa-user-tie" style="font-size:22px"></i> Agents
-                </div>
-                <button class="btn-new"><i class="fas fa-plus"></i> Nouvel agent</button>
+                <div class="gfa-card-title"><i class="fas fa-user-tie" style="font-size:22px"></i> Agents</div>
+                <button class="btn-new" onclick="openAgentModal()"><i class="fas fa-plus"></i> Nouvel agent</button>
             </div>
             <table class="gfa-table">
-                <thead>
-                    <tr>
-                        <th>Nom du guichet</th>
-                        <th>Infos du guichet</th>
-                        <th>Service</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Guichet 1</td><td>Mohamed NGOM</td><td>FACTURATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>Guichet 2</td><td>Mamadou DIOUF</td><td>BAD</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>Guichet 3</td><td>Aissata BA</td><td>VALIDATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>Guichet 4</td><td>Basile MANGA</td><td>FACTURATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>Guichet 5</td><td>Guichet 5</td><td>FACTURATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>Guichet 6</td><td>Maimouna FALL</td><td>FACTURATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>Guichet 7</td><td>Ababacar FALL</td><td>VALIDATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>Guichet 8</td><td>Guichet 8</td><td>FACTURATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>Guichet 9</td><td>Fatoumata Yaya GUEYE</td><td>VALIDATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>Guichet 10</td><td>Charles SARR</td><td>BAD</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>Guichet 11</td><td>Serigne NDIAYE</td><td>CAISSE</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                </tbody>
+                <thead><tr><th>Nom</th><th>Prénom</th><th>Service</th><th>Guichet</th><th>Actions</th></tr></thead>
+                <tbody id="agents-tbody"></tbody>
             </table>
         </div>
     </div>
 
-    <!-- ── TAB 3 : Services ── -->
+    <!-- Services -->
     <div id="tab-services" class="gtab-pane">
         <div class="gfa-card">
             <div class="gfa-card-header">
-                <div class="gfa-card-title">
-                    <i class="fas fa-briefcase" style="font-size:22px"></i> Services
-                </div>
-                <button class="btn-new"><i class="fas fa-plus"></i> Nouveau service</button>
+                <div class="gfa-card-title"><i class="fas fa-briefcase" style="font-size:22px"></i> Services</div>
+                <button class="btn-new" onclick="openServiceModal()"><i class="fas fa-plus"></i> Nouveau service</button>
             </div>
             <table class="gfa-table">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Préfixe</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>VALIDATION</td><td>V</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>FACTURATION</td><td>F</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>CAISSE</td><td>C</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                    <tr><td>BAD</td><td>B</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
-                </tbody>
+                <thead><tr><th>Nom</th><th>Préfixe</th><th>Actions</th></tr></thead>
+                <tbody id="services-tbody"></tbody>
             </table>
         </div>
     </div>
 
-    <!-- ── TAB 4 : Tickets ── -->
+    <!-- Tickets -->
     <div id="tab-tickets" class="gtab-pane">
         <h5 style="font-size:18px;font-weight:700;color:#191C24;margin-bottom:20px;">
             <i class="fas fa-chart-bar mr-2" style="color:#4B49AC"></i>Suivi des tickets
         </h5>
         <div class="gfa-card">
-            <div style="font-size:14px;font-weight:600;color:#191C24;margin-bottom:16px;">
-                Détail des tickets traités (par ticket)
-            </div>
+            <div style="font-size:14px;font-weight:600;color:#191C24;margin-bottom:16px;">Détail des tickets traités (par ticket)</div>
             <div class="ticket-filters">
-                <select>
-                    <option>Tous les guichets</option>
-                    <option>Guichet 1</option><option>Guichet 2</option><option>Guichet 3</option>
-                </select>
-                <select>
-                    <option>Tous statuts</option>
-                    <option>En attente</option><option>En cours</option>
-                    <option>Terminé</option><option>Incomplet</option><option>Absent</option>
-                </select>
-                <input type="date" placeholder="jj/mm/aaaa"/>
+                <select id="filter-guichet"><option value="">Tous les guichets</option></select>
+                <select><option>Tous statuts</option><option>En attente</option><option>En cours</option><option>Terminé</option><option>Incomplet</option><option>Absent</option></select>
+                <input type="date"/>
                 <button class="btn-filter btn-f-search"><i class="fas fa-search"></i></button>
                 <button class="btn-filter btn-f-reset"><i class="fas fa-sync-alt"></i></button>
                 <button class="btn-filter btn-f-export"><i class="fas fa-download"></i></button>
                 <button class="btn-filter btn-f-clear"><i class="fas fa-trash"></i></button>
             </div>
             <table class="gfa-table">
-                <thead>
-                    <tr>
-                        <th>Ticket</th>
-                        <th>Guichet</th>
-                        <th>Infos du guichet</th>
-                        <th>Temps d'attente</th>
-                        <th>Heure appel</th>
-                        <th>Heure fin</th>
-                        <th>Durée de traitement</th>
-                        <th>Statut</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="8" class="empty-table-msg">
-                            <i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>
-                            Aucun ticket pour le moment
-                        </td>
-                    </tr>
-                </tbody>
+                <thead><tr><th>Ticket</th><th>Guichet</th><th>Infos du guichet</th><th>Temps d'attente</th><th>Heure appel</th><th>Heure fin</th><th>Durée de traitement</th><th>Statut</th></tr></thead>
+                <tbody><tr><td colspan="8" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun ticket pour le moment</td></tr></tbody>
             </table>
         </div>
     </div>
 
+    <!-- Paramètres ── -->
+    <div id="tab-parametres" class="gtab-pane">
+        <div class="gfa-card">
+            <div class="gfa-card-header">
+                <div class="gfa-card-title">
+                    <i class="fas fa-wifi" style="font-size:22px"></i> Paramètres QR Wi-Fi
+                </div>
+            </div>
+
+            <form class="settings-form" method="post" th:action="@{/facturation/gfa-admin/wifi-settings}">
+                <div class="form-group">
+                    <label for="ssid">SSID</label>
+                    <input id="ssid" name="ssid" type="text" class="form-control" maxlength="100" required
+                           th:value="${wifiSettings != null ? wifiSettings.ssid : ''}"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input id="password" name="password" type="text" class="form-control" maxlength="100"
+                           th:value="${wifiSettings != null ? wifiSettings.password : ''}"/>
+                </div>
+                <button type="submit" class="btn-save">
+                    <i class="fas fa-save mr-1"></i> Enregistrer
+                </button>
+            </form>
+
+            <small class="text-muted d-block mt-3">
+                Ces paramètres sont utilisés pour générer le QR code Wi-Fi affiché sur <code>/gfa/display</code>.
+            </small>
+        </div>
+    </div>
+
+    <!-- ── MODALS (must be inside layout:fragment="content") ── -->
+
+    <!-- Agent Modal -->
+    <div id="agent-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'agent-overlay')">
+        <div class="gfa-modal">
+            <button class="modal-close" onclick="closeModal('agent-overlay')">&times;</button>
+            <h5 id="agent-modal-title">Nouvel agent</h5>
+            <input type="hidden" id="agent-id"/>
+            <label>Nom</label>
+            <input type="text" id="agent-nom" placeholder="ex: DIOP"/>
+            <label>Prénom</label>
+            <input type="text" id="agent-prenom" placeholder="ex: Mamadou"/>
+            <label>Service</label>
+            <select id="agent-service"><option value="">-- Sélectionner --</option></select>
+            <label>Guichet</label>
+            <select id="agent-guichet"><option value="">-- Aucun --</option></select>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('agent-overlay')">Annuler</button>
+                <button class="btn-save" onclick="saveAgent()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Modal -->
+    <div id="service-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'service-overlay')">
+        <div class="gfa-modal">
+            <button class="modal-close" onclick="closeModal('service-overlay')">&times;</button>
+            <h5 id="service-modal-title">Nouveau service</h5>
+            <input type="hidden" id="service-id"/>
+            <label>Nom du service</label>
+            <input type="text" id="service-nom" placeholder="ex: VALIDATION"/>
+            <label>Préfixe (optionnel)</label>
+            <input type="text" id="service-prefixe" placeholder="ex: V" maxlength="5"/>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('service-overlay')">Annuler</button>
+                <button class="btn-save" onclick="saveService()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirm Modal -->
+    <div id="delete-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'delete-overlay')">
+        <div class="gfa-modal">
+            <button class="modal-close" onclick="closeModal('delete-overlay')">&times;</button>
+            <h5>Confirmer la suppression</h5>
+            <p class="del-msg" id="delete-msg">Voulez-vous supprimer cet élément ?</p>
+            <p class="del-sub">Cette action est irréversible.</p>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('delete-overlay')">Annuler</button>
+                <button class="btn-confirm-del" id="delete-confirm-btn">Supprimer</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <th:block layout:fragment="scripts">
 <script>
-    function gfaTab(e, paneId) {
-        document.querySelectorAll('.gfa-tabs .gtab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.gtab-pane').forEach(p => p.classList.remove('active'));
-        e.currentTarget.classList.add('active');
-        document.getElementById(paneId).classList.add('active');
+// ── In-memory cache ──────────────────────────────────────────
+let _services = [];
+let _agents = [];
+let _guichets = [];
+
+// ── API helpers ──────────────────────────────────────────────
+async function api(method, url, body) {
+    const opts = { method, headers: {'Content-Type':'application/json'} };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(url, opts);
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Erreur serveur (' + res.status + ')');
     }
+    return res.status === 204 ? null : res.json();
+}
+
+// ── Render ────────────────────────────────────────────────────
+function renderServices() {
+    const tbody = document.getElementById('services-tbody');
+    if (!_services.length) {
+        tbody.innerHTML = '<tr><td colspan="3" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun service</td></tr>';
+        return;
+    }
+    tbody.innerHTML = _services.map(s => `
+        <tr>
+            <td>${s.nom}</td>
+            <td>${s.prefixe}</td>
+            <td>
+                <button class="btn-icon btn-edit"   onclick="openServiceModal(${s.id})"><i class="fas fa-pen"></i></button>
+                <button class="btn-icon btn-delete" onclick="confirmDelete('service',${s.id},'${s.nom}')"><i class="fas fa-trash"></i></button>
+            </td>
+        </tr>`).join('');
+}
+
+function renderAgents() {
+    const tbody = document.getElementById('agents-tbody');
+    const filterGuichet = document.getElementById('filter-guichet');
+    if (filterGuichet) {
+        filterGuichet.innerHTML = '<option value="">Tous les guichets</option>' +
+            _guichets.map(g => `<option>${g.numero}</option>`).join('');
+    }
+    if (!_agents.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun agent</td></tr>';
+        return;
+    }
+    tbody.innerHTML = _agents.map(a => `
+        <tr>
+           <td>${a.nom}</td>
+            <td>${a.prenom || '—'}</td>
+            <td>${a.serviceNom || '—'}</td>
+            <td>${a.guichetNumero || '—'}</td>
+            <td>
+                <button class="btn-icon btn-edit"   onclick="openAgentModal(${a.id})"><i class="fas fa-pen"></i></button>
+                <button class="btn-icon btn-delete" onclick="confirmDelete('agent',${a.id},'${a.nom} ${a.prenom || ''}')"><i class="fas fa-trash"></i></button>
+            </td>
+        </tr>`).join('');
+}
+
+function renderVueGlobale() {
+    const container = document.getElementById('vue-globale-content');
+    if (!_services.length) {
+        container.innerHTML = '<p style="color:#aaa;font-size:13px">Aucun service configuré.</p>';
+        return;
+    }
+    container.innerHTML = _services.map(s => `
+        <div class="service-section">
+            <div class="service-label">${s.nom}</div>
+            <div class="stat-grid">
+                <div class="stat-card border-dark"><div class="stat-label">En attente</div><div class="stat-value">0</div></div>
+                <div class="stat-card border-yellow"><div class="stat-label">En cours</div><div class="stat-value">0</div></div>
+                <div class="stat-card border-green"><div class="stat-label">Terminés</div><div class="stat-value">0</div></div>
+                <div class="stat-card border-teal"><div class="stat-label">Incomplets</div><div class="stat-value">0</div></div>
+                <div class="stat-card border-red"><div class="stat-label">Absents</div><div class="stat-value">0</div></div>
+            </div>
+        </div>`).join('');
+}
+
+async function refreshAll() {
+   [_services, _agents, _guichets] = await Promise.all([
+        api('GET', '/gfa/api/services'),
+        api('GET', '/gfa/api/agents'),
+        api('GET', '/gfa/api/guichets')
+    ]);
+    renderServices();
+    renderAgents();
+    renderVueGlobale();
+}
+
+// ── Tab switch ─────────────────────────────────────────────────
+function gfaTab(e, paneId) {
+    document.querySelectorAll('.gfa-tabs .gtab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.gtab-pane').forEach(p => p.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+    document.getElementById(paneId).classList.add('active');
+}
+
+// ── Modal helpers ─────────────────────────────────────────────
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeOnBackdrop(e, id) { if (e.target === e.currentTarget) closeModal(id); }
+
+// ── Agent CRUD ──────────────────────────────────────
+function openAgentModal(id) {
+    document.getElementById('agent-nom').value = '';
+    document.getElementById('agent-prenom').value   = '';
+
+    const serviceSel = document.getElementById('agent-service');
+    serviceSel.innerHTML = '<option value="">-- Sélectionner --</option>' +
+        _services.map(s => `<option value="${s.id}">${s.nom}</option>`).join('');
+
+    const guichetSel = document.getElementById('agent-guichet');
+    guichetSel.innerHTML = '<option value="">-- Aucun --</option>' +
+        _guichets.map(g => `<option value="${g.id}">${g.numero}</option>`).join('');
+
+    document.getElementById('agent-modal-title').textContent = 'Nouvel agent';
+    if (id !== undefined) {
+        const a = _agents.find(x => x.id === id);
+        if (a) {
+            document.getElementById('agent-id').value = a.id;
+            document.getElementById('agent-nom').value = a.nom;
+            document.getElementById('agent-prenom').value = a.prenom || '';
+            serviceSel.value = a.serviceId || '';
+            guichetSel.value = a.guichetId || '';
+        }
+    }
+    openModal('agent-overlay');
+}
+
+async function saveAgent() {
+    const nom = document.getElementById('agent-nom').value.trim();
+    const prenom = document.getElementById('agent-prenom').value.trim();
+    const serviceId = document.getElementById('agent-service').value;
+    const guichetId = document.getElementById('agent-guichet').value;
+    if (!nom) { alert('Le nom de l\'agent est obligatoire.'); return; }
+
+    const payload = {
+        nom,
+        prenom,
+        serviceId: serviceId ? Number(serviceId) : null,
+        guichetId: guichetId ? Number(guichetId) : null
+    };
+
+    const rawId = document.getElementById('agent-id').value;
+    try {
+        if (rawId) {
+            await api('PUT', '/gfa/api/agents/' + rawId, payload);
+        } else {
+            await api('POST', '/gfa/api/agents', payload);
+        }
+        closeModal('agent-overlay');
+        await refreshAll();
+    } catch (err) { alert(err.message); }
+}
+
+// ── Service CRUD ──────────────────────────────────────────────
+function openServiceModal(id) {
+    document.getElementById('service-id').value      = '';
+    document.getElementById('service-nom').value     = '';
+    document.getElementById('service-prefixe').value = '';
+    document.getElementById('service-modal-title').textContent = 'Nouveau service';
+    if (id !== undefined) {
+        const s = _services.find(x => x.id === id);
+        if (s) {
+            document.getElementById('service-modal-title').textContent = 'Modifier le service';
+            document.getElementById('service-id').value      = s.id;
+            document.getElementById('service-nom').value     = s.nom;
+            document.getElementById('service-prefixe').value = s.prefixe;
+        }
+    }
+    openModal('service-overlay');
+}
+
+async function saveService() {
+    const nom     = document.getElementById('service-nom').value.trim().toUpperCase();
+    const prefixe = document.getElementById('service-prefixe').value.trim().toUpperCase();
+    if (!nom) { alert('Le nom du service est obligatoire.'); return; }
+    const rawId = document.getElementById('service-id').value;
+    try {
+        if (rawId) {
+            await api('PUT', '/gfa/api/services/' + rawId, { nom, prefixe });
+        } else {
+            await api('POST', '/gfa/api/services', { nom, prefixe });
+        }
+        closeModal('service-overlay');
+        await refreshAll();
+    } catch (err) { alert(err.message); }
+}
+
+// ── Delete ────────────────────────────────────────────────────
+let _deleteCtx = null;
+function confirmDelete(type, id, label) {
+    _deleteCtx = { type, id };
+    document.getElementById('delete-msg').textContent =
+        'Supprimer ' + (type === 'agent' ? 'l\'agent' : 'le service') + ' "' + label + '" ?';
+    openModal('delete-overlay');
+}
+document.getElementById('delete-confirm-btn').addEventListener('click', async function () {
+    if (!_deleteCtx) return;
+    try {
+        if (_deleteCtx.type === 'agent') {
+            await api('DELETE', '/gfa/api/agents/' + _deleteCtx.id);
+        } else {
+            await api('DELETE', '/gfa/api/services/' + _deleteCtx.id);
+        }
+        closeModal('delete-overlay');
+        await refreshAll();
+    } catch (err) { alert(err.message); }
+    _deleteCtx = null;
+});
+
+// ── Init ──────────────────────────────────────────────────────
+refreshAll();
 </script>
 </th:block>
-
 </body>
 </html>

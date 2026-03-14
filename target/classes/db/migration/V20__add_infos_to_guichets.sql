@@ -1,0 +1,1 @@
+ALTER TABLE guichets ADD COLUMN infos VARCHAR(150) NULL;
