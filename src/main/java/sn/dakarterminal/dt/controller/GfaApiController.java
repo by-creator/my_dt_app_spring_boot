@@ -3,6 +3,7 @@ package sn.dakarterminal.dt.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sn.dakarterminal.dt.entity.GuichetEntity;
 import sn.dakarterminal.dt.entity.ServiceEntity;
@@ -80,6 +81,7 @@ public class GfaApiController {
     // ── AGENTS ───────────────────────────────────────────────────
 
     @GetMapping("/agents")
+    @Transactional(readOnly = true)
     public List<Map<String, Object>> getAgents() {
         return agentRepository.findByActifTrue().stream()
                 .map(this::buildAgentMap)
@@ -88,6 +90,7 @@ public class GfaApiController {
 
     @PostMapping("/agents")
     @PreAuthorize("hasAnyRole('ADMIN','SUPER_U')")
+    @Transactional
     public ResponseEntity<Map<String, Object>> createAgent(@RequestBody Map<String, Object> body) {
         String nom = String.valueOf(body.getOrDefault("nom", "")).trim().toUpperCase();
         String prenom = String.valueOf(body.getOrDefault("prenom", "")).trim();
@@ -112,6 +115,7 @@ public class GfaApiController {
 
     @PutMapping("/agents/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','SUPER_U')")
+    @Transactional
     public ResponseEntity<Map<String, Object>> updateAgent(@PathVariable Long id,
                                                            @RequestBody Map<String, Object> body) {
         return agentRepository.findById(id).map(agent -> {
@@ -149,6 +153,7 @@ public class GfaApiController {
     // ── GUICHETS (agents in admin UI) ────────────────────────────
 
     @GetMapping("/guichets")
+    @Transactional(readOnly = true)
     public List<Map<String, Object>> getGuichets() {
         return guichetRepository.findAll().stream()
                 .map(g -> Map.<String, Object>of(
@@ -163,6 +168,7 @@ public class GfaApiController {
 
     @PostMapping("/guichets")
     @PreAuthorize("hasAnyRole('ADMIN','SUPER_U')")
+    @Transactional
     public ResponseEntity<Map<String, Object>> createGuichet(@RequestBody Map<String, Object> body) {
         String numero = String.valueOf(body.getOrDefault("numero", "")).trim();
         String infos  = String.valueOf(body.getOrDefault("infos",  "")).trim();
@@ -184,6 +190,7 @@ public class GfaApiController {
 
     @PutMapping("/guichets/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','SUPER_U')")
+    @Transactional
     public ResponseEntity<Map<String, Object>> updateGuichet(@PathVariable Long id,
                                                               @RequestBody Map<String, Object> body) {
         return guichetRepository.findById(id).map(g -> {
