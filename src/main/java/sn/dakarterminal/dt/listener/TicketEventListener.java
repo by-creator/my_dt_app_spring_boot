@@ -29,9 +29,12 @@ public class TicketEventListener {
         log.info("Ticket created: {} for service: {}", dto.getNumero(),
                 dto.getServiceNom());
         messagingTemplate.convertAndSend("/topic/tickets/created", dto);
-        messagingTemplate.convertAndSend(
-                "/topic/service/" + (dto.getServiceId() != null ? dto.getServiceId() : "all") + "/queue",
-                dto);
+        // Broadcast updated waiting queue (full list, not just the new ticket)
+        if (dto.getServiceId() != null) {
+            messagingTemplate.convertAndSend(
+                    "/topic/service/" + dto.getServiceId() + "/queue",
+                    ticketService.findWaitingByService(dto.getServiceId()));
+        }
     }
 
     @Async
