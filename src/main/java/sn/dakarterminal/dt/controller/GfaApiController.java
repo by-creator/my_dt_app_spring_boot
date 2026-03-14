@@ -220,6 +220,80 @@ public class GfaApiController {
         return ResponseEntity.noContent().build();
     }
 
+    // ── GUICHET ACTIONS (session auth) ───────────────────────────
+
+    @GetMapping("/guichet/{guichetId}/info")
+    @Transactional(readOnly = true)
+    public ResponseEntity<Map<String, Object>> getGuichetInfo(@PathVariable Long guichetId) {
+        return guichetRepository.findById(guichetId).map(g -> {
+            Map<String, Object> info = new java.util.HashMap<>();
+            info.put("id", g.getId());
+            info.put("numero", g.getNumero());
+            info.put("serviceId",  g.getService() != null ? g.getService().getId()  : null);
+            info.put("serviceNom", g.getService() != null ? g.getService().getNom() : null);
+            return ResponseEntity.ok(info);
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/guichet/{guichetId}/waiting")
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<TicketDto>> getWaitingForGuichet(@PathVariable Long guichetId) {
+        return guichetRepository.findById(guichetId).map(g -> {
+            if (g.getService() == null) return ResponseEntity.ok(List.<TicketDto>of());
+            return ResponseEntity.ok(ticketService.findWaitingByService(g.getService().getId()));
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/guichet/{guichetId}/current")
+    @Transactional(readOnly = true)
+    public ResponseEntity<TicketDto> getCurrentForGuichet(@PathVariable Long guichetId) {
+        TicketDto current = ticketService.getCurrentForGuichet(guichetId);
+        if (current == null) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(current);
+    }
+
+    @PostMapping("/guichet/call-next")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_U','FACTURATION')")
+    public ResponseEntity<?> callNextForGuichet(@RequestBody Map<String, Object> body) {
+        if (body.get("guichetId") == null) return ResponseEntity.badRequest().body(Map.of("error", "guichetId requis"));
+        Long guichetId = Long.valueOf(String.valueOf(body.get("guichetId")));
+        try {
+            return ResponseEntity.ok(ticketService.callNextForGuichet(guichetId));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/guichet/recall")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_U','FACTURATION')")
+    public ResponseEntity<?> recallTicket(@RequestBody Map<String, Object> body) {
+        if (body.get("ticketId") == null) return ResponseEntity.badRequest().body(Map.of("error", "ticketId requis"));
+        Long ticketId = Long.valueOf(String.valueOf(body.get("ticketId")));
+        try {
+            return ResponseEntity.ok(ticketService.recallTicket(ticketId));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PatchMapping("/guichet/ticket/{id}/termine")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_U','FACTURATION')")
+    public ResponseEntity<TicketDto> termineTicket(@PathVariable Long id) {
+        return ResponseEntity.ok(ticketService.close(id));
+    }
+
+    @PatchMapping("/guichet/ticket/{id}/incomplet")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_U','FACTURATION')")
+    public ResponseEntity<TicketDto> incompletTicket(@PathVariable Long id) {
+        return ResponseEntity.ok(ticketService.markIncomplet(id));
+    }
+
+    @PatchMapping("/guichet/ticket/{id}/absent")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_U','FACTURATION')")
+    public ResponseEntity<TicketDto> absentTicket(@PathVariable Long id) {
+        return ResponseEntity.ok(ticketService.markAbsent(id));
+    }
+
     // ── TICKETS (public — no auth required) ──────────────────────
 
     @PostMapping("/tickets")

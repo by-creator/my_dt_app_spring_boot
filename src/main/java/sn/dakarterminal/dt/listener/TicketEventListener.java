@@ -37,17 +37,28 @@ public class TicketEventListener {
     public void onTicketCalled(TicketCalledEvent event) {
         TicketDto dto = ticketService.toDto(event.getTicket());
         log.info("Ticket called: {} at guichet: {}", dto.getNumero(), dto.getGuichetNumero());
+        // Broadcast to display screen (all services)
         messagingTemplate.convertAndSend("/topic/tickets/called", dto);
-        messagingTemplate.convertAndSend(
-                "/topic/display/" + (dto.getServiceId() != null ? dto.getServiceId() : "all"),
-                dto);
+        messagingTemplate.convertAndSend("/topic/display/all", dto);
+        if (dto.getServiceId() != null) {
+            messagingTemplate.convertAndSend("/topic/display/" + dto.getServiceId(), dto);
+            // Broadcast updated waiting queue to guichet page
+            messagingTemplate.convertAndSend("/topic/service/" + dto.getServiceId() + "/queue",
+                    ticketService.findWaitingByService(dto.getServiceId()));
+        }
     }
 
     @Async
     @EventListener
     public void onTicketClosed(TicketClosedEvent event) {
         TicketDto dto = ticketService.toDto(event.getTicket());
-        log.info("Ticket closed: {} processing time: {}s", dto.getNumero(), dto.getProcessingTime());
+        log.info("Ticket closed: {} status: {} processing time: {}s",
+                dto.getNumero(), dto.getStatut(), dto.getProcessingTime());
         messagingTemplate.convertAndSend("/topic/tickets/closed", dto);
+        if (dto.getServiceId() != null) {
+            // Broadcast updated waiting queue so guichet page count refreshes
+            messagingTemplate.convertAndSend("/topic/service/" + dto.getServiceId() + "/queue",
+                    ticketService.findWaitingByService(dto.getServiceId()));
+        }
     }
 }
