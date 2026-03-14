@@ -103,6 +103,7 @@ public class SecurityConfig {
                 .requestMatchers("/ws/**").permitAll()
                 .requestMatchers("/demat/**").permitAll()
                 .requestMatchers("/gfa/display/**").permitAll()
+                .requestMatchers("/gfa/ticket/**").permitAll()
                 .requestMatchers("/facturation/**").hasAnyRole("ADMIN", "SUPER_U", "FACTURATION")
                 .requestMatchers("/", "/admin/**").hasAnyRole("ADMIN", "SUPER_U")
                 .anyRequest().authenticated()
