@@ -39,7 +39,12 @@
             border-bottom: 1px solid var(--border-soft);
             box-shadow: 0 4px 14px rgba(17, 34, 68, .06);
         }
-        .display-topbar img { height: 40px; width: auto; object-fit: contain; }
+        .display-topbar img {
+            max-width: 200px; max-height: 36px;
+            width: auto; height: auto; object-fit: contain;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
         .dt-clock { font-size: 22px; font-weight: 700; color: var(--text-primary); letter-spacing: 2px; font-variant-numeric: tabular-nums; }
         .dt-date  { font-size: 13px; color: var(--text-secondary); text-align: right; margin-top: 2px; }
 
@@ -57,60 +62,95 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 32px 32px 16px;
+            padding: 24px 32px 16px;
         }
         .display-card {
             background: var(--surface);
             border: 1px solid var(--border-soft);
             box-shadow: 0 16px 42px rgba(17, 34, 68, .08);
             border-radius: 24px;
-            padding: 60px 48px;
-            text-align: center;
             width: 100%;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 28px;
+            flex-direction: row;
+            align-items: stretch;
+            overflow: hidden;
             transition: box-shadow .4s;
+            min-height: 340px;
         }
         .display-card.flash {
             box-shadow: 0 0 0 6px rgba(75,73,172,.25), 0 16px 42px rgba(17,34,68,.08);
         }
+
+        /* Left column — big ticket number */
+        .dc-left {
+            flex: 0 0 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(145deg, #f4f7ff 0%, #eef1ff 100%);
+            border-right: 2px solid var(--border-soft);
+            padding: 40px 32px;
+        }
         .display-now-serving {
-            font-size: 13px; font-weight: 700; letter-spacing: 3px;
+            font-size: 11px; font-weight: 700; letter-spacing: 3px;
             text-transform: uppercase; color: var(--text-secondary);
+        }
+        .display-ticket-number {
+            font-size: 130px; font-weight: 900;
+            color: var(--primary); letter-spacing: -4px; line-height: 1;
+            text-shadow: 0 6px 28px rgba(75,73,172,.22);
+            transition: color .3s, transform .3s;
+        }
+        .display-ticket-number.highlight {
+            color: var(--info);
+            transform: scale(1.04);
+        }
+
+        /* Right column — service + guichet + agent */
+        .dc-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 36px;
+            text-align: center;
         }
         .display-ticket-badge {
             background: linear-gradient(135deg, var(--secondary), var(--info));
-            border-radius: 16px; padding: 6px 28px;
-            font-size: 15px; font-weight: 700; color: #fff;
+            border-radius: 16px; padding: 8px 32px;
+            font-size: 16px; font-weight: 700; color: #fff;
             letter-spacing: 2px; display: inline-block;
         }
-        .display-ticket-number {
-            font-size: 120px; font-weight: 900;
-            color: var(--text-primary); letter-spacing: -4px; line-height: 1;
-            text-shadow: 0 4px 24px rgba(36,138,253,.18);
-            transition: color .3s;
-        }
-        .display-ticket-number.highlight { color: var(--primary); }
         .display-divider {
-            width: 80px; height: 3px;
+            width: 60px; height: 3px;
             background: linear-gradient(90deg, var(--secondary), var(--info));
             border-radius: 2px;
         }
-        .display-agent-row { display: flex; align-items: center; gap: 20px; }
-        .display-guichet-badge {
-            background: var(--surface-alt);
-            border: 1px solid var(--border-soft);
-            border-radius: 10px; padding: 10px 20px; text-align: center;
+        /* Guichet — now displayed large */
+        .display-guichet-block {
+            background: var(--primary);
+            border-radius: 16px;
+            padding: 16px 40px;
+            text-align: center;
+            min-width: 220px;
         }
-        .display-guichet-badge .gb-label {
-            font-size: 10px; font-weight: 700; letter-spacing: 2px;
-            color: var(--text-secondary); text-transform: uppercase;
+        .display-guichet-block .gb-label {
+            font-size: 11px; font-weight: 700; letter-spacing: 3px;
+            color: rgba(255,255,255,.75); text-transform: uppercase; margin-bottom: 6px;
         }
-        .display-guichet-badge .gb-value { font-size: 18px; font-weight: 800; color: var(--text-primary); margin-top: 2px; }
-        .display-agent-name { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+        .display-guichet-block .gb-value {
+            font-size: 52px; font-weight: 900; color: #fff;
+            line-height: 1; letter-spacing: -1px;
+            transition: transform .3s;
+        }
+        .display-guichet-block .gb-value.highlight { transform: scale(1.06); }
+        .display-agent-name {
+            font-size: 20px; font-weight: 700; color: var(--text-secondary);
+        }
 
         /* ── QR SECTION ── */
         .qr-section { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 0 32px 32px; }
@@ -148,9 +188,11 @@
         }
         .btn-activate:hover { opacity: .88; }
 
-        @media (max-width: 576px) {
-            .display-ticket-number { font-size: 80px; }
-            .display-card { padding: 40px 20px; }
+        @media (max-width: 768px) {
+            .display-card { flex-direction: column; min-height: unset; }
+            .dc-left { border-right: none; border-bottom: 2px solid var(--border-soft); padding: 28px 20px; }
+            .dc-left .display-ticket-number { font-size: 90px; }
+            .display-guichet-block .gb-value { font-size: 36px; }
             .qr-section { grid-template-columns: 1fr; }
             .display-topbar { padding: 12px 16px; }
         }
@@ -184,12 +226,16 @@
 <!-- Main display -->
 <div class="display-area">
     <div class="display-card" id="display-card">
-        <div class="display-now-serving">Appel en cours</div>
-        <div class="display-ticket-badge" id="service-badge">— SERVICE —</div>
-        <div class="display-ticket-number" id="ticket-number">—</div>
-        <div class="display-divider"></div>
-        <div class="display-agent-row">
-            <div class="display-guichet-badge">
+        <!-- Left: ticket number -->
+        <div class="dc-left">
+            <div class="display-now-serving">Appel en cours</div>
+            <div class="display-ticket-number" id="ticket-number">—</div>
+        </div>
+        <!-- Right: service + guichet + agent -->
+        <div class="dc-right">
+            <div class="display-ticket-badge" id="service-badge">— SERVICE —</div>
+            <div class="display-divider"></div>
+            <div class="display-guichet-block">
                 <div class="gb-label">Guichet</div>
                 <div class="gb-value" id="guichet-name">—</div>
             </div>
@@ -295,17 +341,23 @@ function announce(numero, guichet) {
 
 // ── Display update ────────────────────────────────────────────
 function updateDisplay(ticket) {
-    document.getElementById('service-badge').textContent = ticket.serviceNom || '— SERVICE —';
-    document.getElementById('ticket-number').textContent = ticket.numero    || '—';
-    document.getElementById('guichet-name').textContent  = ticket.guichetNumero || '—';
-    document.getElementById('agent-name').textContent    = ticket.agentNom  || '';
+    document.getElementById('service-badge').textContent = ticket.serviceNom     || '— SERVICE —';
+    document.getElementById('ticket-number').textContent = ticket.numero         || '—';
+    document.getElementById('guichet-name').textContent  = ticket.guichetNumero  || '—';
+    document.getElementById('agent-name').textContent    = ticket.agentNom       || '';
 
     // Flash animation
-    const card  = document.getElementById('display-card');
-    const numEl = document.getElementById('ticket-number');
+    const card     = document.getElementById('display-card');
+    const numEl    = document.getElementById('ticket-number');
+    const guichetEl = document.getElementById('guichet-name');
     card.classList.add('flash');
     numEl.classList.add('highlight');
-    setTimeout(() => { card.classList.remove('flash'); numEl.classList.remove('highlight'); }, 2000);
+    guichetEl.classList.add('highlight');
+    setTimeout(() => {
+        card.classList.remove('flash');
+        numEl.classList.remove('highlight');
+        guichetEl.classList.remove('highlight');
+    }, 2000);
 }
 
 function resetDisplay() {

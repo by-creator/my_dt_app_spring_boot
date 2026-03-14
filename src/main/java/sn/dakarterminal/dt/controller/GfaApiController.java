@@ -8,17 +8,24 @@ import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sn.dakarterminal.dt.dto.TicketDto;
+import sn.dakarterminal.dt.entity.Agent;
 import sn.dakarterminal.dt.entity.GuichetEntity;
 import sn.dakarterminal.dt.entity.ServiceEntity;
-import sn.dakarterminal.dt.entity.Agent;
+import sn.dakarterminal.dt.enums.StatutTicket;
 import sn.dakarterminal.dt.repository.AgentRepository;
 import sn.dakarterminal.dt.repository.GuichetRepository;
 import sn.dakarterminal.dt.repository.ServiceRepository;
+import sn.dakarterminal.dt.repository.TicketRepository;
 import sn.dakarterminal.dt.service.ScanTokenService;
 import sn.dakarterminal.dt.service.TicketService;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/gfa/api")
@@ -29,6 +36,7 @@ public class GfaApiController {
     private final GuichetRepository guichetRepository;
     private final AgentRepository agentRepository;
     private final TicketService ticketService;
+    private final TicketRepository ticketRepository;
     private final ScanTokenService scanTokenService;
 
     // ── SERVICES ────────────────────────────────────────────────
@@ -296,6 +304,58 @@ public class GfaApiController {
     @PreAuthorize("hasAnyRole('ADMIN','SUPER_U','FACTURATION')")
     public ResponseEntity<TicketDto> absentTicket(@PathVariable Long id) {
         return ResponseEntity.ok(ticketService.markAbsent(id));
+    }
+
+    // ── STATS (admin — today's ticket counts per service) ─────────
+
+    @GetMapping("/stats")
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> getStats() {
+        return serviceRepository.findAll().stream().map(s -> {
+            Map<String, Object> row = new LinkedHashMap<>();
+            row.put("serviceId",  s.getId());
+            row.put("serviceNom", s.getNom());
+            row.put("enAttente",  ticketRepository.countByServiceIdAndStatut(s.getId(), StatutTicket.EN_ATTENTE));
+            row.put("enCours",    ticketRepository.countByServiceIdAndStatut(s.getId(), StatutTicket.EN_COURS));
+            row.put("termine",    ticketRepository.countByServiceIdAndStatut(s.getId(), StatutTicket.TERMINE));
+            row.put("incomplet",  ticketRepository.countByServiceIdAndStatut(s.getId(), StatutTicket.INCOMPLET));
+            row.put("absent",     ticketRepository.countByServiceIdAndStatut(s.getId(), StatutTicket.ABSENT));
+            return row;
+        }).collect(Collectors.toList());
+    }
+
+    // ── TICKETS LIST (admin) ──────────────────────────────────────
+
+    @GetMapping("/tickets")
+    @Transactional(readOnly = true)
+    public List<TicketDto> listTickets(
+            @RequestParam(required = false) Long guichetId,
+            @RequestParam(required = false) String statut,
+            @RequestParam(required = false) String date) {
+
+        LocalDateTime start;
+        LocalDateTime end;
+        if (date != null && !date.isEmpty()) {
+            LocalDate d = LocalDate.parse(date);
+            start = d.atStartOfDay();
+            end   = d.plusDays(1).atStartOfDay();
+        } else {
+            start = LocalDateTime.now().with(LocalTime.MIDNIGHT);
+            end   = LocalDateTime.now().plusDays(1).with(LocalTime.MIDNIGHT);
+        }
+
+        var tickets = ticketRepository.findByCreatedAtBetweenOrderByCreatedAtDesc(start, end);
+
+        if (guichetId != null) {
+            tickets = tickets.stream()
+                    .filter(t -> t.getGuichet() != null && guichetId.equals(t.getGuichet().getId()))
+                    .collect(Collectors.toList());
+        }
+        if (statut != null && !statut.isEmpty()) {
+            StatutTicket s = StatutTicket.valueOf(statut);
+            tickets = tickets.stream().filter(t -> t.getStatut() == s).collect(Collectors.toList());
+        }
+        return tickets.stream().map(ticketService::toDto).collect(Collectors.toList());
     }
 
     // ── SCAN TOKEN (public) ───────────────────────────────────────
