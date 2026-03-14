@@ -11,136 +11,267 @@
     <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
 
     <style>
+        :root {
+            --primary: #4B49AC;
+            --secondary: #7978E9;
+            --info: #248AFD;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Overpass', sans-serif;
-            background: #f0f4f8;
+            background: linear-gradient(135deg, #1a1950 0%, #2d2c8e 50%, #1565C0 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* ── MAIN DISPLAY AREA ── */
+        /* ── TOPBAR ── */
+        .display-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+            background: rgba(255,255,255,.08);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid rgba(255,255,255,.12);
+        }
+        .display-topbar img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+        .display-topbar .dt-clock {
+            font-size: 22px;
+            font-weight: 700;
+            color: rgba(255,255,255,.9);
+            letter-spacing: 2px;
+            font-variant-numeric: tabular-nums;
+        }
+        .display-topbar .dt-date {
+            font-size: 13px;
+            color: rgba(255,255,255,.6);
+            text-align: right;
+            margin-top: 2px;
+        }
+
+        /* ── MAIN DISPLAY ── */
         .display-area {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 32px 20px;
+            padding: 32px 32px 16px;
         }
 
         .display-card {
-            background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 6px 40px rgba(0,0,0,.10);
-            padding: 100px 48px;
+            background: rgba(255,255,255,.07);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,.15);
+            border-radius: 24px;
+            padding: 60px 48px;
             text-align: center;
             width: 100%;
-            min-height: 340px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 28px;
         }
 
-        .display-card .agent-line {
-            font-size: 22px;
+        .display-now-serving {
+            font-size: 13px;
             font-weight: 700;
-            color: #3d3db4;
-            margin-bottom: 18px;
-            letter-spacing: .5px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.5);
         }
 
-        .display-card .client-line {
-            font-size: 52px;
+        .display-ticket-badge {
+            background: linear-gradient(135deg, var(--secondary), var(--info));
+            border-radius: 16px;
+            padding: 6px 28px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 2px;
+            display: inline-block;
+        }
+
+        .display-ticket-number {
+            font-size: 120px;
             font-weight: 900;
-            color: #191C24;
-            letter-spacing: -1px;
+            color: #fff;
+            letter-spacing: -4px;
+            line-height: 1;
+            text-shadow: 0 4px 32px rgba(121,120,233,.6);
         }
 
-        @media (max-width: 576px) {
-            .display-card { padding: 32px 20px; }
-            .display-card .client-line { font-size: 36px; }
+        .display-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary), var(--info));
+            border-radius: 2px;
         }
 
-        /* ── QR SECTION ── */
-        .qr-section {
-            padding: 20px 32px 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            width: 100%;
-        }
-
-        .qr-card {
-            background: #fff;
-            border-radius: 14px;
-            box-shadow: 0 3px 16px rgba(0,0,0,.08);
-            padding: 22px 24px;
+        .display-agent-row {
             display: flex;
             align-items: center;
             gap: 20px;
         }
-
-        .qr-card img {
-            width: 90px;
-            height: 90px;
-            flex-shrink: 0;
-            border-radius: 6px;
+        .display-guichet-badge {
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.2);
+            border-radius: 10px;
+            padding: 10px 20px;
+            text-align: center;
         }
-
-        .qr-card .qr-info {}
-        .qr-card .qr-title {
-            font-size: 14px;
+        .display-guichet-badge .gb-label {
+            font-size: 10px;
             font-weight: 700;
-            color: #191C24;
-            margin-bottom: 5px;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,.5);
+            text-transform: uppercase;
         }
-        .qr-card .qr-subtitle {
-            font-size: 12px;
-            color: #3d3db4;
+        .display-guichet-badge .gb-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+            margin-top: 2px;
         }
+        .display-agent-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: rgba(255,255,255,.85);
+        }
+
+        /* ── QR SECTION ── */
+        .qr-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 0 32px 32px;
+        }
+
+        .qr-card {
+            background: rgba(255,255,255,.09);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .qr-card img {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            background: #fff;
+            padding: 4px;
+        }
+        .qr-card .qr-step {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,.4);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .qr-card .qr-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255,255,255,.85);
+        }
+        .qr-card .qr-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .qr-icon-wifi  { background: rgba(36,138,253,.3); color: #248AFD; }
+        .qr-icon-ticket { background: rgba(121,120,233,.3); color: #7978E9; }
 
         @media (max-width: 576px) {
-            .qr-card { flex-direction: column; text-align: center; }
+            .display-ticket-number { font-size: 80px; }
+            .display-card { padding: 40px 20px; }
+            .qr-section { grid-template-columns: 1fr; }
+            .display-topbar { padding: 12px 16px; }
         }
     </style>
 </head>
 <body>
 
+<!-- Topbar -->
+<div class="display-topbar">
+    <img src="/img/image.png" alt="Dakar Terminal"/>
+    <div style="text-align:right">
+        <div class="dt-clock" id="clock">00:00:00</div>
+        <div class="dt-date" id="date-display"></div>
+    </div>
+</div>
+
 <!-- Main display -->
 <div class="display-area">
     <div class="display-card">
-        <div class="agent-line">Agent &mdash;</div>
-        <div class="client-line">Client &mdash;</div>
+        <div class="display-now-serving">Appel en cours</div>
+        <div class="display-ticket-badge" id="service-badge">— SERVICE —</div>
+        <div class="display-ticket-number" id="ticket-number">—</div>
+        <div class="display-divider"></div>
+        <div class="display-agent-row">
+            <div class="display-guichet-badge">
+                <div class="gb-label">Guichet</div>
+                <div class="gb-value" id="guichet-name">—</div>
+            </div>
+            <div class="display-agent-name" id="agent-name">En attente</div>
+        </div>
     </div>
 </div>
 
-<!-- QR codes bottom -->
+<!-- QR codes -->
 <div class="qr-section">
-
-    <!-- WiFi QR -->
     <div class="qr-card">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=WIFI:T:WPA;S:DakarTerminal_WiFi;P:;;"
+        <div class="qr-icon qr-icon-wifi"><i class="fas fa-wifi"></i></div>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=WIFI:T:WPA;S:DakarTerminal_WiFi;P:;;"
              alt="QR Code WiFi"/>
-        <div class="qr-info">
-            <div class="qr-title">Code QR pour se connecter au réseau WI-FI</div>
-            <div class="qr-subtitle">Étape 1 : Connexion à internet</div>
+        <div>
+            <div class="qr-step">Étape 1</div>
+            <div class="qr-title">Connexion au réseau Wi-Fi</div>
         </div>
     </div>
-
-    <!-- Ticket QR -->
     <div class="qr-card">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://dakarterminal.sn/ticket"
+        <div class="qr-icon qr-icon-ticket"><i class="fas fa-ticket-alt"></i></div>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://dakarterminal.sn/gfa/ticket"
              alt="QR Code Ticket"/>
-        <div class="qr-info">
-            <div class="qr-title">Code QR pour prendre un ticket</div>
-            <div class="qr-subtitle">Étape 2 : Choix du ticket</div>
+        <div>
+            <div class="qr-step">Étape 2</div>
+            <div class="qr-title">Prendre un ticket</div>
         </div>
     </div>
-
 </div>
 
+<script>
+function updateClock() {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mm = String(now.getMinutes()).padStart(2, '0');
+    const ss = String(now.getSeconds()).padStart(2, '0');
+    document.getElementById('clock').textContent = hh + ':' + mm + ':' + ss;
+
+    const days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+    const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    document.getElementById('date-display').textContent =
+        days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+}
+updateClock();
+setInterval(updateClock, 1000);
+</script>
 </body>
 </html>

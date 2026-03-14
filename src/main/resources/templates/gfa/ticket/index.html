@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Prendre un ticket — Dakar Terminal</title>
+    <link rel="icon" type="image/png" href="/img/image.png"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+    <style>
+        :root { --primary: #4B49AC; --secondary: #7978E9; --info: #248AFD; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Overpass', sans-serif;
+            background: linear-gradient(135deg, #1a1950 0%, #2d2c8e 50%, #1565C0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 16px 60px;
+        }
+
+        .page-logo {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .page-logo img {
+            height: 52px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+        .page-logo p {
+            font-size: 14px;
+            color: rgba(255,255,255,.5);
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* ── SERVICE SELECTION VIEW ── */
+        #view-select {
+            width: 100%;
+            max-width: 500px;
+        }
+        .select-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .service-btn {
+            background: rgba(255,255,255,.09);
+            border: 2px solid rgba(255,255,255,.15);
+            border-radius: 16px;
+            padding: 28px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all .2s;
+            color: #fff;
+        }
+        .service-btn:hover {
+            background: rgba(121,120,233,.3);
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        .service-btn .svc-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), var(--info));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: #fff;
+        }
+        .service-btn .svc-name {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+        .service-btn .svc-prefix {
+            font-size: 11px;
+            color: rgba(255,255,255,.5);
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .no-services {
+            text-align: center;
+            color: rgba(255,255,255,.5);
+            font-size: 14px;
+            padding: 40px 0;
+        }
+
+        /* ── TICKET RECEIPT VIEW ── */
+        #view-ticket {
+            display: none;
+            width: 100%;
+            max-width: 400px;
+        }
+        .ticket-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(0,0,0,.3);
+        }
+        .ticket-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 28px 24px 24px;
+            text-align: center;
+        }
+        .ticket-header img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            margin-bottom: 14px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .ticket-header .th-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,.7);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .ticket-number-display {
+            font-size: 88px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -3px;
+            line-height: 1;
+        }
+        .ticket-body {
+            padding: 28px 28px 20px;
+        }
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f7;
+        }
+        .ticket-row:last-child { border-bottom: none; }
+        .ticket-row .tr-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #aaa;
+            text-transform: uppercase;
+        }
+        .ticket-row .tr-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #191C24;
+        }
+        .ticket-footer {
+            background: #f8f9ff;
+            padding: 16px 28px;
+            text-align: center;
+            font-size: 11px;
+            color: #aaa;
+            border-top: 1px solid #f0f0f7;
+        }
+        .ticket-footer strong { color: var(--primary); }
+
+        .btn-new-ticket {
+            width: 100%;
+            margin-top: 20px;
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.25);
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-new-ticket:hover { background: rgba(255,255,255,.2); }
+    </style>
+</head>
+<body>
+
+<div class="page-logo">
+    <img src="/img/image.png" alt="Dakar Terminal"/>
+    <p>Gestion de la file d'attente</p>
+</div>
+
+<!-- Service selection -->
+<div id="view-select">
+    <div class="select-title">Choisissez votre service</div>
+    <div class="service-grid" id="service-grid">
+        <div class="no-services" style="grid-column:1/-1">
+            <i class="fas fa-spinner fa-spin fa-2x mb-3 d-block"></i>
+            Chargement des services...
+        </div>
+    </div>
+</div>
+
+<!-- Ticket receipt -->
+<div id="view-ticket">
+    <div class="ticket-card">
+        <div class="ticket-header">
+            <img src="/img/image.png" alt="Dakar Terminal"/>
+            <div class="th-label">Votre numéro de ticket</div>
+            <div class="ticket-number-display" id="receipt-number">V001</div>
+        </div>
+        <div class="ticket-body">
+            <div class="ticket-row">
+                <span class="tr-label">Service</span>
+                <span class="tr-value" id="receipt-service">—</span>
+            </div>
+            <div class="ticket-row">
+                <span class="tr-label">Date</span>
+                <span class="tr-value" id="receipt-date">—</span>
+            </div>
+            <div class="ticket-row">
+                <span class="tr-label">Heure</span>
+                <span class="tr-value" id="receipt-time">—</span>
+            </div>
+            <div class="ticket-row">
+                <span class="tr-label">Rang dans la file</span>
+                <span class="tr-value" id="receipt-rank">—</span>
+            </div>
+        </div>
+        <div class="ticket-footer">
+            Merci de patienter — <strong>Dakar Terminal</strong>
+        </div>
+    </div>
+    <button class="btn-new-ticket" onclick="resetView()">
+        <i class="fas fa-redo"></i> Prendre un autre ticket
+    </button>
+</div>
+
+<script>
+const SERVICES_KEY = 'gfa_services';
+const TICKETS_KEY  = 'gfa_tickets';
+
+const SERVICE_ICONS = {
+    'VALIDATION':  'fas fa-clipboard-check',
+    'FACTURATION': 'fas fa-file-invoice-dollar',
+    'CAISSE':      'fas fa-cash-register',
+    'BAD':         'fas fa-ship',
+};
+
+function getDefaultIcon() { return 'fas fa-concierge-bell'; }
+
+function loadServices() {
+    const s = localStorage.getItem(SERVICES_KEY);
+    return s ? JSON.parse(s) : [];
+}
+
+function getTicketCounters() {
+    const t = localStorage.getItem(TICKETS_KEY);
+    return t ? JSON.parse(t) : {};
+}
+
+function saveTicketCounters(obj) {
+    localStorage.setItem(TICKETS_KEY, JSON.stringify(obj));
+}
+
+function nextTicket(prefixe) {
+    const counters = getTicketCounters();
+    const today = new Date().toISOString().slice(0, 10);
+    const key = prefixe + '_' + today;
+    const count = (counters[key] || 0) + 1;
+    counters[key] = count;
+    saveTicketCounters(counters);
+    return prefixe + String(count).padStart(3, '0');
+}
+
+function renderServices() {
+    const services = loadServices();
+    const grid = document.getElementById('service-grid');
+    if (!services.length) {
+        grid.innerHTML = '<div class="no-services" style="grid-column:1/-1"><i class="fas fa-exclamation-circle fa-2x mb-3 d-block"></i>Aucun service disponible pour le moment.</div>';
+        return;
+    }
+    grid.innerHTML = services.map(s => {
+        const icon = SERVICE_ICONS[s.nom] || getDefaultIcon();
+        return `
+        <button class="service-btn" onclick="takeTicket('${s.nom}','${s.prefixe}')">
+            <div class="svc-icon"><i class="${icon}"></i></div>
+            <div class="svc-name">${s.nom}</div>
+            <div class="svc-prefix">${s.prefixe}</div>
+        </button>`;
+    }).join('');
+}
+
+function takeTicket(serviceName, prefixe) {
+    const ticketNum = nextTicket(prefixe);
+    const now = new Date();
+
+    const days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+    const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    const dateStr = days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+    const timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+    // Count tickets taken today for this service to estimate rank
+    const counters = getTicketCounters();
+    const today = new Date().toISOString().slice(0, 10);
+    const rank = counters[prefixe + '_' + today] || 1;
+
+    document.getElementById('receipt-number').textContent = ticketNum;
+    document.getElementById('receipt-service').textContent = serviceName;
+    document.getElementById('receipt-date').textContent = dateStr;
+    document.getElementById('receipt-time').textContent = timeStr;
+    document.getElementById('receipt-rank').textContent = '#' + rank;
+
+    document.getElementById('view-select').style.display = 'none';
+    document.getElementById('view-ticket').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+function resetView() {
+    document.getElementById('view-ticket').style.display = 'none';
+    document.getElementById('view-select').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+renderServices();
+</script>
+</body>
+</html>

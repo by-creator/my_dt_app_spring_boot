@@ -12,4 +12,9 @@ public class GfaDisplayController {
     public String display() {
         return "gfa/display/index";
     }
+
+    @GetMapping({"/ticket", "/ticket/"})
+    public String ticket() {
+        return "gfa/ticket/index";
+    }
 }

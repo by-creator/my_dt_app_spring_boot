@@ -50,7 +50,13 @@
             border-bottom: 1px solid #e8e8f0;
             display: flex; align-items: center; justify-content: center;
         }
-        .sidebar-brand img { height: 44px; width: auto; object-fit: contain; }
+        .sidebar-brand img {
+            max-width: calc(var(--sidebar-w) - 32px);
+            max-height: 50px;
+            height: auto;
+            width: auto;
+            object-fit: contain;
+        }
         .nav-section-title {
             color: rgba(0,0,0,.38);
             font-size: 11px; letter-spacing: 1.5px;

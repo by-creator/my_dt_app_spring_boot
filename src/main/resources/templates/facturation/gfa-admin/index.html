@@ -148,56 +148,56 @@
             </table>
         </div>
     </div>
-</div>
 
-<!-- ── MODALS ── -->
+    <!-- ── MODALS (must be inside layout:fragment="content") ── -->
 
-<!-- Agent Modal -->
-<div id="agent-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'agent-overlay')">
-    <div class="gfa-modal">
-        <button class="modal-close" onclick="closeModal('agent-overlay')">&times;</button>
-        <h5 id="agent-modal-title">Nouvel agent</h5>
-        <input type="hidden" id="agent-id"/>
-        <label>Nom du guichet</label>
-        <input type="text" id="agent-guichet" placeholder="ex: Guichet 1"/>
-        <label>Infos du guichet (agent)</label>
-        <input type="text" id="agent-infos" placeholder="ex: Mamadou DIOP"/>
-        <label>Service</label>
-        <select id="agent-service"><option value="">-- Sélectionner --</option></select>
-        <div class="modal-footer">
-            <button class="btn-cancel" onclick="closeModal('agent-overlay')">Annuler</button>
-            <button class="btn-save" onclick="saveAgent()">Enregistrer</button>
+    <!-- Agent Modal -->
+    <div id="agent-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'agent-overlay')">
+        <div class="gfa-modal">
+            <button class="modal-close" onclick="closeModal('agent-overlay')">&times;</button>
+            <h5 id="agent-modal-title">Nouvel agent</h5>
+            <input type="hidden" id="agent-id"/>
+            <label>Nom du guichet</label>
+            <input type="text" id="agent-guichet" placeholder="ex: Guichet 1"/>
+            <label>Infos du guichet (agent)</label>
+            <input type="text" id="agent-infos" placeholder="ex: Mamadou DIOP"/>
+            <label>Service</label>
+            <select id="agent-service"><option value="">-- Sélectionner --</option></select>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('agent-overlay')">Annuler</button>
+                <button class="btn-save" onclick="saveAgent()">Enregistrer</button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Service Modal -->
-<div id="service-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'service-overlay')">
-    <div class="gfa-modal">
-        <button class="modal-close" onclick="closeModal('service-overlay')">&times;</button>
-        <h5 id="service-modal-title">Nouveau service</h5>
-        <input type="hidden" id="service-id"/>
-        <label>Nom du service</label>
-        <input type="text" id="service-nom" placeholder="ex: VALIDATION"/>
-        <label>Préfixe</label>
-        <input type="text" id="service-prefixe" placeholder="ex: V" maxlength="5"/>
-        <div class="modal-footer">
-            <button class="btn-cancel" onclick="closeModal('service-overlay')">Annuler</button>
-            <button class="btn-save" onclick="saveService()">Enregistrer</button>
+    <!-- Service Modal -->
+    <div id="service-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'service-overlay')">
+        <div class="gfa-modal">
+            <button class="modal-close" onclick="closeModal('service-overlay')">&times;</button>
+            <h5 id="service-modal-title">Nouveau service</h5>
+            <input type="hidden" id="service-id"/>
+            <label>Nom du service</label>
+            <input type="text" id="service-nom" placeholder="ex: VALIDATION"/>
+            <label>Préfixe</label>
+            <input type="text" id="service-prefixe" placeholder="ex: V" maxlength="5"/>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('service-overlay')">Annuler</button>
+                <button class="btn-save" onclick="saveService()">Enregistrer</button>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Delete Confirm Modal -->
-<div id="delete-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'delete-overlay')">
-    <div class="gfa-modal">
-        <button class="modal-close" onclick="closeModal('delete-overlay')">&times;</button>
-        <h5>Confirmer la suppression</h5>
-        <p class="del-msg" id="delete-msg">Voulez-vous supprimer cet élément ?</p>
-        <p class="del-sub">Cette action est irréversible.</p>
-        <div class="modal-footer">
-            <button class="btn-cancel" onclick="closeModal('delete-overlay')">Annuler</button>
-            <button class="btn-confirm-del" id="delete-confirm-btn">Supprimer</button>
+    <!-- Delete Confirm Modal -->
+    <div id="delete-overlay" class="gfa-overlay" onclick="closeOnBackdrop(event,'delete-overlay')">
+        <div class="gfa-modal">
+            <button class="modal-close" onclick="closeModal('delete-overlay')">&times;</button>
+            <h5>Confirmer la suppression</h5>
+            <p class="del-msg" id="delete-msg">Voulez-vous supprimer cet élément ?</p>
+            <p class="del-sub">Cette action est irréversible.</p>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('delete-overlay')">Annuler</button>
+                <button class="btn-confirm-del" id="delete-confirm-btn">Supprimer</button>
+            </div>
         </div>
     </div>
 </div>
@@ -409,9 +409,13 @@ document.getElementById('delete-confirm-btn').addEventListener('click', function
 });
 
 // ── Init ──────────────────────────────────────────────────────
-// Seed localStorage on first visit
-if (!localStorage.getItem(SERVICES_KEY)) saveServices(DEFAULT_SERVICES);
-if (!localStorage.getItem(AGENTS_KEY))   saveAgents(DEFAULT_AGENTS);
+// Seed localStorage if empty or not yet set
+(function() {
+    const sv = localStorage.getItem(SERVICES_KEY);
+    const av = localStorage.getItem(AGENTS_KEY);
+    if (!sv || JSON.parse(sv).length === 0) saveServices(DEFAULT_SERVICES);
+    if (!av || JSON.parse(av).length === 0) saveAgents(DEFAULT_AGENTS);
+})();
 renderAll();
 </script>
 </th:block>
