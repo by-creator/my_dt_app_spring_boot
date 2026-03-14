@@ -1,10 +1,10 @@
 -- Alter roles table: change name from enum to VARCHAR and add description/actif/timestamps
 ALTER TABLE roles
     MODIFY COLUMN name VARCHAR(50) NOT NULL,
-    ADD COLUMN IF NOT EXISTS description VARCHAR(255) NULL AFTER name,
-    ADD COLUMN IF NOT EXISTS actif TINYINT(1) NOT NULL DEFAULT 1 AFTER description,
-    ADD COLUMN IF NOT EXISTS created_at DATETIME NULL AFTER actif,
-    ADD COLUMN IF NOT EXISTS updated_at DATETIME NULL AFTER created_at;
+    ADD COLUMN description VARCHAR(255) NULL AFTER name,
+    ADD COLUMN actif TINYINT(1) NOT NULL DEFAULT 1 AFTER description,
+    ADD COLUMN created_at DATETIME NULL AFTER actif,
+    ADD COLUMN updated_at DATETIME NULL AFTER created_at;
 
 -- Update descriptions for existing roles
 UPDATE roles SET description = 'Administrateur système avec accès complet' WHERE name = 'ADMIN';
