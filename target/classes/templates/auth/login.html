@@ -11,7 +11,7 @@
         :root { --primary: #4B49AC; --secondary: #7978E9; }
         body {
             font-family: 'Overpass', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: #f0f4f8;
             min-height: 100vh;
             display: flex; align-items: center; justify-content: center;
         }
@@ -71,9 +71,8 @@
 <div class="login-wrapper">
     <div class="login-card">
         <div class="login-header">
-            <div class="login-logo">DT</div>
-            <h1>Dakar Terminal</h1>
-            <p>Espace Administration</p>
+            <h1>CONNEXION</h1>
+            <p>Entrez vos informations de connexion</p>
         </div>
         <div class="login-body">
             <div th:if="${errorMsg}" class="alert alert-danger">
@@ -84,7 +83,6 @@
                 <i class="fas fa-info-circle mr-2"></i>
                 <span th:text="${logoutMsg}"></span>
             </div>
-
             <form th:action="@{/login}" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
