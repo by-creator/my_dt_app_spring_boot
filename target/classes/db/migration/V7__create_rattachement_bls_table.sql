@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS rattachement_bls (
     prenom VARCHAR(100),
     email VARCHAR(150),
     bl VARCHAR(100) NOT NULL,
-    compte VARCHAR(100),
+    maison VARCHAR(100),
     statut VARCHAR(50) NOT NULL DEFAULT 'EN_ATTENTE',
     time_elapsed BIGINT,
     created_at DATETIME,

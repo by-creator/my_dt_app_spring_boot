@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
  * Resets the admin user password to the default value.
  * Required when the stored BCrypt hash doesn't match the configured default password.
  */
-public class V0__ResetAdminPassword extends BaseJavaMigration {
+public class V10__ResetAdminPassword extends BaseJavaMigration {
 
     @Override
     public void migrate(Context context) throws Exception {

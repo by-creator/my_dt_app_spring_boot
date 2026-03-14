@@ -25,7 +25,7 @@ public class RattachementBlDto {
     @NotBlank
     private String bl;
 
-    private String compte;
+    private String maison;
     private String statut;
     private Long timeElapsed;
     private LocalDateTime createdAt;
