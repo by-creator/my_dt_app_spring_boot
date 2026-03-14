@@ -65636,3 +65636,3280 @@ org.springframework.web.servlet.resource.NoResourceFoundException: No static res
         guichets ge1_0 
     where
         ge1_0.id=?
+2026-03-14 20:28:10 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /facturation/remises
+2026-03-14 20:28:10 [http-nio-8080-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=B9EC6BF0A4C7FC677589B73A49D7862C], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 20:28:10 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /facturation/remises
+2026-03-14 20:28:10 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.remises(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 20:28:10 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.remises(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 20:28:11 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /facturation/gfa-admin
+2026-03-14 20:28:11 [http-nio-8080-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=B9EC6BF0A4C7FC677589B73A49D7862C], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 20:28:11 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /facturation/gfa-admin
+2026-03-14 20:28:11 [http-nio-8080-exec-1] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.gfaAdmin(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 20:28:11 [http-nio-8080-exec-1] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.gfaAdmin(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 20:28:11 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        gws1_0.id,
+        gws1_0.password,
+        gws1_0.ssid,
+        gws1_0.updated_at 
+    from
+        gfa_wifi_settings gws1_0 
+    where
+        gws1_0.id=?
+2026-03-14 20:28:12 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/services
+2026-03-14 20:28:12 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/agents
+2026-03-14 20:28:12 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichets
+2026-03-14 20:28:12 [http-nio-8080-exec-3] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=B9EC6BF0A4C7FC677589B73A49D7862C], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 20:28:12 [http-nio-8080-exec-5] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=B9EC6BF0A4C7FC677589B73A49D7862C], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 20:28:12 [http-nio-8080-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=B9EC6BF0A4C7FC677589B73A49D7862C], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 20:28:12 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichets
+2026-03-14 20:28:12 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/agents
+2026-03-14 20:28:12 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/services
+2026-03-14 20:28:12 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0
+2026-03-14 20:28:12 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.actif
+2026-03-14 20:28:12 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 20:28:12 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 20:28:12 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 20:28:12 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0
+2026-03-14 20:30:20 [MessageBroker-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 20:35:20 [MessageBroker-5] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 20:40:20 [MessageBroker-5] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 20:45:20 [MessageBroker-5] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 20:50:20 [MessageBroker-5] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 20:51:20 [MessageBroker-6] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 2, completed tasks = 8]
+2026-03-14 20:55:20 [MessageBroker-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:00:20 [MessageBroker-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:05:20 [MessageBroker-7] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:10:20 [MessageBroker-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:13:32 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-03-14 21:13:32 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3509cb25]]
+2026-03-14 21:13:32 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-03-14 21:13:32 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-14 21:13:32 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-03-14 21:13:32 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-03-14 21:13:36 [main] INFO  s.d.dt.DakarTerminalApplication - Starting DakarTerminalApplication using Java 21.0.9 with PID 18560 (C:\Users\marcd\Documents\Code\Spring Boot\my_dt_app_spring_boot\target\classes started by marc.bongoyeba in C:\Users\marcd\Documents\Code\Spring Boot\my_dt_app_spring_boot)
+2026-03-14 21:13:36 [main] DEBUG s.d.dt.DakarTerminalApplication - Running with Spring Boot v3.2.3, Spring v6.1.4
+2026-03-14 21:13:36 [main] INFO  s.d.dt.DakarTerminalApplication - The following 1 profile is active: "dev"
+2026-03-14 21:13:36 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-14 21:13:36 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 67 ms. Found 25 JPA repository interfaces.
+2026-03-14 21:13:37 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-14 21:13:37 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-14 21:13:37 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-03-14 21:13:37 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-14 21:13:37 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1306 ms
+2026-03-14 21:13:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-14 21:13:37 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2579d8a
+2026-03-14 21:13:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-14 21:13:37 [main] INFO  o.f.c.i.license.VersionPrinter - Flyway Community Edition 9.22.3 by Redgate
+2026-03-14 21:13:37 [main] INFO  o.f.c.i.license.VersionPrinter - See release notes here: https://rd.gt/416ObMi
+2026-03-14 21:13:37 [main] INFO  o.f.c.i.license.VersionPrinter - 
+2026-03-14 21:13:37 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/dakar_terminal_dev (MySQL 8.4)
+2026-03-14 21:13:37 [main] WARN  o.f.c.i.database.base.Database - Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.0.
+2026-03-14 21:13:37 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Repair of failed migration in Schema History table `dakar_terminal_dev`.`flyway_schema_history` not necessary. No failed migration detected.
+2026-03-14 21:13:37 [main] INFO  o.f.core.internal.command.DbRepair - Successfully repaired schema history table `dakar_terminal_dev`.`flyway_schema_history` (execution time 00:00.028s).
+2026-03-14 21:13:37 [main] WARN  o.f.c.i.database.base.Database - Flyway upgrade recommended: MySQL 8.4 is newer than this version of Flyway and support has not been tested. The latest supported version of MySQL is 8.0.
+2026-03-14 21:13:37 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 21 migrations (execution time 00:00.014s)
+2026-03-14 21:13:37 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `dakar_terminal_dev`: 21
+2026-03-14 21:13:37 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `dakar_terminal_dev` is up to date. No migration necessary.
+2026-03-14 21:13:38 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-14 21:13:38 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-03-14 21:13:38 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-14 21:13:38 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-14 21:13:38 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-14 21:13:38 [main] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry - addDescriptor(12, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@72406594) replaced previous registration(org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@4e1104f4)
+2026-03-14 21:13:38 [main] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry - addDescriptor(-9, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@76219fe) replaced previous registration(org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@5eff5e4c)
+2026-03-14 21:13:38 [main] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry - addDescriptor(-3, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@2fe2fcc2) replaced previous registration(org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@69926b6e)
+2026-03-14 21:13:38 [main] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry - addDescriptor(4003, org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@7ea8224b) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@5a010eec)
+2026-03-14 21:13:38 [main] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry - addDescriptor(4001, org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@623ded82) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@180e33b0)
+2026-03-14 21:13:38 [main] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry - addDescriptor(4002, org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@270be080) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@752ffce3)
+2026-03-14 21:13:38 [main] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry - addDescriptor(2004, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@78f35e39) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@11896124)
+2026-03-14 21:13:38 [main] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry - addDescriptor(2005, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@69fe8c75) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@633cad4d)
+2026-03-14 21:13:38 [main] DEBUG o.h.t.d.sql.spi.DdlTypeRegistry - addDescriptor(2011, org.hibernate.type.descriptor.sql.internal.CapacityDependentDdlType@15c3585) replaced previous registration(org.hibernate.type.descriptor.sql.internal.DdlTypeImpl@5b86f4cb)
+2026-03-14 21:13:39 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-14 21:13:39 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-14 21:13:39 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-14 21:13:39 [main] DEBUG s.d.d.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-03-14 21:13:41 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2026-03-14 21:13:41 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Or [Mvc [pattern='/api/**']] with [org.springframework.security.web.session.DisableEncodeUrlFilter@6cfaed, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@550b68f7, org.springframework.security.web.context.SecurityContextHolderFilter@31aacbd7, org.springframework.security.web.header.HeaderWriterFilter@341df52, org.springframework.web.filter.CorsFilter@53508d4b, org.springframework.security.web.authentication.logout.LogoutFilter@492a7467, sn.dakarterminal.dt.security.JwtAuthenticationFilter@4af9217f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@122b07f1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@371ce753, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@68801feb, org.springframework.security.web.session.SessionManagementFilter@74e506a8, org.springframework.security.web.access.ExceptionTranslationFilter@2ea8611b, org.springframework.security.web.access.intercept.AuthorizationFilter@bf0b496]
+2026-03-14 21:13:41 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Or [Mvc [pattern='/'], Mvc [pattern='/admin/**'], Mvc [pattern='/facturation/**'], Mvc [pattern='/demat/**'], Mvc [pattern='/gfa/**'], Mvc [pattern='/login'], Mvc [pattern='/logout'], Mvc [pattern='/ws/**']] with [org.springframework.security.web.session.DisableEncodeUrlFilter@b91bce9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@36f6aff3, org.springframework.security.web.context.SecurityContextHolderFilter@280b492a, org.springframework.security.web.header.HeaderWriterFilter@44517251, org.springframework.security.web.csrf.CsrfFilter@6c5be07c, org.springframework.security.web.authentication.logout.LogoutFilter@5175d07d, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7027c359, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@e31b415, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@413d8c78, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@530d3105, org.springframework.security.web.session.SessionManagementFilter@489541f8, org.springframework.security.web.access.ExceptionTranslationFilter@77ba34da, org.springframework.security.web.access.intercept.AuthorizationFilter@7f145f22]
+2026-03-14 21:13:41 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-03-14 21:13:41 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-03-14 21:13:41 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@73551c5e]]
+2026-03-14 21:13:41 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-03-14 21:13:41 [main] INFO  s.d.dt.DakarTerminalApplication - Started DakarTerminalApplication in 5.775 seconds (process running for 6.063)
+2026-03-14 21:13:41 [MessageBroker-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:13:41 [main] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        r1_0.id 
+    from
+        roles r1_0 
+    where
+        r1_0.name=? 
+    limit
+        ?
+2026-03-14 21:13:41 [main] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        r1_0.id 
+    from
+        roles r1_0 
+    where
+        r1_0.name=? 
+    limit
+        ?
+2026-03-14 21:13:41 [main] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        r1_0.id 
+    from
+        roles r1_0 
+    where
+        r1_0.name=? 
+    limit
+        ?
+2026-03-14 21:13:41 [main] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        r1_0.id 
+    from
+        roles r1_0 
+    where
+        r1_0.name=? 
+    limit
+        ?
+2026-03-14 21:13:41 [main] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        r1_0.id 
+    from
+        roles r1_0 
+    where
+        r1_0.name=? 
+    limit
+        ?
+2026-03-14 21:13:41 [main] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        r1_0.id 
+    from
+        roles r1_0 
+    where
+        r1_0.name=? 
+    limit
+        ?
+2026-03-14 21:13:41 [main] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        r1_0.id 
+    from
+        roles r1_0 
+    where
+        r1_0.name=? 
+    limit
+        ?
+2026-03-14 21:13:41 [main] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        r1_0.id 
+    from
+        roles r1_0 
+    where
+        r1_0.name=? 
+    limit
+        ?
+2026-03-14 21:13:41 [main] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        r1_0.id 
+    from
+        roles r1_0 
+    where
+        r1_0.name=? 
+    limit
+        ?
+2026-03-14 21:13:41 [main] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        r1_0.id 
+    from
+        roles r1_0 
+    where
+        r1_0.name=? 
+    limit
+        ?
+2026-03-14 21:13:41 [main] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    limit
+        ?
+2026-03-14 21:13:41 [main] DEBUG s.d.dt.config.DataInitializer - Compte admin déjà existant : admin@dakarterminal.sn
+2026-03-14 21:13:48 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-14 21:13:48 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-14 21:13:48 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-03-14 21:13:48 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /facturation/gfa-admin
+2026-03-14 21:13:48 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-14 21:13:48 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 1611483A83283B07A882520968802B7A
+2026-03-14 21:13:48 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.HttpSessionRequestCache - Saved request http://localhost:8080/facturation/gfa-admin?continue to session
+2026-03-14 21:13:48 [http-nio-8080-exec-1] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to http://localhost:8080/login
+2026-03-14 21:13:48 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /login
+2026-03-14 21:13:48 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-14 21:13:48 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /login
+2026-03-14 21:13:49 [http-nio-8080-exec-4] ERROR s.d.d.e.GlobalExceptionHandler - Unexpected error: No static resource favicon.ico.
+org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.
+	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:585)
+	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at sn.dakarterminal.dt.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:47)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479)
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapUnsecured$1(ObservationFilterChainDecorator.java:90)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:219)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-03-14 21:13:54 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/display
+2026-03-14 21:13:54 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-14 21:13:54 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/display
+2026-03-14 21:13:54 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        gws1_0.id,
+        gws1_0.password,
+        gws1_0.ssid,
+        gws1_0.updated_at 
+    from
+        gfa_wifi_settings gws1_0 
+    where
+        gws1_0.id=?
+2026-03-14 21:13:54 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:13:54 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-14 21:13:54 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:13:54 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:13:57 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/info?t=1773522837006
+2026-03-14 21:13:57 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-14 21:13:57 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/info?t=1773522837006
+2026-03-14 21:13:57 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/767/2eq2i22u/websocket
+2026-03-14 21:13:57 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-14 21:13:57 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/767/2eq2i22u/websocket
+2026-03-14 21:14:41 [MessageBroker-8] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 1 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(1)-CONNECTED(1)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 12, active threads = 0, queued tasks = 0, completed tasks = 12], outboundChannel[pool size = 1, active threads = 0, queued tasks = 0, completed tasks = 1], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 4, completed tasks = 11]
+2026-03-14 21:14:46 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+2026-03-14 21:14:46 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-14 21:14:46 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.HttpSessionRequestCache - Saved request http://localhost:8080/?continue to session
+2026-03-14 21:14:46 [http-nio-8080-exec-10] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to http://localhost:8080/login
+2026-03-14 21:14:46 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /login
+2026-03-14 21:14:46 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-03-14 21:14:46 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /login
+2026-03-14 21:14:47 [http-nio-8080-exec-1] ERROR s.d.d.e.GlobalExceptionHandler - Unexpected error: No static resource favicon.ico.
+org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.
+	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:585)
+	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at sn.dakarterminal.dt.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:47)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479)
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapUnsecured$1(ObservationFilterChainDecorator.java:90)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:219)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-03-14 21:14:56 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /login
+2026-03-14 21:14:56 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.actif,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified_at,
+        u1_0.name,
+        u1_0.password,
+        u1_0.remember_token,
+        u1_0.role_id,
+        u1_0.two_factor_enabled,
+        u1_0.two_factor_secret,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-03-14 21:14:56 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        r1_0.id,
+        r1_0.actif,
+        r1_0.created_at,
+        r1_0.description,
+        r1_0.name,
+        r1_0.updated_at 
+    from
+        roles r1_0 
+    where
+        r1_0.id=?
+2026-03-14 21:14:56 [http-nio-8080-exec-4] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2026-03-14 21:14:56 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.s.ChangeSessionIdAuthenticationStrategy - Changed session id from 3569628DCFEDDE0D99A41A95E0B3A895
+2026-03-14 21:14:56 [http-nio-8080-exec-4] DEBUG o.s.s.w.c.CsrfAuthenticationStrategy - Replaced CSRF Token
+2026-03-14 21:14:56 [http-nio-8080-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Stored SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]] to HttpSession [org.apache.catalina.session.StandardSessionFacade@7fcfb3c8]
+2026-03-14 21:14:56 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.UsernamePasswordAuthenticationFilter - Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]
+2026-03-14 21:14:56 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /admin/dashboard
+2026-03-14 21:14:56 [http-nio-8080-exec-5] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:14:56 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /admin/dashboard
+2026-03-14 21:14:56 [http-nio-8080-exec-5] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.DashboardWebController.dashboard(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.DashboardWebController]
+2026-03-14 21:14:56 [http-nio-8080-exec-5] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.DashboardWebController.dashboard(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.DashboardWebController]
+2026-03-14 21:14:57 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    /* select
+        count(*) 
+    from
+        User x */ select
+            count(*) 
+        from
+            users u1_0
+2026-03-14 21:14:57 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    /* select
+        count(*) 
+    from
+        Role x */ select
+            count(*) 
+        from
+            roles r1_0
+2026-03-14 21:14:57 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    /* select
+        count(*) 
+    from
+        AuditLog x */ select
+            count(*) 
+        from
+            audit_logs al1_0
+2026-03-14 21:14:57 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(al1_0.id) 
+    from
+        audit_logs al1_0 
+    where
+        al1_0.created_at>?
+2026-03-14 21:14:57 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        al1_0.id,
+        al1_0.action,
+        al1_0.created_at,
+        al1_0.details,
+        al1_0.entity_id,
+        al1_0.entity_type,
+        al1_0.ip_address,
+        al1_0.status,
+        al1_0.user_agent,
+        al1_0.user_email,
+        al1_0.user_name 
+    from
+        audit_logs al1_0 
+    order by
+        al1_0.created_at desc 
+    limit
+        ?
+2026-03-14 21:15:01 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /facturation/dashboard
+2026-03-14 21:15:01 [http-nio-8080-exec-3] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:15:01 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /facturation/dashboard
+2026-03-14 21:15:01 [http-nio-8080-exec-3] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.dashboard(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:15:01 [http-nio-8080-exec-3] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.dashboard(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:15:03 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /facturation/gfa-admin
+2026-03-14 21:15:03 [http-nio-8080-exec-7] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:15:03 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /facturation/gfa-admin
+2026-03-14 21:15:03 [http-nio-8080-exec-7] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.gfaAdmin(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:15:03 [http-nio-8080-exec-7] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.gfaAdmin(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:15:03 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        gws1_0.id,
+        gws1_0.password,
+        gws1_0.ssid,
+        gws1_0.updated_at 
+    from
+        gfa_wifi_settings gws1_0 
+    where
+        gws1_0.id=?
+2026-03-14 21:15:03 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichets
+2026-03-14 21:15:03 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/services
+2026-03-14 21:15:03 [http-nio-8080-exec-10] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:15:03 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/agents
+2026-03-14 21:15:03 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/tickets?
+2026-03-14 21:15:03 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/info?t=1773522903437
+2026-03-14 21:15:03 [http-nio-8080-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:15:03 [http-nio-8080-exec-9] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:15:03 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/tickets?
+2026-03-14 21:15:03 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/services
+2026-03-14 21:15:03 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichets
+2026-03-14 21:15:03 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0
+2026-03-14 21:15:03 [http-nio-8080-exec-6] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:15:03 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/agents
+2026-03-14 21:15:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.created_at between ? and ? 
+    order by
+        t1_0.created_at desc
+2026-03-14 21:15:03 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.actif
+2026-03-14 21:15:03 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/info?t=1773522903437
+2026-03-14 21:15:03 [http-nio-8080-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:15:03 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0
+2026-03-14 21:15:03 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:15:03 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:15:03 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:15:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:15:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:15:03 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/stats
+2026-03-14 21:15:03 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/312/xz1srspm/websocket
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/stats
+2026-03-14 21:15:03 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/312/xz1srspm/websocket
+2026-03-14 21:15:03 [http-nio-8080-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:15:03 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        count(t1_0.id) 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:17:52 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /facturation/guichet
+2026-03-14 21:17:52 [http-nio-8080-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:17:52 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /facturation/guichet
+2026-03-14 21:17:52 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.guichet(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:17:52 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.guichet(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:17:53 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichets
+2026-03-14 21:17:53 [http-nio-8080-exec-5] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:17:53 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichets
+2026-03-14 21:17:53 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0
+2026-03-14 21:17:53 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:17:53 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/info?t=1773523073069
+2026-03-14 21:17:53 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/info?t=1773523073069
+2026-03-14 21:17:53 [http-nio-8080-exec-3] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:17:53 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/909/sggvpqpw/websocket
+2026-03-14 21:17:53 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/909/sggvpqpw/websocket
+2026-03-14 21:17:53 [http-nio-8080-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:17:55 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:17:55 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:17:55 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:17:55 [http-nio-8080-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:17:57 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichet/1/info
+2026-03-14 21:17:57 [http-nio-8080-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:17:57 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichet/1/info
+2026-03-14 21:17:57 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:17:57 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:17:57 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichet/1/current
+2026-03-14 21:17:57 [http-nio-8080-exec-10] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:17:57 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichet/1/current
+2026-03-14 21:17:57 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        guichets g1_0 
+            on g1_0.id=t1_0.guichet_id 
+    where
+        g1_0.id=? 
+        and t1_0.statut=? 
+    limit
+        ?
+2026-03-14 21:17:57 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichet/1/waiting
+2026-03-14 21:17:57 [http-nio-8080-exec-6] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:17:57 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichet/1/waiting
+2026-03-14 21:17:57 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:17:57 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:17:59 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/services
+2026-03-14 21:17:59 [http-nio-8080-exec-9] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:17:59 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/services
+2026-03-14 21:17:59 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0
+2026-03-14 21:18:41 [MessageBroker-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:19:46 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /facturation/guichet
+2026-03-14 21:19:46 [http-nio-8080-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:19:46 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /facturation/guichet
+2026-03-14 21:19:46 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.guichet(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:19:46 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.guichet(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:19:46 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichets
+2026-03-14 21:19:46 [http-nio-8080-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:19:46 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichets
+2026-03-14 21:19:46 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0
+2026-03-14 21:19:46 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:19:46 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/info?t=1773523186188
+2026-03-14 21:19:46 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/info?t=1773523186188
+2026-03-14 21:19:46 [http-nio-8080-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:19:46 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/440/ji2wkhp5/websocket
+2026-03-14 21:19:46 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/440/ji2wkhp5/websocket
+2026-03-14 21:19:46 [http-nio-8080-exec-10] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:19:49 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichet/1/info
+2026-03-14 21:19:49 [http-nio-8080-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:19:49 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichet/1/info
+2026-03-14 21:19:49 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:19:49 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:19:49 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichet/1/current
+2026-03-14 21:19:49 [http-nio-8080-exec-9] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:19:49 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichet/1/current
+2026-03-14 21:19:49 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        guichets g1_0 
+            on g1_0.id=t1_0.guichet_id 
+    where
+        g1_0.id=? 
+        and t1_0.statut=? 
+    limit
+        ?
+2026-03-14 21:19:49 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichet/1/waiting
+2026-03-14 21:19:49 [http-nio-8080-exec-5] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:19:49 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichet/1/waiting
+2026-03-14 21:19:49 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:19:49 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:19:53 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /facturation/guichet
+2026-03-14 21:19:53 [http-nio-8080-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:19:53 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /facturation/guichet
+2026-03-14 21:19:53 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.guichet(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:19:53 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.guichet(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:19:53 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichets
+2026-03-14 21:19:53 [http-nio-8080-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:19:53 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/info?t=1773523193519
+2026-03-14 21:19:53 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichets
+2026-03-14 21:19:53 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/info?t=1773523193519
+2026-03-14 21:19:53 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0
+2026-03-14 21:19:53 [http-nio-8080-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:19:53 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:19:53 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/054/b2u32mxk/websocket
+2026-03-14 21:19:53 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/054/b2u32mxk/websocket
+2026-03-14 21:19:53 [http-nio-8080-exec-10] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:20:13 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /facturation/guichet
+2026-03-14 21:20:13 [http-nio-8080-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:20:13 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /facturation/guichet
+2026-03-14 21:20:13 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.guichet(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:20:13 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public java.lang.String sn.dakarterminal.dt.web.FacturationWebController.guichet(org.springframework.ui.Model); target is of class [sn.dakarterminal.dt.web.FacturationWebController]
+2026-03-14 21:20:13 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichets
+2026-03-14 21:20:13 [http-nio-8080-exec-5] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:20:13 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichets
+2026-03-14 21:20:13 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0
+2026-03-14 21:20:13 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:20:13 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/info?t=1773523213818
+2026-03-14 21:20:13 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/info?t=1773523213818
+2026-03-14 21:20:13 [http-nio-8080-exec-3] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:20:13 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ws/811/lidjyi50/websocket
+2026-03-14 21:20:13 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ws/811/lidjyi50/websocket
+2026-03-14 21:20:13 [http-nio-8080-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:20:17 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichet/1/info
+2026-03-14 21:20:17 [http-nio-8080-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:20:17 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichet/1/info
+2026-03-14 21:20:17 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:20:17 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:20:17 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichet/1/current
+2026-03-14 21:20:17 [http-nio-8080-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:20:17 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichet/1/current
+2026-03-14 21:20:17 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        guichets g1_0 
+            on g1_0.id=t1_0.guichet_id 
+    where
+        g1_0.id=? 
+        and t1_0.statut=? 
+    limit
+        ?
+2026-03-14 21:20:17 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichet/1/waiting
+2026-03-14 21:20:17 [http-nio-8080-exec-10] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:20:17 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichet/1/waiting
+2026-03-14 21:20:17 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:20:17 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:20:17 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:20:17 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:20:25 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /gfa/api/guichet/call-next
+2026-03-14 21:20:25 [http-nio-8080-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:20:25 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /gfa/api/guichet/call-next
+2026-03-14 21:20:25 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.callNextForGuichet(java.util.Map); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:20:25 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.callNextForGuichet(java.util.Map); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:20:25 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:20:25 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        guichets g1_0 
+            on g1_0.id=t1_0.guichet_id 
+    where
+        g1_0.id=? 
+        and t1_0.statut=? 
+    limit
+        ?
+2026-03-14 21:20:25 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:20:25 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    left join
+        guichets g1_0 
+            on g1_0.id=a1_0.guichet_id 
+    where
+        g1_0.id=? 
+        and a1_0.actif 
+    limit
+        ?
+2026-03-14 21:20:25 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:20:25 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* update
+        for sn.dakarterminal.dt.entity.Ticket */update tickets 
+    set
+        agent_id=?,
+        called_at=?,
+        closed_at=?,
+        guichet_id=?,
+        motif=?,
+        nom_client=?,
+        numero=?,
+        processing_time=?,
+        service_id=?,
+        statut=?,
+        updated_at=? 
+    where
+        id=?
+2026-03-14 21:20:25 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.id=?
+2026-03-14 21:20:25 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:20:25 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:20:25 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:20:25 [async-audit-1] INFO  s.d.dt.listener.TicketEventListener - Ticket called: V005 at guichet: Guichet 1
+2026-03-14 21:20:25 [async-audit-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:21:05 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/services
+2026-03-14 21:21:05 [http-nio-8080-exec-9] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:21:05 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/services
+2026-03-14 21:21:05 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0
+2026-03-14 21:21:20 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing PATCH /gfa/api/guichet/ticket/5/termine
+2026-03-14 21:21:20 [http-nio-8080-exec-3] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:21:20 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured PATCH /gfa/api/guichet/ticket/5/termine
+2026-03-14 21:21:20 [http-nio-8080-exec-3] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.termineTicket(java.lang.Long); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:21:20 [http-nio-8080-exec-3] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.termineTicket(java.lang.Long); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:21:20 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.id=?
+2026-03-14 21:21:20 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:21:20 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:21:20 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:21:20 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    /* update
+        for sn.dakarterminal.dt.entity.Ticket */update tickets 
+    set
+        agent_id=?,
+        called_at=?,
+        closed_at=?,
+        guichet_id=?,
+        motif=?,
+        nom_client=?,
+        numero=?,
+        processing_time=?,
+        service_id=?,
+        statut=?,
+        updated_at=? 
+    where
+        id=?
+2026-03-14 21:21:20 [async-audit-2] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.id=?
+2026-03-14 21:21:20 [async-audit-2] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:21:20 [async-audit-2] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:21:20 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichet/1/waiting
+2026-03-14 21:21:20 [http-nio-8080-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:21:20 [async-audit-2] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:21:20 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichet/1/waiting
+2026-03-14 21:21:20 [async-audit-2] INFO  s.d.dt.listener.TicketEventListener - Ticket closed: V005 status: TERMINE processing time: 55s
+2026-03-14 21:21:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:21:20 [async-audit-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:21:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:21:56 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:21:56 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:21:56 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:21:56 [http-nio-8080-exec-7] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:22:05 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/ticket
+2026-03-14 21:22:05 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/ticket
+2026-03-14 21:22:05 [http-nio-8080-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:23:28 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/ticket?token=eb3ddd76-51f1-4dc0-b63a-f0157f630bae
+2026-03-14 21:23:28 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/ticket?token=eb3ddd76-51f1-4dc0-b63a-f0157f630bae
+2026-03-14 21:23:28 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        st1_0.id,
+        st1_0.created_at,
+        st1_0.entity_id,
+        st1_0.entity_type,
+        st1_0.expires_at,
+        st1_0.token,
+        st1_0.used,
+        st1_0.used_at,
+        st1_0.user_id 
+    from
+        scan_tokens st1_0 
+    where
+        st1_0.token=?
+2026-03-14 21:23:28 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.actif
+2026-03-14 21:23:28 [http-nio-8080-exec-6] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:23:41 [MessageBroker-7] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:23:50 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /gfa/api/tickets
+2026-03-14 21:23:50 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /gfa/api/tickets
+2026-03-14 21:23:50 [http-nio-8080-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:23:50 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:23:50 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        COUNT(t) 
+    FROM
+        Ticket t 
+    WHERE
+        t.service.id = :serviceId 
+        AND t.createdAt >= :startOfDay */ select
+            count(t1_0.id) 
+        from
+            tickets t1_0 
+        where
+            t1_0.service_id=? 
+            and t1_0.created_at>=?
+2026-03-14 21:23:50 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.Ticket */insert 
+    into
+        tickets (agent_id, called_at, closed_at, created_at, guichet_id, motif, nom_client, numero, processing_time, service_id, statut, updated_at) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:23:50 [async-audit-3] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.id=?
+2026-03-14 21:23:50 [async-audit-3] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:23:50 [async-audit-3] INFO  s.d.dt.listener.TicketEventListener - Ticket created: V006 for service: VALIDATION
+2026-03-14 21:23:50 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:23:50 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:23:50 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:23:50 [http-nio-8080-exec-9] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:23:57 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/ticket/done
+2026-03-14 21:23:57 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/ticket/done
+2026-03-14 21:23:57 [http-nio-8080-exec-5] ERROR s.d.d.e.GlobalExceptionHandler - Unexpected error: No static resource gfa/ticket/done.
+org.springframework.web.servlet.resource.NoResourceFoundException: No static resource gfa/ticket/done.
+	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:585)
+	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at sn.dakarterminal.dt.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:47)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:340)
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:82)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:128)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:117)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-03-14 21:23:57 [http-nio-8080-exec-5] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:23:57 [http-nio-8080-exec-3] ERROR s.d.d.e.GlobalExceptionHandler - Unexpected error: No static resource favicon.ico.
+org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.
+	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:585)
+	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at sn.dakarterminal.dt.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:47)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479)
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapUnsecured$1(ObservationFilterChainDecorator.java:90)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:219)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-03-14 21:24:19 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /gfa/api/guichet/call-next
+2026-03-14 21:24:19 [http-nio-8080-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:24:19 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /gfa/api/guichet/call-next
+2026-03-14 21:24:19 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.callNextForGuichet(java.util.Map); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:24:19 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.callNextForGuichet(java.util.Map); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:24:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:24:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        guichets g1_0 
+            on g1_0.id=t1_0.guichet_id 
+    where
+        g1_0.id=? 
+        and t1_0.statut=? 
+    limit
+        ?
+2026-03-14 21:24:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:24:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    left join
+        guichets g1_0 
+            on g1_0.id=a1_0.guichet_id 
+    where
+        g1_0.id=? 
+        and a1_0.actif 
+    limit
+        ?
+2026-03-14 21:24:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:24:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* update
+        for sn.dakarterminal.dt.entity.Ticket */update tickets 
+    set
+        agent_id=?,
+        called_at=?,
+        closed_at=?,
+        guichet_id=?,
+        motif=?,
+        nom_client=?,
+        numero=?,
+        processing_time=?,
+        service_id=?,
+        statut=?,
+        updated_at=? 
+    where
+        id=?
+2026-03-14 21:24:19 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.id=?
+2026-03-14 21:24:19 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:24:19 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:24:19 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:24:19 [async-audit-1] INFO  s.d.dt.listener.TicketEventListener - Ticket called: V006 at guichet: Guichet 1
+2026-03-14 21:24:19 [async-audit-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:24:32 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /gfa/api/guichet/recall
+2026-03-14 21:24:32 [http-nio-8080-exec-7] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:24:32 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /gfa/api/guichet/recall
+2026-03-14 21:24:32 [http-nio-8080-exec-7] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.recallTicket(java.util.Map); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:24:32 [http-nio-8080-exec-7] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.recallTicket(java.util.Map); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:24:32 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.id=?
+2026-03-14 21:24:32 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:24:32 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:24:32 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:24:32 [async-audit-2] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.id=?
+2026-03-14 21:24:32 [async-audit-2] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:24:32 [async-audit-2] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:24:32 [async-audit-2] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:24:32 [async-audit-2] INFO  s.d.dt.listener.TicketEventListener - Ticket called: V006 at guichet: Guichet 1
+2026-03-14 21:24:32 [async-audit-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:24:47 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /gfa/api/guichet/call-next
+2026-03-14 21:24:47 [http-nio-8080-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:24:47 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /gfa/api/guichet/call-next
+2026-03-14 21:24:47 [http-nio-8080-exec-8] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.callNextForGuichet(java.util.Map); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:24:47 [http-nio-8080-exec-8] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.callNextForGuichet(java.util.Map); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:24:47 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:24:47 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        guichets g1_0 
+            on g1_0.id=t1_0.guichet_id 
+    where
+        g1_0.id=? 
+        and t1_0.statut=? 
+    limit
+        ?
+2026-03-14 21:24:49 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /gfa/api/guichet/recall
+2026-03-14 21:24:49 [http-nio-8080-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:24:49 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /gfa/api/guichet/recall
+2026-03-14 21:24:49 [http-nio-8080-exec-1] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.recallTicket(java.util.Map); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:24:49 [http-nio-8080-exec-1] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.recallTicket(java.util.Map); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:24:49 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.id=?
+2026-03-14 21:24:49 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:24:49 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:24:49 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:24:49 [async-audit-3] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.id=?
+2026-03-14 21:24:49 [async-audit-3] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:24:49 [async-audit-3] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:24:49 [async-audit-3] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:24:49 [async-audit-3] INFO  s.d.dt.listener.TicketEventListener - Ticket called: V006 at guichet: Guichet 1
+2026-03-14 21:24:49 [async-audit-3] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:25:03 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing PATCH /gfa/api/guichet/ticket/6/termine
+2026-03-14 21:25:03 [http-nio-8080-exec-10] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:25:03 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured PATCH /gfa/api/guichet/ticket/6/termine
+2026-03-14 21:25:03 [http-nio-8080-exec-10] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.termineTicket(java.lang.Long); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:25:03 [http-nio-8080-exec-10] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity sn.dakarterminal.dt.controller.GfaApiController.termineTicket(java.lang.Long); target is of class [sn.dakarterminal.dt.controller.GfaApiController]
+2026-03-14 21:25:03 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.id=?
+2026-03-14 21:25:03 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:25:03 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:25:03 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:25:03 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    /* update
+        for sn.dakarterminal.dt.entity.Ticket */update tickets 
+    set
+        agent_id=?,
+        called_at=?,
+        closed_at=?,
+        guichet_id=?,
+        motif=?,
+        nom_client=?,
+        numero=?,
+        processing_time=?,
+        service_id=?,
+        statut=?,
+        updated_at=? 
+    where
+        id=?
+2026-03-14 21:25:03 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    where
+        t1_0.id=?
+2026-03-14 21:25:03 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.id=?
+2026-03-14 21:25:03 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        a1_0.id,
+        a1_0.actif,
+        a1_0.guichet_id,
+        a1_0.nom,
+        a1_0.prenom,
+        a1_0.service_id 
+    from
+        agents a1_0 
+    where
+        a1_0.id=?
+2026-03-14 21:25:03 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/guichet/1/waiting
+2026-03-14 21:25:03 [async-audit-1] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:25:03 [http-nio-8080-exec-6] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:25:03 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/guichet/1/waiting
+2026-03-14 21:25:03 [async-audit-1] INFO  s.d.dt.listener.TicketEventListener - Ticket closed: V006 status: TERMINE processing time: 44s
+2026-03-14 21:25:03 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        ge1_0.id,
+        ge1_0.actif,
+        ge1_0.infos,
+        ge1_0.numero,
+        ge1_0.service_id 
+    from
+        guichets ge1_0 
+    where
+        ge1_0.id=?
+2026-03-14 21:25:03 [async-audit-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:25:03 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        t1_0.id,
+        t1_0.agent_id,
+        t1_0.called_at,
+        t1_0.closed_at,
+        t1_0.created_at,
+        t1_0.guichet_id,
+        t1_0.motif,
+        t1_0.nom_client,
+        t1_0.numero,
+        t1_0.processing_time,
+        t1_0.service_id,
+        t1_0.statut,
+        t1_0.updated_at 
+    from
+        tickets t1_0 
+    left join
+        services s1_0 
+            on s1_0.id=t1_0.service_id 
+    where
+        s1_0.id=? 
+        and t1_0.statut=?
+2026-03-14 21:25:08 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/ticket?token=eb3ddd76-51f1-4dc0-b63a-f0157f630bae
+2026-03-14 21:25:08 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/ticket?token=eb3ddd76-51f1-4dc0-b63a-f0157f630bae
+2026-03-14 21:25:08 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        st1_0.id,
+        st1_0.created_at,
+        st1_0.entity_id,
+        st1_0.entity_type,
+        st1_0.expires_at,
+        st1_0.token,
+        st1_0.used,
+        st1_0.used_at,
+        st1_0.user_id 
+    from
+        scan_tokens st1_0 
+    where
+        st1_0.token=?
+2026-03-14 21:25:08 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        se1_0.id,
+        se1_0.actif,
+        se1_0.code,
+        se1_0.nom 
+    from
+        services se1_0 
+    where
+        se1_0.actif
+2026-03-14 21:25:08 [http-nio-8080-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:27:50 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:27:50 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:27:50 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:27:50 [http-nio-8080-exec-3] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:28:41 [MessageBroker-3] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:30:12 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/ticket?token=eb3ddd76-51f1-4dc0-b63a-f0157f630bae
+2026-03-14 21:30:12 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/ticket?token=eb3ddd76-51f1-4dc0-b63a-f0157f630bae
+2026-03-14 21:30:12 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        st1_0.id,
+        st1_0.created_at,
+        st1_0.entity_id,
+        st1_0.entity_type,
+        st1_0.expires_at,
+        st1_0.token,
+        st1_0.used,
+        st1_0.used_at,
+        st1_0.user_id 
+    from
+        scan_tokens st1_0 
+    where
+        st1_0.token=?
+2026-03-14 21:30:12 [http-nio-8080-exec-7] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:31:51 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:31:51 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:31:51 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:31:51 [http-nio-8080-exec-10] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:32:02 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /demat
+2026-03-14 21:32:02 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /demat
+2026-03-14 21:32:02 [http-nio-8080-exec-6] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:33:41 [MessageBroker-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:33:43 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /demat/validation
+2026-03-14 21:33:43 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /demat/validation
+2026-03-14 21:33:43 [http-nio-8080-exec-5] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:35:52 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:35:52 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:35:52 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:35:52 [http-nio-8080-exec-7] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:36:35 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /demat
+2026-03-14 21:36:35 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /demat
+2026-03-14 21:36:35 [http-nio-8080-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:36:38 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /demat/remise
+2026-03-14 21:36:38 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /demat/remise
+2026-03-14 21:36:38 [http-nio-8080-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:38:41 [MessageBroker-4] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:39:53 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:39:53 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:39:53 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:39:53 [http-nio-8080-exec-9] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:43:41 [MessageBroker-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:43:54 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:43:54 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:43:54 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:43:54 [http-nio-8080-exec-5] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:44:41 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[2 current WS(2)-HttpStream(0)-HttpPoll(0), 6 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(6)-CONNECTED(6)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 57], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 24], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 5, completed tasks = 512]
+2026-03-14 21:47:55 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:47:55 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:47:55 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:47:55 [http-nio-8080-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:48:41 [MessageBroker-5] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:51:56 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:51:56 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:51:56 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:51:56 [http-nio-8080-exec-8] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:53:41 [MessageBroker-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
+2026-03-14 21:55:57 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /gfa/api/scan-token
+2026-03-14 21:55:57 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /gfa/api/scan-token
+2026-03-14 21:55:57 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    /* insert for
+        sn.dakarterminal.dt.entity.ScanToken */insert 
+    into
+        scan_tokens (created_at, entity_id, entity_type, expires_at, token, used, used_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-14 21:55:57 [http-nio-8080-exec-10] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Retrieved SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin@dakarterminal.sn, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=3569628DCFEDDE0D99A41A95E0B3A895], Granted Authorities=[ROLE_ADMIN]]]
+2026-03-14 21:58:41 [MessageBroker-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        oas1_0.id,
+        oas1_0.armateur,
+        oas1_0.batch_id,
+        oas1_0.consignataire,
+        oas1_0.created_at,
+        oas1_0.date_arrivee_prevue,
+        oas1_0.date_depart_prevue,
+        oas1_0.import_errors,
+        oas1_0.navire,
+        oas1_0.numero_oa,
+        oas1_0.processed,
+        oas1_0.quai,
+        oas1_0.statut,
+        oas1_0.terminal,
+        oas1_0.updated_at,
+        oas1_0.voyage 
+    from
+        ordre_approche_stagings oas1_0 
+    where
+        not(oas1_0.processed)
