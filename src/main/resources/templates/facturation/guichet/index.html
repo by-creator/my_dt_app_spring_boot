@@ -204,24 +204,9 @@
         <div class="guichet-selects">
             <select id="sel-guichet" onchange="checkSelection()">
                 <option value="">-- Sélectionner un guichet --</option>
-                <option>Guichet 1</option>
-                <option>Guichet 2</option>
-                <option>Guichet 3</option>
-                <option>Guichet 4</option>
-                <option>Guichet 5</option>
-                <option>Guichet 6</option>
-                <option>Guichet 7</option>
-                <option>Guichet 8</option>
-                <option>Guichet 9</option>
-                <option>Guichet 10</option>
-                <option>Guichet 11</option>
             </select>
             <select id="sel-service" onchange="checkSelection()">
                 <option value="">-- Sélectionner un service --</option>
-                <option>VALIDATION</option>
-                <option>FACTURATION</option>
-                <option>CAISSE</option>
-                <option>BAD</option>
             </select>
         </div>
         <div class="client-en-cours">Client en cours : &mdash;</div>
@@ -293,6 +278,21 @@
         e.currentTarget.classList.add('active');
         document.getElementById(tabId).classList.add('active');
     }
+
+    // Populate selects from localStorage (shared with GFA admin)
+    (function() {
+        const agents   = JSON.parse(localStorage.getItem('gfa_agents')   || '[]');
+        const services = JSON.parse(localStorage.getItem('gfa_services') || '[]');
+        const selG = document.getElementById('sel-guichet');
+        const selS = document.getElementById('sel-service');
+        const guichets = [...new Set(agents.map(a => a.guichet))];
+        guichets.forEach(g => {
+            const o = document.createElement('option'); o.value = g; o.textContent = g; selG.appendChild(o);
+        });
+        services.forEach(s => {
+            const o = document.createElement('option'); o.value = s.nom; o.textContent = s.nom; selS.appendChild(o);
+        });
+    })();
 
     function isReady() {
         return document.getElementById('sel-guichet').value !== ''

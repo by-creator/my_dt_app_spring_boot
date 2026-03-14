@@ -12,4 +12,14 @@ public class DematWebController {
     public String index() {
         return "demat/index";
     }
+
+    @GetMapping("/validation")
+    public String validation() {
+        return "demat/validation/index";
+    }
+
+    @GetMapping("/remise")
+    public String remise() {
+        return "demat/remise/index";
+    }
 }
