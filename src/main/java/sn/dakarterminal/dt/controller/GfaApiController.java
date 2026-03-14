@@ -5,12 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sn.dakarterminal.dt.dto.TicketDto;
 import sn.dakarterminal.dt.entity.GuichetEntity;
 import sn.dakarterminal.dt.entity.ServiceEntity;
 import sn.dakarterminal.dt.entity.Agent;
 import sn.dakarterminal.dt.repository.AgentRepository;
 import sn.dakarterminal.dt.repository.GuichetRepository;
 import sn.dakarterminal.dt.repository.ServiceRepository;
+import sn.dakarterminal.dt.service.TicketService;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,7 @@ public class GfaApiController {
     private final ServiceRepository serviceRepository;
     private final GuichetRepository guichetRepository;
     private final AgentRepository agentRepository;
+    private final TicketService ticketService;
 
     // ── SERVICES ────────────────────────────────────────────────
 
@@ -215,6 +218,20 @@ public class GfaApiController {
         if (!guichetRepository.existsById(id)) return ResponseEntity.notFound().build();
         guichetRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // ── TICKETS (public — no auth required) ──────────────────────
+
+    @PostMapping("/tickets")
+    @Transactional
+    public ResponseEntity<TicketDto> createTicketPublic(@RequestBody Map<String, Object> body) {
+        if (body.get("serviceId") == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        Long serviceId = Long.valueOf(String.valueOf(body.get("serviceId")));
+        String nomClient = body.get("nomClient") != null ? String.valueOf(body.get("nomClient")) : null;
+        String motif     = body.get("motif")     != null ? String.valueOf(body.get("motif"))     : null;
+        return ResponseEntity.ok(ticketService.createTicket(serviceId, nomClient, motif));
     }
 
     private Map<String, Object> buildGuichetMap(GuichetEntity g) {
