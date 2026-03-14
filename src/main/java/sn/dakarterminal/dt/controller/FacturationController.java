@@ -25,13 +25,13 @@ public class FacturationController {
     private final ExcelService excelService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_U', 'FACTURATION', 'CLIENT_FACTURATION')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_U', 'FACTURATION')")
     public ResponseEntity<List<Facturation>> findAll() {
         return ResponseEntity.ok(facturationRepository.findAll());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_U', 'FACTURATION', 'CLIENT_FACTURATION')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_U', 'FACTURATION')")
     public ResponseEntity<Facturation> findById(@PathVariable Long id) {
         return ResponseEntity.ok(facturationRepository.findById(id)
                 .orElseThrow(() -> new sn.dakarterminal.dt.exception.ResourceNotFoundException("Facturation not found: " + id)));

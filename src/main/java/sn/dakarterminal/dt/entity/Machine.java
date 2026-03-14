@@ -29,9 +29,7 @@ public class Machine {
     @Column(name = "modele", length = 100)
     private String modele;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type", length = 50, columnDefinition = "VARCHAR(50)")
-    private TypeMachine type;
+
 
     @Column(name = "utilisateur", length = 150)
     private String utilisateur;

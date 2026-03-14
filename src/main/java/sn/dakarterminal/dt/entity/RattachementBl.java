@@ -37,8 +37,8 @@ public class RattachementBl {
     @Column(name = "bl", nullable = false, length = 100)
     private String bl;
 
-    @Column(name = "compte", length = 100)
-    private String compte;
+    @Column(name = "maison", length = 100)
+    private String maison;
 
     @Column(name = "statut", length = 50)
     @Builder.Default

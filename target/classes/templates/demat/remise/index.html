@@ -103,11 +103,31 @@
     <div class="footer-note">&copy; 2026 DakarTerminal. Tous droits réservés.</div>
 </div>
 <script>
-function submitForm(e) {
+async function submitForm(e) {
     e.preventDefault();
-    document.getElementById('remise-form').style.display = 'none';
-    document.getElementById('success-msg').classList.add('show');
-    window.scrollTo(0, 0);
+    const form = document.getElementById('remise-form');
+    const btn  = form.querySelector('.btn-submit');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours…';
+    try {
+        const res = await fetch('/demat/remise', {
+            method: 'POST',
+            body: new FormData(form)
+        });
+        if (res.ok) {
+            form.style.display = 'none';
+            document.getElementById('success-msg').classList.add('show');
+            window.scrollTo(0, 0);
+        } else {
+            alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+            btn.disabled = false;
+            btn.textContent = 'ENVOYER LA DEMANDE DE REMISE';
+        }
+    } catch(err) {
+        alert('Erreur de connexion. Veuillez réessayer.');
+        btn.disabled = false;
+        btn.textContent = 'ENVOYER LA DEMANDE DE REMISE';
+    }
 }
 if (new URLSearchParams(location.search).get('success') === 'true') {
     document.getElementById('success-msg').classList.add('show');

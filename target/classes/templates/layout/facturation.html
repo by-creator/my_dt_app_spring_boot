@@ -51,11 +51,14 @@
             display: flex; align-items: center; justify-content: center;
         }
         .sidebar-brand img {
-            max-width: calc(var(--sidebar-w) - 32px);
-            max-height: 50px;
+            /* Native 300×52 — constrain to fit sidebar */
+            max-width: min(calc(var(--sidebar-w) - 32px), 208px);
+            max-height: 36px;
             height: auto;
             width: auto;
             object-fit: contain;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
         .nav-section-title {
             color: rgba(0,0,0,.38);

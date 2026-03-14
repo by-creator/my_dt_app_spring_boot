@@ -102,46 +102,6 @@ public class ExcelService {
         }
     }
 
-    public byte[] generateMachineReport(List<Machine> machines) {
-        try (XSSFWorkbook workbook = new XSSFWorkbook()) {
-            Sheet sheet = workbook.createSheet("Machines");
-
-            CellStyle headerStyle = createHeaderStyle(workbook);
-
-            Row headerRow = sheet.createRow(0);
-            String[] headers = {"ID", "N° Série", "Modèle", "Type", "Utilisateur", "Service", "Site", "Etat"};
-            for (int i = 0; i < headers.length; i++) {
-                Cell cell = headerRow.createCell(i);
-                cell.setCellValue(headers[i]);
-                cell.setCellStyle(headerStyle);
-            }
-
-            int rowNum = 1;
-            for (Machine m : machines) {
-                Row row = sheet.createRow(rowNum++);
-                row.createCell(0).setCellValue(m.getId() != null ? m.getId() : 0);
-                row.createCell(1).setCellValue(m.getNumeroSerie() != null ? m.getNumeroSerie() : "");
-                row.createCell(2).setCellValue(m.getModele() != null ? m.getModele() : "");
-                row.createCell(3).setCellValue(m.getType() != null ? m.getType().name() : "");
-                row.createCell(4).setCellValue(m.getUtilisateur() != null ? m.getUtilisateur() : "");
-                row.createCell(5).setCellValue(m.getService() != null ? m.getService() : "");
-                row.createCell(6).setCellValue(m.getSite() != null ? m.getSite() : "");
-                row.createCell(7).setCellValue(m.getEtat() != null ? m.getEtat() : "");
-            }
-
-            for (int i = 0; i < headers.length; i++) {
-                sheet.autoSizeColumn(i);
-            }
-
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            workbook.write(out);
-            return out.toByteArray();
-        } catch (IOException e) {
-            log.error("Error generating machine Excel report", e);
-            throw new RuntimeException("Failed to generate Excel report", e);
-        }
-    }
-
     private CellStyle createHeaderStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
         Font font = workbook.createFont();
