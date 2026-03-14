@@ -18,6 +18,9 @@ public class GuichetEntity {
     @Column(name = "numero", nullable = false, length = 20)
     private String numero;
 
+    @Column(name = "infos", length = 150)
+    private String infos;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
     private ServiceEntity service;

@@ -204,87 +204,70 @@
 
 <th:block layout:fragment="scripts">
 <script>
-// ── Storage helpers ──────────────────────────────────────────
-const AGENTS_KEY   = 'gfa_agents';
-const SERVICES_KEY = 'gfa_services';
+// ── In-memory cache ──────────────────────────────────────────
+let _services = [];
+let _guichets = [];
 
-const DEFAULT_SERVICES = [
-    {id:1, nom:'VALIDATION',  prefixe:'V'},
-    {id:2, nom:'FACTURATION', prefixe:'F'},
-    {id:3, nom:'CAISSE',      prefixe:'C'},
-    {id:4, nom:'BAD',         prefixe:'B'}
-];
-
-const DEFAULT_AGENTS = [
-    {id:1,  guichet:'Guichet 1',  infos:'Mohamed NGOM',        service:'FACTURATION'},
-    {id:2,  guichet:'Guichet 2',  infos:'Mamadou DIOUF',       service:'BAD'},
-    {id:3,  guichet:'Guichet 3',  infos:'Aissata BA',          service:'VALIDATION'},
-    {id:4,  guichet:'Guichet 4',  infos:'Basile MANGA',        service:'FACTURATION'},
-    {id:5,  guichet:'Guichet 5',  infos:'Guichet 5',           service:'FACTURATION'},
-    {id:6,  guichet:'Guichet 6',  infos:'Maimouna FALL',       service:'FACTURATION'},
-    {id:7,  guichet:'Guichet 7',  infos:'Ababacar FALL',       service:'VALIDATION'},
-    {id:8,  guichet:'Guichet 8',  infos:'Guichet 8',           service:'FACTURATION'},
-    {id:9,  guichet:'Guichet 9',  infos:'Fatoumata Yaya GUEYE',service:'VALIDATION'},
-    {id:10, guichet:'Guichet 10', infos:'Charles SARR',        service:'BAD'},
-    {id:11, guichet:'Guichet 11', infos:'Serigne NDIAYE',      service:'CAISSE'}
-];
-
-function loadServices() {
-    const s = localStorage.getItem(SERVICES_KEY);
-    return s ? JSON.parse(s) : JSON.parse(JSON.stringify(DEFAULT_SERVICES));
+// ── API helpers ──────────────────────────────────────────────
+async function api(method, url, body) {
+    const opts = { method, headers: {'Content-Type':'application/json'} };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(url, opts);
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Erreur serveur (' + res.status + ')');
+    }
+    return res.status === 204 ? null : res.json();
 }
-function saveServices(arr) { localStorage.setItem(SERVICES_KEY, JSON.stringify(arr)); }
-
-function loadAgents() {
-    const s = localStorage.getItem(AGENTS_KEY);
-    return s ? JSON.parse(s) : JSON.parse(JSON.stringify(DEFAULT_AGENTS));
-}
-function saveAgents(arr) { localStorage.setItem(AGENTS_KEY, JSON.stringify(arr)); }
-
-function nextId(arr) { return arr.length ? Math.max(...arr.map(x=>x.id)) + 1 : 1; }
 
 // ── Render ────────────────────────────────────────────────────
 function renderServices() {
-    const services = loadServices();
     const tbody = document.getElementById('services-tbody');
-    if (!services.length) { tbody.innerHTML='<tr><td colspan="3" class="empty-table">Aucun service</td></tr>'; return; }
-    tbody.innerHTML = services.map(s => `
+    if (!_services.length) {
+        tbody.innerHTML = '<tr><td colspan="3" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun service</td></tr>';
+        return;
+    }
+    tbody.innerHTML = _services.map(s => `
         <tr>
             <td>${s.nom}</td>
             <td>${s.prefixe}</td>
             <td>
-                <button class="btn-icon btn-edit" onclick="openServiceModal(${s.id})"><i class="fas fa-pen"></i></button>
+                <button class="btn-icon btn-edit"   onclick="openServiceModal(${s.id})"><i class="fas fa-pen"></i></button>
                 <button class="btn-icon btn-delete" onclick="confirmDelete('service',${s.id},'${s.nom}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`).join('');
 }
 
-function renderAgents() {
-    const agents = loadAgents();
+function renderGuichets() {
     const tbody = document.getElementById('agents-tbody');
     const filterGuichet = document.getElementById('filter-guichet');
     if (filterGuichet) {
-        const agents2 = loadAgents();
         filterGuichet.innerHTML = '<option value="">Tous les guichets</option>' +
-            agents2.map(a=>`<option>${a.guichet}</option>`).join('');
+            _guichets.map(g => `<option>${g.numero}</option>`).join('');
     }
-    if (!agents.length) { tbody.innerHTML='<tr><td colspan="4" class="empty-table">Aucun agent</td></tr>'; return; }
-    tbody.innerHTML = agents.map(a => `
+    if (!_guichets.length) {
+        tbody.innerHTML = '<tr><td colspan="4" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun agent</td></tr>';
+        return;
+    }
+    tbody.innerHTML = _guichets.map(g => `
         <tr>
-            <td>${a.guichet}</td>
-            <td>${a.infos}</td>
-            <td>${a.service}</td>
+            <td>${g.numero}</td>
+            <td>${g.infos}</td>
+            <td>${g.serviceNom || '—'}</td>
             <td>
-                <button class="btn-icon btn-edit" onclick="openAgentModal(${a.id})"><i class="fas fa-pen"></i></button>
-                <button class="btn-icon btn-delete" onclick="confirmDelete('agent',${a.id},'${a.guichet}')"><i class="fas fa-trash"></i></button>
+                <button class="btn-icon btn-edit"   onclick="openAgentModal(${g.id})"><i class="fas fa-pen"></i></button>
+                <button class="btn-icon btn-delete" onclick="confirmDelete('agent',${g.id},'${g.numero}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`).join('');
 }
 
 function renderVueGlobale() {
-    const services = loadServices();
     const container = document.getElementById('vue-globale-content');
-    container.innerHTML = services.map(s => `
+    if (!_services.length) {
+        container.innerHTML = '<p style="color:#aaa;font-size:13px">Aucun service configuré.</p>';
+        return;
+    }
+    container.innerHTML = _services.map(s => `
         <div class="service-section">
             <div class="service-label">${s.nom}</div>
             <div class="stat-grid">
@@ -297,126 +280,126 @@ function renderVueGlobale() {
         </div>`).join('');
 }
 
-function renderAll() { renderServices(); renderAgents(); renderVueGlobale(); }
+async function refreshAll() {
+    [_services, _guichets] = await Promise.all([
+        api('GET', '/gfa/api/services'),
+        api('GET', '/gfa/api/guichets')
+    ]);
+    renderServices();
+    renderGuichets();
+    renderVueGlobale();
+}
 
 // ── Tab switch ─────────────────────────────────────────────────
 function gfaTab(e, paneId) {
-    document.querySelectorAll('.gfa-tabs .gtab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.gtab-pane').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.gfa-tabs .gtab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.gtab-pane').forEach(p => p.classList.remove('active'));
     e.currentTarget.classList.add('active');
     document.getElementById(paneId).classList.add('active');
 }
 
 // ── Modal helpers ─────────────────────────────────────────────
-function openModal(id) { document.getElementById(id).classList.add('open'); }
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function closeOnBackdrop(e, id) { if (e.target === e.currentTarget) closeModal(id); }
 
-// ── Agent CRUD ────────────────────────────────────────────────
+// ── Agent (guichet) CRUD ──────────────────────────────────────
 function openAgentModal(id) {
-    document.getElementById('agent-id').value = '';
+    document.getElementById('agent-id').value    = '';
     document.getElementById('agent-guichet').value = '';
-    document.getElementById('agent-infos').value = '';
-    // populate service select
+    document.getElementById('agent-infos').value   = '';
     const sel = document.getElementById('agent-service');
     sel.innerHTML = '<option value="">-- Sélectionner --</option>' +
-        loadServices().map(s=>`<option>${s.nom}</option>`).join('');
+        _services.map(s => `<option value="${s.id}">${s.nom}</option>`).join('');
     document.getElementById('agent-modal-title').textContent = 'Nouvel agent';
     if (id !== undefined) {
-        const a = loadAgents().find(x=>x.id===id);
-        if (a) {
+        const g = _guichets.find(x => x.id === id);
+        if (g) {
             document.getElementById('agent-modal-title').textContent = 'Modifier l\'agent';
-            document.getElementById('agent-id').value = a.id;
-            document.getElementById('agent-guichet').value = a.guichet;
-            document.getElementById('agent-infos').value = a.infos;
-            sel.value = a.service;
+            document.getElementById('agent-id').value    = g.id;
+            document.getElementById('agent-guichet').value = g.numero;
+            document.getElementById('agent-infos').value   = g.infos;
+            sel.value = g.serviceId || '';
         }
     }
     openModal('agent-overlay');
 }
 
-function saveAgent() {
-    const guichet = document.getElementById('agent-guichet').value.trim();
-    const infos   = document.getElementById('agent-infos').value.trim();
-    const service = document.getElementById('agent-service').value;
-    if (!guichet || !infos || !service) { alert('Veuillez remplir tous les champs.'); return; }
-    const agents = loadAgents();
-    const rawId  = document.getElementById('agent-id').value;
-    if (rawId) {
-        const idx = agents.findIndex(a=>a.id===parseInt(rawId));
-        if (idx >= 0) agents[idx] = {...agents[idx], guichet, infos, service};
-    } else {
-        agents.push({id: nextId(agents), guichet, infos, service});
-    }
-    saveAgents(agents);
-    closeModal('agent-overlay');
-    renderAll();
+async function saveAgent() {
+    const numero    = document.getElementById('agent-guichet').value.trim();
+    const infos     = document.getElementById('agent-infos').value.trim();
+    const serviceId = document.getElementById('agent-service').value;
+    if (!numero || !infos || !serviceId) { alert('Veuillez remplir tous les champs.'); return; }
+    const rawId = document.getElementById('agent-id').value;
+    try {
+        if (rawId) {
+            await api('PUT', '/gfa/api/guichets/' + rawId, { numero, infos, serviceId: Number(serviceId) });
+        } else {
+            await api('POST', '/gfa/api/guichets', { numero, infos, serviceId: Number(serviceId) });
+        }
+        closeModal('agent-overlay');
+        await refreshAll();
+    } catch (err) { alert(err.message); }
 }
 
 // ── Service CRUD ──────────────────────────────────────────────
 function openServiceModal(id) {
-    document.getElementById('service-id').value = '';
-    document.getElementById('service-nom').value = '';
+    document.getElementById('service-id').value      = '';
+    document.getElementById('service-nom').value     = '';
     document.getElementById('service-prefixe').value = '';
     document.getElementById('service-modal-title').textContent = 'Nouveau service';
     if (id !== undefined) {
-        const s = loadServices().find(x=>x.id===id);
+        const s = _services.find(x => x.id === id);
         if (s) {
             document.getElementById('service-modal-title').textContent = 'Modifier le service';
-            document.getElementById('service-id').value = s.id;
-            document.getElementById('service-nom').value = s.nom;
+            document.getElementById('service-id').value      = s.id;
+            document.getElementById('service-nom').value     = s.nom;
             document.getElementById('service-prefixe').value = s.prefixe;
         }
     }
     openModal('service-overlay');
 }
 
-function saveService() {
+async function saveService() {
     const nom     = document.getElementById('service-nom').value.trim().toUpperCase();
     const prefixe = document.getElementById('service-prefixe').value.trim().toUpperCase();
     if (!nom || !prefixe) { alert('Veuillez remplir tous les champs.'); return; }
-    const services = loadServices();
-    const rawId    = document.getElementById('service-id').value;
-    if (rawId) {
-        const idx = services.findIndex(s=>s.id===parseInt(rawId));
-        if (idx >= 0) services[idx] = {...services[idx], nom, prefixe};
-    } else {
-        services.push({id: nextId(services), nom, prefixe});
-    }
-    saveServices(services);
-    closeModal('service-overlay');
-    renderAll();
+    const rawId = document.getElementById('service-id').value;
+    try {
+        if (rawId) {
+            await api('PUT', '/gfa/api/services/' + rawId, { nom, prefixe });
+        } else {
+            await api('POST', '/gfa/api/services', { nom, prefixe });
+        }
+        closeModal('service-overlay');
+        await refreshAll();
+    } catch (err) { alert(err.message); }
 }
 
 // ── Delete ────────────────────────────────────────────────────
-var _deleteCtx = null;
+let _deleteCtx = null;
 function confirmDelete(type, id, label) {
-    _deleteCtx = {type, id};
+    _deleteCtx = { type, id };
     document.getElementById('delete-msg').textContent =
-        'Supprimer ' + (type==='agent' ? 'l\'agent' : 'le service') + ' "' + label + '" ?';
+        'Supprimer ' + (type === 'agent' ? 'l\'agent' : 'le service') + ' "' + label + '" ?';
     openModal('delete-overlay');
 }
-document.getElementById('delete-confirm-btn').addEventListener('click', function() {
+document.getElementById('delete-confirm-btn').addEventListener('click', async function () {
     if (!_deleteCtx) return;
-    if (_deleteCtx.type === 'agent') {
-        saveAgents(loadAgents().filter(a=>a.id !== _deleteCtx.id));
-    } else {
-        saveServices(loadServices().filter(s=>s.id !== _deleteCtx.id));
-    }
-    closeModal('delete-overlay');
-    renderAll();
+    try {
+        if (_deleteCtx.type === 'agent') {
+            await api('DELETE', '/gfa/api/guichets/' + _deleteCtx.id);
+        } else {
+            await api('DELETE', '/gfa/api/services/' + _deleteCtx.id);
+        }
+        closeModal('delete-overlay');
+        await refreshAll();
+    } catch (err) { alert(err.message); }
     _deleteCtx = null;
 });
 
 // ── Init ──────────────────────────────────────────────────────
-// Seed localStorage if empty or not yet set
-(function() {
-    const sv = localStorage.getItem(SERVICES_KEY);
-    const av = localStorage.getItem(AGENTS_KEY);
-    if (!sv || JSON.parse(sv).length === 0) saveServices(DEFAULT_SERVICES);
-    if (!av || JSON.parse(av).length === 0) saveAgents(DEFAULT_AGENTS);
-})();
-renderAll();
+refreshAll();
 </script>
 </th:block>
 </body>

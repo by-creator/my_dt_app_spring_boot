@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -11,9 +11,10 @@
     <style>
         :root { --primary: #4B49AC; --secondary: #7978E9; --info: #248AFD; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
             font-family: 'Overpass', sans-serif;
-            background: linear-gradient(135deg, #1a1950 0%, #2d2c8e 50%, #1565C0 100%);
+            background: #F5F7FF;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -29,24 +30,23 @@
             height: 52px;
             width: auto;
             object-fit: contain;
-            filter: brightness(0) invert(1);
         }
         .page-logo p {
             font-size: 14px;
-            color: rgba(255,255,255,.5);
+            color: #888;
             margin-top: 10px;
             letter-spacing: 1px;
         }
 
-        /* ── SERVICE SELECTION VIEW ── */
+        /* ── SERVICE SELECTION ── */
         #view-select {
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
         }
         .select-title {
             font-size: 18px;
             font-weight: 700;
-            color: #fff;
+            color: #191C24;
             text-align: center;
             margin-bottom: 24px;
         }
@@ -56,8 +56,8 @@
             gap: 14px;
         }
         .service-btn {
-            background: rgba(255,255,255,.09);
-            border: 2px solid rgba(255,255,255,.15);
+            background: #fff;
+            border: 2px solid #e8e8f0;
             border-radius: 16px;
             padding: 28px 16px;
             display: flex;
@@ -66,11 +66,12 @@
             gap: 12px;
             cursor: pointer;
             transition: all .2s;
-            color: #fff;
+            color: #191C24;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
         }
         .service-btn:hover {
-            background: rgba(121,120,233,.3);
             border-color: var(--secondary);
+            box-shadow: 0 6px 20px rgba(75,73,172,.15);
             transform: translateY(-3px);
         }
         .service-btn .svc-icon {
@@ -87,23 +88,24 @@
         .service-btn .svc-name {
             font-size: 14px;
             font-weight: 700;
-            letter-spacing: .5px;
+            color: #191C24;
         }
         .service-btn .svc-prefix {
             font-size: 11px;
-            color: rgba(255,255,255,.5);
+            color: #aaa;
             font-weight: 600;
             letter-spacing: 2px;
         }
 
         .no-services {
+            grid-column: 1 / -1;
             text-align: center;
-            color: rgba(255,255,255,.5);
+            color: #aaa;
             font-size: 14px;
             padding: 40px 0;
         }
 
-        /* ── TICKET RECEIPT VIEW ── */
+        /* ── TICKET RECEIPT ── */
         #view-ticket {
             display: none;
             width: 100%;
@@ -113,7 +115,7 @@
             background: #fff;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 12px 48px rgba(0,0,0,.3);
+            box-shadow: 0 4px 24px rgba(0,0,0,.10);
         }
         .ticket-header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -178,24 +180,10 @@
         }
         .ticket-footer strong { color: var(--primary); }
 
-        .btn-new-ticket {
-            width: 100%;
-            margin-top: 20px;
-            background: rgba(255,255,255,.12);
-            border: 1px solid rgba(255,255,255,.25);
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 14px;
-            font-weight: 700;
-            color: #fff;
-            cursor: pointer;
-            transition: background .2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+        @media (max-width: 480px) {
+            .ticket-number-display { font-size: 72px; }
+            .service-grid { grid-template-columns: 1fr 1fr; }
         }
-        .btn-new-ticket:hover { background: rgba(255,255,255,.2); }
     </style>
 </head>
 <body>
@@ -208,11 +196,31 @@
 <!-- Service selection -->
 <div id="view-select">
     <div class="select-title">Choisissez votre service</div>
-    <div class="service-grid" id="service-grid">
-        <div class="no-services" style="grid-column:1/-1">
-            <i class="fas fa-spinner fa-spin fa-2x mb-3 d-block"></i>
-            Chargement des services...
-        </div>
+    <div class="service-grid">
+        <th:block th:if="${services != null and !services.empty}">
+            <button class="service-btn"
+                    th:each="svc : ${services}"
+                    th:data-nom="${svc.nom}"
+                    th:data-prefixe="${svc.code}"
+                    onclick="takeTicket(this)">
+                <div class="svc-icon">
+                    <i th:classappend="${
+                        svc.nom == 'VALIDATION'  ? 'fas fa-clipboard-check' :
+                        svc.nom == 'FACTURATION' ? 'fas fa-file-invoice-dollar' :
+                        svc.nom == 'CAISSE'      ? 'fas fa-cash-register' :
+                        svc.nom == 'BAD'         ? 'fas fa-ship' :
+                        'fas fa-concierge-bell'}" class="fas fa-concierge-bell"></i>
+                </div>
+                <div class="svc-name" th:text="${svc.nom}">SERVICE</div>
+                <div class="svc-prefix" th:text="${svc.code}">X</div>
+            </button>
+        </th:block>
+        <th:block th:if="${services == null or services.empty}">
+            <div class="no-services">
+                <i class="fas fa-exclamation-circle fa-2x mb-3 d-block"></i>
+                Aucun service disponible pour le moment.
+            </div>
+        </th:block>
     </div>
 </div>
 
@@ -246,98 +254,48 @@
             Merci de patienter — <strong>Dakar Terminal</strong>
         </div>
     </div>
-    <button class="btn-new-ticket" onclick="resetView()">
-        <i class="fas fa-redo"></i> Prendre un autre ticket
-    </button>
 </div>
 
 <script>
-const SERVICES_KEY = 'gfa_services';
-const TICKETS_KEY  = 'gfa_tickets';
+const TICKETS_KEY = 'gfa_tickets';
 
-const SERVICE_ICONS = {
-    'VALIDATION':  'fas fa-clipboard-check',
-    'FACTURATION': 'fas fa-file-invoice-dollar',
-    'CAISSE':      'fas fa-cash-register',
-    'BAD':         'fas fa-ship',
-};
-
-function getDefaultIcon() { return 'fas fa-concierge-bell'; }
-
-function loadServices() {
-    const s = localStorage.getItem(SERVICES_KEY);
-    return s ? JSON.parse(s) : [];
-}
-
-function getTicketCounters() {
+function getCounters() {
     const t = localStorage.getItem(TICKETS_KEY);
     return t ? JSON.parse(t) : {};
 }
-
-function saveTicketCounters(obj) {
-    localStorage.setItem(TICKETS_KEY, JSON.stringify(obj));
-}
+function saveCounters(obj) { localStorage.setItem(TICKETS_KEY, JSON.stringify(obj)); }
 
 function nextTicket(prefixe) {
-    const counters = getTicketCounters();
+    const counters = getCounters();
     const today = new Date().toISOString().slice(0, 10);
     const key = prefixe + '_' + today;
     const count = (counters[key] || 0) + 1;
     counters[key] = count;
-    saveTicketCounters(counters);
-    return prefixe + String(count).padStart(3, '0');
+    saveCounters(counters);
+    return { num: prefixe + String(count).padStart(3, '0'), rank: count };
 }
 
-function renderServices() {
-    const services = loadServices();
-    const grid = document.getElementById('service-grid');
-    if (!services.length) {
-        grid.innerHTML = '<div class="no-services" style="grid-column:1/-1"><i class="fas fa-exclamation-circle fa-2x mb-3 d-block"></i>Aucun service disponible pour le moment.</div>';
-        return;
-    }
-    grid.innerHTML = services.map(s => {
-        const icon = SERVICE_ICONS[s.nom] || getDefaultIcon();
-        return `
-        <button class="service-btn" onclick="takeTicket('${s.nom}','${s.prefixe}')">
-            <div class="svc-icon"><i class="${icon}"></i></div>
-            <div class="svc-name">${s.nom}</div>
-            <div class="svc-prefix">${s.prefixe}</div>
-        </button>`;
-    }).join('');
-}
+function takeTicket(btn) {
+    const nom     = btn.dataset.nom;
+    const prefixe = btn.dataset.prefixe;
+    const { num, rank } = nextTicket(prefixe);
 
-function takeTicket(serviceName, prefixe) {
-    const ticketNum = nextTicket(prefixe);
     const now = new Date();
-
-    const days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+    const days   = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
     const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
-    const dateStr = days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-    const timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
 
-    // Count tickets taken today for this service to estimate rank
-    const counters = getTicketCounters();
-    const today = new Date().toISOString().slice(0, 10);
-    const rank = counters[prefixe + '_' + today] || 1;
-
-    document.getElementById('receipt-number').textContent = ticketNum;
-    document.getElementById('receipt-service').textContent = serviceName;
-    document.getElementById('receipt-date').textContent = dateStr;
-    document.getElementById('receipt-time').textContent = timeStr;
-    document.getElementById('receipt-rank').textContent = '#' + rank;
+    document.getElementById('receipt-number').textContent  = num;
+    document.getElementById('receipt-service').textContent = nom;
+    document.getElementById('receipt-date').textContent    =
+        days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+    document.getElementById('receipt-time').textContent    =
+        String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    document.getElementById('receipt-rank').textContent    = '#' + rank;
 
     document.getElementById('view-select').style.display = 'none';
-    document.getElementById('view-ticket').style.display = 'block';
+    document.getElementById('view-ticket').style.display  = 'block';
     window.scrollTo(0, 0);
 }
-
-function resetView() {
-    document.getElementById('view-ticket').style.display = 'none';
-    document.getElementById('view-select').style.display = 'block';
-    window.scrollTo(0, 0);
-}
-
-renderServices();
 </script>
 </body>
 </html>
