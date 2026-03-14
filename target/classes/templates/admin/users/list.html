@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head><title>Gestion des Utilisateurs</title></head>
+<body>
+<div layout:fragment="content">
+
+    <div class="page-header">
+        <h1><i class="fas fa-users mr-2" style="color:#4B49AC"></i>Gestion des Utilisateurs</h1>
+        <a th:href="@{/admin/users/create}" class="btn btn-primary">
+            <i class="fas fa-user-plus mr-1"></i> Nouvel utilisateur
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-header d-flex align-items-center justify-content-between flex-wrap" style="gap:8px">
+            <span><i class="fas fa-list mr-2"></i>Liste des utilisateurs
+                <span class="badge badge-secondary ml-2" th:text="${#lists.size(users)}">0</span>
+            </span>
+            <div style="position:relative;min-width:240px">
+                <i class="fas fa-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#aaa;font-size:13px"></i>
+                <input type="text" id="userSearch" placeholder="Rechercher..." autocomplete="off"
+                       class="form-control form-control-sm" style="padding-left:30px"/>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                            <th>2FA</th>
+                            <th>Statut</th>
+                            <th>Créé le</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user, stat : ${users}" data-row="true">
+                            <td th:text="${stat.index + 1}" class="text-muted"></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#4B49AC,#7978E9);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;margin-right:10px;"
+                                         th:text="${#strings.substring(user.name, 0, 1).toUpperCase()}">A</div>
+                                    <span th:text="${user.name}"></span>
+                                </div>
+                            </td>
+                            <td th:text="${user.email}"></td>
+                            <td>
+                                <span class="badge-role" th:if="${user.role != null}" th:text="${user.role.name}"></span>
+                                <span class="text-muted" th:unless="${user.role != null}">—</span>
+                            </td>
+                            <td>
+                                <span th:if="${user.twoFactorEnabled}" class="text-success"><i class="fas fa-lock"></i></span>
+                                <span th:unless="${user.twoFactorEnabled}" class="text-muted"><i class="fas fa-lock-open"></i></span>
+                            </td>
+                            <td>
+                                <span th:if="${user.actif}" class="badge badge-success">Actif</span>
+                                <span th:unless="${user.actif}" class="badge badge-secondary">Inactif</span>
+                            </td>
+                            <td th:text="${user.createdAt != null ? #temporals.format(user.createdAt, 'dd/MM/yyyy') : '—'}"></td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a th:href="@{/admin/users/{id}/edit(id=${user.id})}"
+                                       class="btn btn-outline-primary" title="Modifier">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form th:action="@{/admin/users/{id}/deactivate(id=${user.id})}" method="post" style="display:inline">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                        <button type="submit" class="btn btn-outline-warning" title="Désactiver"
+                                                th:disabled="${!user.actif}">
+                                            <i class="fas fa-user-slash"></i>
+                                        </button>
+                                    </form>
+                                    <form th:action="@{/admin/users/{id}/delete(id=${user.id})}" method="post" style="display:inline"
+                                          onsubmit="return confirm('Supprimer cet utilisateur ?')">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                        <button type="submit" class="btn btn-outline-danger" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(users)}">
+                            <td colspan="8" class="text-center text-muted py-5">
+                                <i class="fas fa-users fa-2x mb-2 d-block"></i>
+                                Aucun utilisateur trouvé.
+                                <a th:href="@{/admin/users/create}">Créer le premier utilisateur</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="scripts">
+<script>
+document.getElementById('userSearch').addEventListener('input', function() {
+    var q = this.value.toLowerCase();
+    document.querySelectorAll('tbody tr[data-row]').forEach(function(row) {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+});
+</script>
+</th:block>
+</body>
+</html>
