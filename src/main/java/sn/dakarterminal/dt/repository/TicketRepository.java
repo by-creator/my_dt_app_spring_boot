@@ -20,4 +20,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
                             @org.springframework.data.repository.query.Param("startOfDay") LocalDateTime startOfDay);
     Optional<Ticket> findFirstByGuichetIdAndStatut(Long guichetId, StatutTicket statut);
     List<Ticket> findByCreatedAtBetween(LocalDateTime debut, LocalDateTime fin);
+    int countByServiceIdAndStatut(Long serviceId, StatutTicket statut);
+    List<Ticket> findByCreatedAtBetweenOrderByCreatedAtDesc(LocalDateTime debut, LocalDateTime fin);
 }

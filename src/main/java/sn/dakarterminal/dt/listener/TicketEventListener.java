@@ -2,10 +2,11 @@ package sn.dakarterminal.dt.listener;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 import sn.dakarterminal.dt.dto.TicketDto;
 import sn.dakarterminal.dt.event.TicketCalledEvent;
 import sn.dakarterminal.dt.event.TicketClosedEvent;
@@ -21,7 +22,7 @@ public class TicketEventListener {
     private final TicketService ticketService;
 
     @Async
-    @EventListener
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onTicketCreated(TicketCreatedEvent event) {
         TicketDto dto = ticketService.toDtoById(event.getTicket().getId());
         if (dto == null) return;
@@ -34,7 +35,7 @@ public class TicketEventListener {
     }
 
     @Async
-    @EventListener
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onTicketCalled(TicketCalledEvent event) {
         TicketDto dto = ticketService.toDtoById(event.getTicket().getId());
         if (dto == null) return;
@@ -51,7 +52,7 @@ public class TicketEventListener {
     }
 
     @Async
-    @EventListener
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onTicketClosed(TicketClosedEvent event) {
         TicketDto dto = ticketService.toDtoById(event.getTicket().getId());
         if (dto == null) return;
