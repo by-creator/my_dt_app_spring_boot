@@ -276,24 +276,24 @@
         document.getElementById(tabId).classList.add('active');
     }
 
-    // Populate selects from localStorage (shared with GFA admin)
-    (function() {
-        const agents   = JSON.parse(localStorage.getItem('gfa_agents')   || '[]');
-        const services = JSON.parse(localStorage.getItem('gfa_services') || '[]');
-        const selG = document.getElementById('sel-guichet');
-        const selS = document.getElementById('sel-service');
-        const guichets = [...new Set(agents.map(a => a.guichet))];
-        guichets.forEach(g => {
-            const o = document.createElement('option'); o.value = g; o.textContent = g; selG.appendChild(o);
-        });
-        services.forEach(s => {
-            const o = document.createElement('option'); o.value = s.nom; o.textContent = s.nom; selS.appendChild(o);
-        });
+    // Populate guichet select from API
+    (async function() {
+        try {
+            const res = await fetch('/gfa/api/guichets');
+            if (!res.ok) return;
+            const guichets = await res.json();
+            const selG = document.getElementById('sel-guichet');
+            guichets.forEach(g => {
+                const o = document.createElement('option');
+                o.value = g.id;
+                o.textContent = g.numero;
+                selG.appendChild(o);
+            });
+        } catch (e) { /* silently ignore */ }
     })();
 
     function isReady() {
-        return document.getElementById('sel-guichet').value !== ''
-            && document.getElementById('sel-service').value !== '';
+        return document.getElementById('sel-guichet').value !== '';
     }
 
     function checkSelection() {
