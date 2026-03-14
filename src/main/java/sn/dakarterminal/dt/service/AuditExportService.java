@@ -3,7 +3,9 @@ package sn.dakarterminal.dt.service;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.stereotype.Service;
 import sn.dakarterminal.dt.dto.AuditLogDto;
@@ -21,16 +23,17 @@ public class AuditExportService {
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     private static final String[] HEADERS = {"#", "Date / Heure", "Utilisateur", "Email", "Action", "Entité", "Détails", "IP", "Statut"};
 
+    // ── XLSX ──────────────────────────────────────────────────────────────────
+
     public byte[] exportXlsx(List<AuditLogDto> logs) {
         try (XSSFWorkbook wb = new XSSFWorkbook();
              ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 
             XSSFSheet sheet = wb.createSheet("Audit Logs");
 
-            // Purple header style
+            // Header style (purple background, white bold text)
             XSSFCellStyle headerStyle = wb.createCellStyle();
-            XSSFColor purple = new XSSFColor(new Color(75, 73, 172), null);
-            headerStyle.setFillForegroundColor(purple);
+            headerStyle.setFillForegroundColor(new XSSFColor(new Color(75, 73, 172), null));
             headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             headerStyle.setBorderBottom(BorderStyle.THIN);
             XSSFFont headerFont = wb.createFont();
@@ -38,7 +41,7 @@ public class AuditExportService {
             headerFont.setColor(IndexedColors.WHITE.getIndex());
             headerStyle.setFont(headerFont);
 
-            // Alternating row style
+            // Alternating even-row style
             XSSFCellStyle altStyle = wb.createCellStyle();
             altStyle.setFillForegroundColor(new XSSFColor(new Color(248, 249, 250), null));
             altStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -56,16 +59,15 @@ public class AuditExportService {
             for (AuditLogDto log : logs) {
                 XSSFRow row = sheet.createRow(rowNum);
                 XSSFCellStyle rowStyle = (rowNum % 2 == 0) ? altStyle : null;
-
-                createCell(row, 0, String.valueOf(rowNum), rowStyle);
-                createCell(row, 1, log.getCreatedAt() != null ? FMT.format(log.getCreatedAt()) : "", rowStyle);
-                createCell(row, 2, nvl(log.getUserName()), rowStyle);
-                createCell(row, 3, nvl(log.getUserEmail()), rowStyle);
-                createCell(row, 4, nvl(log.getAction()), rowStyle);
-                createCell(row, 5, nvl(log.getEntityType()), rowStyle);
-                createCell(row, 6, nvl(log.getDetails()), rowStyle);
-                createCell(row, 7, nvl(log.getIpAddress()), rowStyle);
-                createCell(row, 8, nvl(log.getStatus()), rowStyle);
+                setCellValue(row, 0, String.valueOf(rowNum), rowStyle);
+                setCellValue(row, 1, log.getCreatedAt() != null ? FMT.format(log.getCreatedAt()) : "", rowStyle);
+                setCellValue(row, 2, nvl(log.getUserName()), rowStyle);
+                setCellValue(row, 3, nvl(log.getUserEmail()), rowStyle);
+                setCellValue(row, 4, nvl(log.getAction()), rowStyle);
+                setCellValue(row, 5, nvl(log.getEntityType()), rowStyle);
+                setCellValue(row, 6, nvl(log.getDetails()), rowStyle);
+                setCellValue(row, 7, nvl(log.getIpAddress()), rowStyle);
+                setCellValue(row, 8, nvl(log.getStatus()), rowStyle);
                 rowNum++;
             }
 
@@ -80,6 +82,8 @@ public class AuditExportService {
         }
     }
 
+    // ── PDF ───────────────────────────────────────────────────────────────────
+
     public byte[] exportPdf(List<AuditLogDto> logs) {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             Document doc = new Document(PageSize.A4.rotate(), 20, 20, 30, 30);
@@ -87,28 +91,27 @@ public class AuditExportService {
             doc.open();
 
             // Title
-            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14);
-            titleFont.setColor(75, 73, 172);
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, new Color(75, 73, 172));
             Paragraph title = new Paragraph("Journaux d'Audit — Dakar Terminal", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
             title.setSpacingAfter(4);
             doc.add(title);
 
             Font subFont = FontFactory.getFont(FontFactory.HELVETICA, 9, Color.GRAY);
-            Paragraph sub = new Paragraph("Exporté le " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+            Paragraph sub = new Paragraph(
+                    "Exporté le " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
                     + "  ·  " + logs.size() + " entrée(s)", subFont);
             sub.setAlignment(Element.ALIGN_CENTER);
             sub.setSpacingAfter(14);
             doc.add(sub);
 
-            // Table columns widths
+            // Table
             PdfPTable table = new PdfPTable(new float[]{1.5f, 3.5f, 2.5f, 3f, 2f, 1.5f, 5f, 2.5f, 1.5f});
             table.setWidthPercentage(100);
             table.setHeaderRows(1);
 
-            // Header cells
-            Color headerBg = new Color(75, 73, 172);
             Font hFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 7, Color.WHITE);
+            Color headerBg = new Color(75, 73, 172);
             for (String h : HEADERS) {
                 PdfPCell cell = new PdfPCell(new Phrase(h, hFont));
                 cell.setBackgroundColor(headerBg);
@@ -118,9 +121,7 @@ public class AuditExportService {
                 table.addCell(cell);
             }
 
-            // Data cells
-            Font dFont = FontFactory.getFont(FontFactory.HELVETICA, 7);
-            dFont.setColor(Color.DARK_GRAY);
+            Font dFont = FontFactory.getFont(FontFactory.HELVETICA, 7, Color.DARK_GRAY);
             int idx = 1;
             for (AuditLogDto log : logs) {
                 Color rowBg = (idx % 2 == 0) ? new Color(248, 249, 250) : Color.WHITE;
@@ -143,7 +144,9 @@ public class AuditExportService {
         }
     }
 
-    private void createCell(XSSFRow row, int col, String value, XSSFCellStyle style) {
+    // ── helpers ───────────────────────────────────────────────────────────────
+
+    private void setCellValue(XSSFRow row, int col, String value, XSSFCellStyle style) {
         XSSFCell cell = row.createCell(col);
         cell.setCellValue(value);
         if (style != null) cell.setCellStyle(style);
