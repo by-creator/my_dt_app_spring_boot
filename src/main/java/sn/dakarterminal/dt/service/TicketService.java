@@ -42,7 +42,7 @@ public class TicketService {
         ServiceEntity service = serviceRepository.findById(serviceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Service not found: " + serviceId));
 
-        String numero = generateNextNumero();
+        String numero = generateNextNumero(service);
 
         Ticket ticket = Ticket.builder()
                 .service(service)
@@ -116,10 +116,11 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
-    private String generateNextNumero() {
+    private String generateNextNumero(ServiceEntity service) {
         LocalDateTime startOfDay = LocalDateTime.now().with(LocalTime.MIDNIGHT);
-        int maxNumero = ticketRepository.findMaxNumeroToday(startOfDay).orElse(0);
-        return String.format("%03d", maxNumero + 1);
+        int count = ticketRepository.countTodayByService(service.getId(), startOfDay);
+        String prefix = service.getCode() != null ? service.getCode() : "";
+        return prefix + String.format("%03d", count + 1);
     }
 
     public TicketDto toDto(Ticket t) {
@@ -127,6 +128,7 @@ public class TicketService {
                 .id(t.getId())
                 .serviceId(t.getService() != null ? t.getService().getId() : null)
                 .serviceNom(t.getService() != null ? t.getService().getNom() : null)
+                .servicePrefixe(t.getService() != null ? t.getService().getCode() : null)
                 .agentId(t.getAgent() != null ? t.getAgent().getId() : null)
                 .agentNom(t.getAgent() != null ? t.getAgent().getNom() + " " + t.getAgent().getPrenom() : null)
                 .guichetId(t.getGuichet() != null ? t.getGuichet().getId() : null)

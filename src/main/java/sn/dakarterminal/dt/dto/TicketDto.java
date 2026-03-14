@@ -16,6 +16,7 @@ public class TicketDto {
     private Long id;
     private Long serviceId;
     private String serviceNom;
+    private String servicePrefixe;
     private Long agentId;
     private String agentNom;
     private Long guichetId;
