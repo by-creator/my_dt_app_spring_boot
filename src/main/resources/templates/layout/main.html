@@ -199,20 +199,20 @@
 
     <nav>
         <div class="nav-section-title">Principal</div>
-        <a th:href="@{/admin/dashboard}" th:classappend="${#httpServletRequest.requestURI.contains('/dashboard')} ? 'active'">
+        <a th:href="@{/admin/dashboard}" th:classappend="${#request.requestURI.contains('/dashboard')} ? 'active'">
             <i class="fas fa-tachometer-alt"></i> Tableau de bord
         </a>
 
         <div class="nav-section-title">Administration</div>
-        <a th:href="@{/admin/roles}" th:classappend="${#httpServletRequest.requestURI.contains('/roles')} ? 'active'">
+        <a th:href="@{/admin/roles}" th:classappend="${#request.requestURI.contains('/roles')} ? 'active'">
             <i class="fas fa-shield-alt"></i> Rôles
         </a>
-        <a th:href="@{/admin/users}" th:classappend="${#httpServletRequest.requestURI.contains('/users')} ? 'active'">
+        <a th:href="@{/admin/users}" th:classappend="${#request.requestURI.contains('/users')} ? 'active'">
             <i class="fas fa-users"></i> Utilisateurs
         </a>
 
         <div class="nav-section-title">Sécurité</div>
-        <a th:href="@{/admin/audit}" th:classappend="${#httpServletRequest.requestURI.contains('/audit')} ? 'active'">
+        <a th:href="@{/admin/audit}" th:classappend="${#request.requestURI.contains('/audit')} ? 'active'">
             <i class="fas fa-clipboard-list"></i> Journaux d'audit
         </a>
     </nav>
