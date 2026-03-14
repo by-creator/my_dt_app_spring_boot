@@ -191,6 +191,23 @@
     }
     .ws-dot.connected { background: #28a745; }
     .ws-status { font-size: 11px; color: #aaa; text-align: center; margin-top: 8px; }
+
+    /* Ticket modal */
+    .tk-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:1000; align-items:center; justify-content:center; }
+    .tk-overlay.open { display:flex; }
+    .tk-modal { background:#fff; border-radius:14px; padding:28px 24px; width:100%; max-width:400px; box-shadow:0 12px 48px rgba(0,0,0,.18); position:relative; }
+    .tk-modal h5 { font-size:16px; font-weight:700; color:#191C24; margin-bottom:18px; }
+    .tk-modal label { font-size:12px; font-weight:700; color:#555; display:block; margin-bottom:4px; margin-top:12px; }
+    .tk-modal select, .tk-modal input { width:100%; border:1px solid #dee2e6; border-radius:7px; padding:8px 12px; font-size:14px; font-family:inherit; color:#343a40; outline:none; }
+    .tk-modal select:focus, .tk-modal input:focus { border-color:#4B49AC; }
+    .tk-modal-footer { display:flex; justify-content:flex-end; gap:10px; margin-top:20px; }
+    .tk-btn-cancel { background:#f2f2f7; color:#555; border:none; border-radius:7px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; }
+    .tk-btn-ok { background:#4B49AC; color:#fff; border:none; border-radius:7px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; }
+    .tk-btn-ok:hover { background:#3e3d99; }
+    .tk-close { position:absolute; top:12px; right:14px; background:none; border:none; font-size:18px; cursor:pointer; color:#888; }
+    .tk-created { display:none; text-align:center; padding:12px 0 4px; }
+    .tk-created .tk-num { font-size:56px; font-weight:900; color:#4B49AC; line-height:1; }
+    .tk-created .tk-msg { font-size:13px; color:#555; margin-top:6px; }
 </style>
 </th:block>
 
@@ -242,7 +259,7 @@
                     <li><p class="tab-empty-msg">Aucun client en attente</p></li>
                 </ul>
                 <p class="ticket-info mt-3">Pour les clients qui ne peuvent pas scanner :</p>
-                <button class="btn-ticket" id="btn-ticket" onclick="createManualTicket()" disabled>TICKET</button>
+                <button class="btn-ticket" id="btn-ticket" onclick="openTicketModal()" disabled>TICKET</button>
             </div>
             <div id="tab-personnel" class="tab-pane">
                 <p class="tab-empty-msg">Aucun personnel en attente.</p>
@@ -264,6 +281,36 @@
         </div>
     </div>
 
+</div>
+
+<!-- ── Modal : créer un ticket manuel ── -->
+<div id="tk-overlay" class="tk-overlay" onclick="if(event.target===this)closeTkModal()">
+    <div class="tk-modal">
+        <button class="tk-close" onclick="closeTkModal()">&times;</button>
+
+        <!-- Form -->
+        <div id="tk-form-section">
+            <h5><i class="fas fa-ticket-alt mr-2" style="color:#4B49AC"></i>Créer un ticket</h5>
+            <label>Service</label>
+            <select id="tk-service-sel"></select>
+            <label>Nom du client <span style="font-weight:400;color:#aaa">(optionnel)</span></label>
+            <input type="text" id="tk-nom-client" placeholder="ex: DIOP Mamadou"/>
+            <div class="tk-modal-footer">
+                <button class="tk-btn-cancel" onclick="closeTkModal()">Annuler</button>
+                <button class="tk-btn-ok" onclick="submitManualTicket()"><i class="fas fa-plus mr-1"></i>Créer</button>
+            </div>
+        </div>
+
+        <!-- Success screen -->
+        <div class="tk-created" id="tk-created-section">
+            <h5 style="margin-bottom:4px">Ticket créé !</h5>
+            <div class="tk-num" id="tk-created-num">—</div>
+            <div class="tk-msg" id="tk-created-msg"></div>
+            <div class="tk-modal-footer" style="justify-content:center;margin-top:16px">
+                <button class="tk-btn-ok" onclick="closeTkModal()">Fermer</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <th:block layout:fragment="scripts">
@@ -491,18 +538,54 @@ function actionTermine()   { actionTicketStatus('termine');   }
 function actionIncomplet() { actionTicketStatus('incomplet'); }
 function actionAbsent()    { actionTicketStatus('absent');    }
 
-async function createManualTicket() {
-    if (!_serviceId) { showAlert('Aucun service associé à ce guichet.'); return; }
+// ── Ticket modal ──────────────────────────────────────────────
+let _allServices = [];
+
+async function openTicketModal() {
+    // Load services if not yet loaded
+    if (!_allServices.length) {
+        try {
+            const r = await fetch('/gfa/api/services');
+            if (r.ok) _allServices = await r.json();
+        } catch(e) {}
+    }
+    const sel = document.getElementById('tk-service-sel');
+    sel.innerHTML = _allServices.map(s =>
+        `<option value="${s.id}" ${s.id === _serviceId ? 'selected' : ''}>${s.nom}</option>`
+    ).join('');
+    if (!sel.options.length) {
+        sel.innerHTML = '<option value="">Aucun service disponible</option>';
+    }
+    document.getElementById('tk-nom-client').value = '';
+    document.getElementById('tk-form-section').style.display = '';
+    document.getElementById('tk-created-section').style.display = 'none';
+    document.getElementById('tk-overlay').classList.add('open');
+}
+
+function closeTkModal() {
+    document.getElementById('tk-overlay').classList.remove('open');
+}
+
+async function submitManualTicket() {
+    const serviceId = document.getElementById('tk-service-sel').value;
+    const nomClient = document.getElementById('tk-nom-client').value.trim();
+    if (!serviceId) { alert('Veuillez sélectionner un service.'); return; }
     try {
+        const body = { serviceId: Number(serviceId) };
+        if (nomClient) body.nomClient = nomClient;
         const res = await fetch('/gfa/api/tickets', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({ serviceId: _serviceId })
+            body: JSON.stringify(body)
         });
-        if (!res.ok) { showAlert('Impossible de créer le ticket.'); return; }
+        if (!res.ok) { alert('Impossible de créer le ticket.'); return; }
         const t = await res.json();
-        showAlert('Ticket ' + t.numero + ' créé.');
-    } catch(e) { showAlert('Erreur de connexion.'); }
+        // Show success screen
+        document.getElementById('tk-form-section').style.display = 'none';
+        document.getElementById('tk-created-num').textContent = t.numero;
+        document.getElementById('tk-created-msg').textContent = nomClient ? 'Client : ' + nomClient : '';
+        document.getElementById('tk-created-section').style.display = 'block';
+    } catch(e) { alert('Erreur de connexion.'); }
 }
 </script>
 </th:block>

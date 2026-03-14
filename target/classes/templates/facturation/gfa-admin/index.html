@@ -179,16 +179,25 @@
             <div style="font-size:14px;font-weight:600;color:#191C24;margin-bottom:16px;">Détail des tickets traités (par ticket)</div>
             <div class="ticket-filters">
                 <select id="filter-guichet"><option value="">Tous les guichets</option></select>
-                <select><option>Tous statuts</option><option>En attente</option><option>En cours</option><option>Terminé</option><option>Incomplet</option><option>Absent</option></select>
-                <input type="date"/>
-                <button class="btn-filter btn-f-search"><i class="fas fa-search"></i></button>
-                <button class="btn-filter btn-f-reset"><i class="fas fa-sync-alt"></i></button>
-                <button class="btn-filter btn-f-export"><i class="fas fa-download"></i></button>
-                <button class="btn-filter btn-f-clear"><i class="fas fa-trash"></i></button>
+                <select id="filter-statut">
+                    <option value="">Tous statuts</option>
+                    <option value="EN_ATTENTE">En attente</option>
+                    <option value="EN_COURS">En cours</option>
+                    <option value="TERMINE">Terminé</option>
+                    <option value="INCOMPLET">Incomplet</option>
+                    <option value="ABSENT">Absent</option>
+                </select>
+                <input type="date" id="filter-date"/>
+                <button class="btn-filter btn-f-search" onclick="searchTickets()"><i class="fas fa-search"></i></button>
+                <button class="btn-filter btn-f-reset" onclick="resetTicketFilters()"><i class="fas fa-sync-alt"></i></button>
+                <button class="btn-filter btn-f-export" onclick="exportTickets()"><i class="fas fa-download"></i></button>
+                <button class="btn-filter btn-f-clear" onclick="clearTicketTable()"><i class="fas fa-trash"></i></button>
             </div>
             <table class="gfa-table">
                 <thead><tr><th>Ticket</th><th>Guichet</th><th>Infos du guichet</th><th>Temps d'attente</th><th>Heure appel</th><th>Heure fin</th><th>Durée de traitement</th><th>Statut</th></tr></thead>
-                <tbody><tr><td colspan="8" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun ticket pour le moment</td></tr></tbody>
+                <tbody id="tickets-tbody">
+                    <tr><td colspan="8" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun ticket pour le moment</td></tr>
+                </tbody>
             </table>
         </div>
     </div>
@@ -298,6 +307,9 @@
 </div>
 
 <th:block layout:fragment="scripts">
+<!-- SockJS + STOMP for admin WS -->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 <script>
 // ── In-memory cache ──────────────────────────────────────────
 let _services = [];
@@ -339,7 +351,7 @@ function renderGuichets(){
     const filterGuichet = document.getElementById('filter-guichet');
     if (filterGuichet) {
         filterGuichet.innerHTML = '<option value="">Tous les guichets</option>' +
-            _guichets.map(g => `<option>${g.numero}</option>`).join('');
+            _guichets.map(g => `<option value="${g.id}">${g.numero}</option>`).join('');
     }
     if (!_guichets.length) {
      tbody.innerHTML = '<tr><td colspan="4" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun guichet</td></tr>';
@@ -376,27 +388,36 @@ function renderAgents() {
         </tr>`).join('');
 }
 
+let _stats = [];
+
 function renderVueGlobale() {
     const container = document.getElementById('vue-globale-content');
-    if (!_services.length) {
+    if (!_stats.length) {
         container.innerHTML = '<p style="color:#aaa;font-size:13px">Aucun service configuré.</p>';
         return;
     }
-    container.innerHTML = _services.map(s => `
+    container.innerHTML = _stats.map(s => `
         <div class="service-section">
-            <div class="service-label">${s.nom}</div>
+            <div class="service-label">${s.serviceNom}</div>
             <div class="stat-grid">
-                <div class="stat-card border-dark"><div class="stat-label">En attente</div><div class="stat-value">0</div></div>
-                <div class="stat-card border-yellow"><div class="stat-label">En cours</div><div class="stat-value">0</div></div>
-                <div class="stat-card border-green"><div class="stat-label">Terminés</div><div class="stat-value">0</div></div>
-                <div class="stat-card border-teal"><div class="stat-label">Incomplets</div><div class="stat-value">0</div></div>
-                <div class="stat-card border-red"><div class="stat-label">Absents</div><div class="stat-value">0</div></div>
+                <div class="stat-card border-dark"><div class="stat-label">En attente</div><div class="stat-value">${s.enAttente}</div></div>
+                <div class="stat-card border-yellow"><div class="stat-label">En cours</div><div class="stat-value">${s.enCours}</div></div>
+                <div class="stat-card border-green"><div class="stat-label">Terminés</div><div class="stat-value">${s.termine}</div></div>
+                <div class="stat-card border-teal"><div class="stat-label">Incomplets</div><div class="stat-value">${s.incomplet}</div></div>
+                <div class="stat-card border-red"><div class="stat-label">Absents</div><div class="stat-value">${s.absent}</div></div>
             </div>
         </div>`).join('');
 }
 
+async function refreshStats() {
+    try {
+        _stats = await api('GET', '/gfa/api/stats');
+        renderVueGlobale();
+    } catch(e) { /* silently ignore */ }
+}
+
 async function refreshAll() {
-   [_services, _agents, _guichets] = await Promise.all([
+    [_services, _agents, _guichets] = await Promise.all([
         api('GET', '/gfa/api/services'),
         api('GET', '/gfa/api/agents'),
         api('GET', '/gfa/api/guichets')
@@ -404,7 +425,7 @@ async function refreshAll() {
     renderServices();
     renderAgents();
     renderGuichets();
-    renderVueGlobale();
+    await refreshStats();
 }
 
 // ── Tab switch ─────────────────────────────────────────────────
@@ -576,8 +597,110 @@ document.getElementById('delete-confirm-btn').addEventListener('click', async fu
     _deleteCtx = null;
 });
 
+// ── Ticket listing ────────────────────────────────────────────
+const STATUT_LABELS = {
+    EN_ATTENTE: { label: 'En attente', color: '#343a40' },
+    EN_COURS:   { label: 'En cours',   color: '#ffc107' },
+    TERMINE:    { label: 'Terminé',    color: '#28a745' },
+    INCOMPLET:  { label: 'Incomplet',  color: '#17a2b8' },
+    ABSENT:     { label: 'Absent',     color: '#dc3545' }
+};
+
+let _ticketRows = [];
+
+function renderTickets(tickets) {
+    _ticketRows = tickets;
+    const tbody = document.getElementById('tickets-tbody');
+    if (!tickets.length) {
+        tbody.innerHTML = '<tr><td colspan="8" class="empty-table"><i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>Aucun ticket pour le moment</td></tr>';
+        return;
+    }
+    tbody.innerHTML = tickets.map(t => {
+        const s = STATUT_LABELS[t.statut] || { label: t.statut, color: '#888' };
+        const badge = `<span style="background:${s.color};color:#fff;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700">${s.label}</span>`;
+        const fmtTime = v => v ? new Date(v).toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'}) : '—';
+        const waitMin = t.waitingTime != null ? Math.floor(t.waitingTime / 60) + 'min' : '—';
+        const procMin = t.processingTime != null ? Math.floor(t.processingTime / 60) + 'min' : '—';
+        return `<tr>
+            <td style="font-weight:700;color:#4B49AC">${t.numero}</td>
+            <td>${t.guichetNumero || '—'}</td>
+            <td>${t.guichetInfos || '—'}</td>
+            <td>${waitMin}</td>
+            <td>${fmtTime(t.calledAt)}</td>
+            <td>${fmtTime(t.closedAt)}</td>
+            <td>${procMin}</td>
+            <td>${badge}</td>
+        </tr>`;
+    }).join('');
+}
+
+async function searchTickets() {
+    const guichetVal = document.getElementById('filter-guichet').value;
+    const statut     = document.getElementById('filter-statut').value;
+    const date       = document.getElementById('filter-date').value;
+    let url = '/gfa/api/tickets?';
+    if (guichetVal) {
+        // filter-guichet stores guichet ID
+        url += 'guichetId=' + guichetVal + '&';
+    }
+    if (statut)  url += 'statut=' + statut + '&';
+    if (date)    url += 'date=' + date + '&';
+    try {
+        const tickets = await api('GET', url.replace(/&$/, ''));
+        renderTickets(tickets);
+    } catch(e) { alert('Erreur lors du chargement des tickets.'); }
+}
+
+function resetTicketFilters() {
+    document.getElementById('filter-guichet').value = '';
+    document.getElementById('filter-statut').value  = '';
+    document.getElementById('filter-date').value    = '';
+    searchTickets();
+}
+
+function clearTicketTable() {
+    renderTickets([]);
+}
+
+function exportTickets() {
+    if (!_ticketRows.length) { alert('Aucun ticket à exporter.'); return; }
+    const headers = ['Ticket','Guichet','Infos guichet','Temps attente','Heure appel','Heure fin','Durée traitement','Statut'];
+    const fmtTime = v => v ? new Date(v).toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'}) : '';
+    const rows = _ticketRows.map(t => [
+        t.numero,
+        t.guichetNumero || '',
+        t.guichetInfos || '',
+        t.waitingTime != null ? Math.floor(t.waitingTime/60)+'min' : '',
+        fmtTime(t.calledAt),
+        fmtTime(t.closedAt),
+        t.processingTime != null ? Math.floor(t.processingTime/60)+'min' : '',
+        t.statut || ''
+    ]);
+    const csv = [headers, ...rows].map(r => r.map(c => '"' + String(c).replace(/"/g,'""') + '"').join(',')).join('\n');
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'tickets_' + (document.getElementById('filter-date').value || new Date().toISOString().slice(0,10)) + '.csv';
+    a.click();
+}
+
+// ── WebSocket — real-time stats refresh ───────────────────────
+(function initAdminWS() {
+    const sock = new SockJS('/ws');
+    const stomp = Stomp.over(sock);
+    stomp.debug = null;
+    stomp.connect({}, function() {
+        // Refresh stats whenever a ticket is created, called, or closed
+        stomp.subscribe('/topic/tickets/created', () => refreshStats());
+        stomp.subscribe('/topic/tickets/called',  () => refreshStats());
+        stomp.subscribe('/topic/tickets/closed',  () => refreshStats());
+    });
+})();
+
 // ── Init ──────────────────────────────────────────────────────
 refreshAll();
+// Load today's tickets on init
+searchTickets();
 </script>
 </th:block>
 </body>
