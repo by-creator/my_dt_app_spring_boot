@@ -32,6 +32,7 @@ public class SecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final RoleBasedAuthenticationSuccessHandler successHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -92,7 +93,7 @@ public class SecurityConfig {
     @Order(2)
     public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
         http
-            .securityMatcher("/", "/admin/**", "/login", "/logout", "/ws/**")
+            .securityMatcher("/", "/admin/**", "/facturation/**", "/login", "/logout", "/ws/**")
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers("/ws/**")
             )
@@ -100,13 +101,14 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/ws/**").permitAll()
+                .requestMatchers("/facturation/**").hasAnyRole("ADMIN", "SUPER_U", "FACTURATION")
                 .requestMatchers("/", "/admin/**").hasAnyRole("ADMIN", "SUPER_U")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/admin/dashboard", true)
+                .successHandler(successHandler)
                 .failureUrl("/login?error=true")
                 .usernameParameter("email")
                 .passwordParameter("password")

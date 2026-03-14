@@ -15,9 +15,15 @@
     </div>
 
     <div class="card">
-        <div class="card-header">
-            <i class="fas fa-list mr-2"></i>Liste des utilisateurs
-            <span class="badge badge-secondary ml-2" th:text="${#lists.size(users)}">0</span>
+        <div class="card-header d-flex align-items-center justify-content-between flex-wrap" style="gap:8px">
+            <span><i class="fas fa-list mr-2"></i>Liste des utilisateurs
+                <span class="badge badge-secondary ml-2" th:text="${#lists.size(users)}">0</span>
+            </span>
+            <div style="position:relative;min-width:240px">
+                <i class="fas fa-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#aaa;font-size:13px"></i>
+                <input type="text" id="userSearch" placeholder="Rechercher..." autocomplete="off"
+                       class="form-control form-control-sm" style="padding-left:30px"/>
+            </div>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -35,7 +41,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="user, stat : ${users}">
+                        <tr th:each="user, stat : ${users}" data-row="true">
                             <td th:text="${stat.index + 1}" class="text-muted"></td>
                             <td>
                                 <div class="d-flex align-items-center">
@@ -94,5 +100,16 @@
         </div>
     </div>
 </div>
+
+<th:block layout:fragment="scripts">
+<script>
+document.getElementById('userSearch').addEventListener('input', function() {
+    var q = this.value.toLowerCase();
+    document.querySelectorAll('tbody tr[data-row]').forEach(function(row) {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+});
+</script>
+</th:block>
 </body>
 </html>

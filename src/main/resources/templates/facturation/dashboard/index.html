@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/facturation}">
+<head><title>Facturation - Tableau de bord</title></head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="page-header">
+        <h1><i class="fas fa-file-invoice-dollar mr-2" style="color:#4B49AC"></i>Tableau de bord Facturation</h1>
+        <span class="text-muted" style="font-size:13px">
+            <i class="fas fa-calendar-alt mr-1"></i>
+            <span th:text="${#temporals.format(#temporals.createNow(), 'EEEE d MMMM yyyy', new java.util.Locale('fr'))}"></span>
+        </span>
+    </div>
+
+    <div class="card">
+        <div class="card-body text-center py-5">
+            <i class="fas fa-file-invoice-dollar fa-4x mb-4" style="color:#4B49AC;opacity:.6"></i>
+            <h4 class="text-muted">Module Facturation</h4>
+            <p class="text-muted">Bienvenue dans l'espace facturation de Dakar Terminal.</p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
