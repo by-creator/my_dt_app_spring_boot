@@ -161,8 +161,13 @@
 
     <nav>
         <div class="nav-section-title">Facturation</div>
-        <a th:href="@{/facturation/dashboard}" th:classappend="${currentUri.contains('/facturation')} ? 'active'">
+        <a th:href="@{/facturation/dashboard}"
+           th:classappend="${!currentUri.contains('/guichet') and currentUri.contains('/facturation')} ? 'active'">
             <i class="fas fa-file-invoice-dollar"></i> Tableau de bord
+        </a>
+        <a th:href="@{/facturation/guichet}"
+           th:classappend="${currentUri.contains('/guichet')} ? 'active'">
+            <i class="fas fa-desktop"></i> Guichet
         </a>
     </nav>
 </aside>

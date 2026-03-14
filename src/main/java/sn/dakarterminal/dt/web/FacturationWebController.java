@@ -16,4 +16,10 @@ public class FacturationWebController {
         model.addAttribute("pageTitle", "Facturation");
         return "facturation/dashboard/index";
     }
+
+    @GetMapping("/guichet")
+    public String guichet(Model model) {
+        model.addAttribute("pageTitle", "Guichet");
+        return "facturation/guichet/index";
+    }
 }
