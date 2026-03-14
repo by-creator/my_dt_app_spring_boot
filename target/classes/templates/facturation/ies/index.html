@@ -45,11 +45,12 @@
         .module-pane.active { display: block; }
 
         .ies-card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
-            padding: 28px 24px;
-            max-width: 640px;
+            background:#fff;
+            border-radius:12px;
+            box-shadow:0 2px 12px rgba(0,0,0,.06);
+            padding:28px 24px;
+            max-width: 1040px;
+            margin: 0 auto;
         }
 
         .ies-card-title {
@@ -123,7 +124,9 @@
 </th:block>
 
 <div layout:fragment="content">
-    <h4 class="mb-3" style="font-size:34px;font-weight:700;color:#191C24;">Gestion IES</h4>
+    <div class="page-header">
+        <h1><i class="fas fa-users mr-2" style="color:#4B49AC"></i>Gestion ies</h1>
+    </div>
 
     <div class="module-tabs" role="tablist" aria-label="Onglets Gestion IES">
         <button type="button" class="module-tab active" data-target="ies-lien-acces">
