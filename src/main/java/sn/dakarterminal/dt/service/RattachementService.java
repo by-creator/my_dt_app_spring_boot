@@ -59,7 +59,7 @@ public class RattachementService {
                 .prenom(dto.getPrenom())
                 .email(dto.getEmail())
                 .bl(dto.getBl())
-                .compte(dto.getCompte())
+                .maison(dto.getMaison())
                 .statut("EN_ATTENTE")
                 .build();
 
@@ -114,7 +114,7 @@ public class RattachementService {
                 .prenom(r.getPrenom())
                 .email(r.getEmail())
                 .bl(r.getBl())
-                .compte(r.getCompte())
+                .maison(r.getMaison())
                 .statut(r.getStatut())
                 .timeElapsed(r.getTimeElapsed())
                 .createdAt(r.getCreatedAt())

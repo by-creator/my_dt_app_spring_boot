@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import sn.dakarterminal.dt.dto.UserCreateDto;
 import sn.dakarterminal.dt.dto.UserDto;
 import sn.dakarterminal.dt.service.ExcelService;
-import sn.dakarterminal.dt.service.MachineService;
 import sn.dakarterminal.dt.service.UserService;
 
 import java.util.List;
@@ -62,14 +61,5 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/export/excel")
-    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_U')")
-    public ResponseEntity<byte[]> exportToExcel() {
-        List<sn.dakarterminal.dt.entity.Machine> machines = List.of();
-        byte[] data = excelService.generateMachineReport(machines);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", "users.xlsx");
-        return ResponseEntity.ok().headers(headers).body(data);
-    }
+
 }

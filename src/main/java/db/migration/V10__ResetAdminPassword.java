@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
  * Resets the admin user password to the default value.
  * Safe to run on fresh databases — skips if the users table doesn't exist yet.
  */
-public class V19__ResetAdminPassword extends BaseJavaMigration {
+public class V10__ResetAdminPassword extends BaseJavaMigration {
 
     @Override
     public void migrate(Context context) throws Exception {

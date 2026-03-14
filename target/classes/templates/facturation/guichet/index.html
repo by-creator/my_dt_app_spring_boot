@@ -538,29 +538,19 @@ function actionTermine()   { actionTicketStatus('termine');   }
 function actionIncomplet() { actionTicketStatus('incomplet'); }
 function actionAbsent()    { actionTicketStatus('absent');    }
 
-// ── Ticket modal ──────────────────────────────────────────────
-let _allServices = [];
-
+// ── Ticket button — open /gfa/ticket?token in new tab ─────────
 async function openTicketModal() {
-    // Load services if not yet loaded
-    if (!_allServices.length) {
-        try {
-            const r = await fetch('/gfa/api/services');
-            if (r.ok) _allServices = await r.json();
-        } catch(e) {}
-    }
-    const sel = document.getElementById('tk-service-sel');
-    sel.innerHTML = _allServices.map(s =>
-        `<option value="${s.id}" ${s.id === _serviceId ? 'selected' : ''}>${s.nom}</option>`
-    ).join('');
-    if (!sel.options.length) {
-        sel.innerHTML = '<option value="">Aucun service disponible</option>';
-    }
-    document.getElementById('tk-nom-client').value = '';
-    document.getElementById('tk-form-section').style.display = '';
-    document.getElementById('tk-created-section').style.display = 'none';
-    document.getElementById('tk-overlay').classList.add('open');
+    try {
+        const res = await fetch('/gfa/api/scan-token');
+        if (!res.ok) { showAlert('Impossible de générer le lien ticket.'); return; }
+        const data = await res.json();
+        const url = '/gfa/ticket?token=' + encodeURIComponent(data.token);
+        window.open(url, '_blank');
+    } catch(e) { showAlert('Erreur de connexion.'); }
 }
+
+// ── Manual ticket creation (kept for internal use) ────────────
+let _allServices = [];
 
 function closeTkModal() {
     document.getElementById('tk-overlay').classList.remove('open');

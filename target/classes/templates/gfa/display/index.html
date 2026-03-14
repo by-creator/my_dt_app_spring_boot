@@ -39,7 +39,12 @@
             border-bottom: 1px solid var(--border-soft);
             box-shadow: 0 4px 14px rgba(17, 34, 68, .06);
         }
-        .display-topbar img { height: 40px; width: auto; object-fit: contain; }
+        .display-topbar img {
+            max-width: 200px; max-height: 36px;
+            width: auto; height: auto; object-fit: contain;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
         .dt-clock { font-size: 22px; font-weight: 700; color: var(--text-primary); letter-spacing: 2px; font-variant-numeric: tabular-nums; }
         .dt-date  { font-size: 13px; color: var(--text-secondary); text-align: right; margin-top: 2px; }
 

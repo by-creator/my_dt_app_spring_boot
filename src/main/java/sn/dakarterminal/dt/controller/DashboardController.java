@@ -16,9 +16,6 @@ import java.util.Map;
 public class DashboardController {
 
     private final UserRepository userRepository;
-    private final DossierFacturationRepository dossierRepository;
-    private final TicketRepository ticketRepository;
-    private final YardRepository yardRepository;
     private final FacturationRepository facturationRepository;
     private final MachineRepository machineRepository;
 
@@ -26,10 +23,7 @@ public class DashboardController {
     public ResponseEntity<Map<String, Object>> getStats() {
         Map<String, Object> stats = new HashMap<>();
         stats.put("totalUsers", userRepository.count());
-        stats.put("totalDossiers", dossierRepository.count());
-        stats.put("totalYardEntries", yardRepository.count());
         stats.put("totalFacturations", facturationRepository.count());
-        stats.put("totalMachines", machineRepository.count());
         return ResponseEntity.ok(stats);
     }
 }
