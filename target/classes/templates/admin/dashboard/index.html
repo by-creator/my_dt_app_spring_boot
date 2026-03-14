@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head><title>Tableau de bord</title></head>
+<body>
+
+<div layout:fragment="content">
+
+    <!-- Page header -->
+    <div class="page-header">
+        <h1><i class="fas fa-tachometer-alt mr-2" style="color:#4B49AC"></i>Tableau de bord</h1>
+        <span class="text-muted" style="font-size:13px">
+            <i class="fas fa-calendar-alt mr-1"></i>
+            <span th:text="${#temporals.format(#temporals.createNow(), 'EEEE d MMMM yyyy', new java.util.Locale('fr'))}"></span>
+        </span>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="stat-card bg-primary-grad">
+                <div>
+                    <div class="stat-value" th:text="${totalUsers}">0</div>
+                    <div class="stat-label">Utilisateurs actifs</div>
+                </div>
+                <i class="fas fa-users stat-icon"></i>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card bg-warning-grad">
+                <div>
+                    <div class="stat-value" th:text="${totalRoles}">0</div>
+                    <div class="stat-label">Rôles définis</div>
+                </div>
+                <i class="fas fa-shield-alt stat-icon"></i>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card bg-success-grad">
+                <div>
+                    <div class="stat-value" th:text="${totalAuditLogs}">0</div>
+                    <div class="stat-label">Total actions</div>
+                </div>
+                <i class="fas fa-clipboard-list stat-icon"></i>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card bg-info-grad">
+                <div>
+                    <div class="stat-value" th:text="${logsToday}">0</div>
+                    <div class="stat-label">Actions aujourd'hui</div>
+                </div>
+                <i class="fas fa-chart-line stat-icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Audit Logs -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="fas fa-history mr-2" style="color:#4B49AC"></i>Dernières activités</span>
+            <a th:href="@{/admin/audit}" class="btn btn-sm btn-outline-primary">Voir tout</a>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date / Heure</th>
+                            <th>Utilisateur</th>
+                            <th>Action</th>
+                            <th>Entité</th>
+                            <th>Détails</th>
+                            <th>IP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="log : ${recentLogs}">
+                            <td th:text="${#temporals.format(log.createdAt, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                            <td>
+                                <span th:text="${log.userName != null ? log.userName : log.userEmail}"></span>
+                                <small class="text-muted d-block" th:text="${log.userEmail}"></small>
+                            </td>
+                            <td>
+                                <span class="action-badge"
+                                      th:classappend="'action-' + ${log.action}"
+                                      th:text="${log.action}"></span>
+                            </td>
+                            <td th:text="${log.entityType}"></td>
+                            <td th:text="${log.details}" style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></td>
+                            <td><small th:text="${log.ipAddress}"></small></td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(recentLogs)}">
+                            <td colspan="6" class="text-center text-muted py-4">
+                                <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
+                                Aucune activité enregistrée
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-bolt mr-2" style="color:#4B49AC"></i>Actions rapides
+                </div>
+                <div class="card-body">
+                    <a th:href="@{/admin/users/create}" class="btn btn-primary btn-block mb-2">
+                        <i class="fas fa-user-plus mr-2"></i>Créer un utilisateur
+                    </a>
+                    <a th:href="@{/admin/roles/create}" class="btn btn-outline-primary btn-block">
+                        <i class="fas fa-plus-circle mr-2"></i>Créer un rôle
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle mr-2" style="color:#4B49AC"></i>À propos du système
+                </div>
+                <div class="card-body" style="font-size:14px">
+                    <div class="d-flex justify-content-between py-1 border-bottom">
+                        <span class="text-muted">Application</span>
+                        <strong>Dakar Terminal v1.0</strong>
+                    </div>
+                    <div class="d-flex justify-content-between py-1 border-bottom">
+                        <span class="text-muted">Stack</span>
+                        <strong>Spring Boot 3.2 · MySQL</strong>
+                    </div>
+                    <div class="d-flex justify-content-between py-1">
+                        <span class="text-muted">Sécurité</span>
+                        <strong>JWT + BCrypt</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

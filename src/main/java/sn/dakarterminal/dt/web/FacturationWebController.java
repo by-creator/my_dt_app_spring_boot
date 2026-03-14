@@ -23,6 +23,18 @@ public class FacturationWebController {
         return "facturation/guichet/index";
     }
 
+    @GetMapping("/validations")
+    public String validations(Model model) {
+        model.addAttribute("pageTitle", "Gestion des validations");
+        return "facturation/validations/index";
+    }
+
+    @GetMapping("/remises")
+    public String remises(Model model) {
+        model.addAttribute("pageTitle", "Gestion de remises");
+        return "facturation/remises/index";
+    }
+
     @GetMapping("/gfa-admin")
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_U')")
     public String gfaAdmin(Model model) {
