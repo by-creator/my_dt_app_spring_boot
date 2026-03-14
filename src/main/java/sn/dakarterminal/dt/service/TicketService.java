@@ -127,10 +127,14 @@ public class TicketService {
         if (guichet.getService() == null) {
             throw new IllegalStateException("Guichet has no service assigned");
         }
+        // Block if a ticket is already EN_COURS for this guichet
+        if (ticketRepository.findFirstByGuichetIdAndStatut(guichetId, StatutTicket.EN_COURS).isPresent()) {
+            throw new IllegalStateException("Un ticket est déjà en cours pour ce guichet. Veuillez le clôturer avant d'appeler le suivant.");
+        }
         List<Ticket> waiting = ticketRepository.findByServiceIdAndStatut(
                 guichet.getService().getId(), StatutTicket.EN_ATTENTE);
         if (waiting.isEmpty()) {
-            throw new IllegalStateException("No tickets waiting");
+            throw new IllegalStateException("Aucun ticket en attente pour ce service.");
         }
         Ticket ticket = waiting.get(0);
         ticket.setStatut(StatutTicket.EN_COURS);
@@ -155,6 +159,13 @@ public class TicketService {
     @Transactional(readOnly = true)
     public TicketDto getCurrentForGuichet(Long guichetId) {
         return ticketRepository.findFirstByGuichetIdAndStatut(guichetId, StatutTicket.EN_COURS)
+                .map(this::toDto)
+                .orElse(null);
+    }
+
+    @Transactional(readOnly = true)
+    public TicketDto toDtoById(Long ticketId) {
+        return ticketRepository.findById(ticketId)
                 .map(this::toDto)
                 .orElse(null);
     }
