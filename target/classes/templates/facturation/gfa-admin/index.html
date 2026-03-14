@@ -367,8 +367,8 @@ function renderAgents() {
         <tr>
             <td>${a.nom}</td>
             <td>${a.prenom || '—'}</td>
-            <td>${a.guichetNumero || '—'}</td>
             <td>${a.serviceNom || '—'}</td>
+            <td>${a.guichetNumero || '—'}</td>
             <td>
                 <button class="btn-icon btn-edit" onclick="openAgentModal(${a.id})"><i class="fas fa-pen"></i></button>
                 <button class="btn-icon btn-delete" onclick="confirmDelete('agent',${a.id},'${a.nom}')"><i class="fas fa-trash"></i></button>
@@ -420,10 +420,55 @@ function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function closeOnBackdrop(e, id) { if (e.target === e.currentTarget) closeModal(id); }
 
+// ── Guichet CRUD ──────────────────────────────────────────────
+function openGuichetModal(id) {
+    document.getElementById('guichet-id').value     = '';
+    document.getElementById('guichet-numero').value = '';
+    document.getElementById('guichet-infos').value  = '';
+    const serviceSel = document.getElementById('guichet-service');
+    serviceSel.innerHTML = '<option value="">-- Sélectionner --</option>' +
+        _services.map(s => `<option value="${s.id}">${s.nom}</option>`).join('');
+    document.getElementById('guichet-modal-title').textContent = 'Nouveau guichet';
+    if (id !== undefined) {
+        const g = _guichets.find(x => x.id === id);
+        if (g) {
+            document.getElementById('guichet-modal-title').textContent = 'Modifier le guichet';
+            document.getElementById('guichet-id').value     = g.id;
+            document.getElementById('guichet-numero').value = g.numero;
+            document.getElementById('guichet-infos').value  = g.infos || '';
+            serviceSel.value = g.serviceId || '';
+        }
+    }
+    openModal('guichet-overlay');
+}
+
+async function saveGuichet() {
+    const numero    = document.getElementById('guichet-numero').value.trim();
+    const infos     = document.getElementById('guichet-infos').value.trim();
+    const serviceId = document.getElementById('guichet-service').value;
+    if (!numero) { alert('Le nom du guichet est obligatoire.'); return; }
+    const payload = {
+        numero,
+        infos,
+        serviceId: serviceId ? Number(serviceId) : null
+    };
+    const rawId = document.getElementById('guichet-id').value;
+    try {
+        if (rawId) {
+            await api('PUT', '/gfa/api/guichets/' + rawId, payload);
+        } else {
+            await api('POST', '/gfa/api/guichets', payload);
+        }
+        closeModal('guichet-overlay');
+        await refreshAll();
+    } catch (err) { alert(err.message); }
+}
+
 // ── Agent CRUD ──────────────────────────────────────
 function openAgentModal(id) {
-    document.getElementById('agent-nom').value = '';
-    document.getElementById('agent-prenom').value   = '';
+    document.getElementById('agent-id').value    = '';
+    document.getElementById('agent-nom').value   = '';
+    document.getElementById('agent-prenom').value = '';
 
     const serviceSel = document.getElementById('agent-service');
     serviceSel.innerHTML = '<option value="">-- Sélectionner --</option>' +
@@ -511,8 +556,8 @@ async function saveService() {
 let _deleteCtx = null;
 function confirmDelete(type, id, label) {
     _deleteCtx = { type, id };
-    document.getElementById('delete-msg').textContent =
-        'Supprimer ' + (type === 'agent' ? 'l\'agent' : 'le service') + ' "' + label + '" ?';
+    const typeLabel = type === 'agent' ? 'l\'agent' : type === 'guichet' ? 'le guichet' : 'le service';
+    document.getElementById('delete-msg').textContent = 'Supprimer ' + typeLabel + ' "' + label + '" ?';
     openModal('delete-overlay');
 }
 document.getElementById('delete-confirm-btn').addEventListener('click', async function () {
@@ -520,6 +565,8 @@ document.getElementById('delete-confirm-btn').addEventListener('click', async fu
     try {
         if (_deleteCtx.type === 'agent') {
             await api('DELETE', '/gfa/api/agents/' + _deleteCtx.id);
+        } else if (_deleteCtx.type === 'guichet') {
+            await api('DELETE', '/gfa/api/guichets/' + _deleteCtx.id);
         } else {
             await api('DELETE', '/gfa/api/services/' + _deleteCtx.id);
         }

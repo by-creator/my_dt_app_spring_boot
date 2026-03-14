@@ -217,6 +217,9 @@
     <p>Gestion de la file d'attente</p>
 </div>
 
+<!-- Scan token (set by server, consumed on ticket creation) -->
+<div id="scan-token" th:data-token="${token}" style="display:none"></div>
+
 <!-- Service selection -->
 <div id="view-select">
     <div class="select-title">Choisissez votre service</div>
@@ -224,6 +227,7 @@
         <th:block th:if="${services != null and !services.empty}">
             <button class="service-btn"
                     th:each="svc : ${services}"
+                    th:data-id="${svc.id}"
                     th:data-nom="${svc.nom}"
                     th:data-prefixe="${svc.code}"
                     th:classappend="${
@@ -285,44 +289,59 @@
 </div>
 
 <script>
-const TICKETS_KEY = 'gfa_tickets';
+const days   = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
 
-function getCounters() {
-    const t = localStorage.getItem(TICKETS_KEY);
-    return t ? JSON.parse(t) : {};
-}
-function saveCounters(obj) { localStorage.setItem(TICKETS_KEY, JSON.stringify(obj)); }
+// Prevent back navigation to this page after ticket is taken
+history.replaceState(null, '', location.href);
+window.addEventListener('popstate', () => history.go(1));
 
-function nextTicket(prefixe) {
-    const counters = getCounters();
-    const today = new Date().toISOString().slice(0, 10);
-    const key = prefixe + '_' + today;
-    const count = (counters[key] || 0) + 1;
-    counters[key] = count;
-    saveCounters(counters);
-    return { num: prefixe + String(count).padStart(3, '0'), rank: count };
-}
+async function takeTicket(btn) {
+    const serviceId = btn.dataset.id;
+    const nom       = btn.dataset.nom;
+    const scanToken = document.getElementById('scan-token').dataset.token;
 
-function takeTicket(btn) {
-    const nom     = btn.dataset.nom;
-    const prefixe = btn.dataset.prefixe;
-    const { num, rank } = nextTicket(prefixe);
+    // Disable all buttons to prevent double-click
+    document.querySelectorAll('.service-btn').forEach(b => b.disabled = true);
 
-    const now = new Date();
-    const days   = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-    const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    try {
+        const res = await fetch('/gfa/api/tickets', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ serviceId: Number(serviceId), scanToken: scanToken })
+        });
 
-    document.getElementById('receipt-number').textContent  = num;
-    document.getElementById('receipt-service').textContent = nom;
-    document.getElementById('receipt-date').textContent    =
-        days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-    document.getElementById('receipt-time').textContent    =
-        String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-    document.getElementById('receipt-rank').textContent    = '#' + rank;
+        if (res.status === 403) {
+            // Token expired or already used — redirect to invalid page
+            window.location.replace('/gfa/ticket');
+            return;
+        }
 
-    document.getElementById('view-select').style.display = 'none';
-    document.getElementById('view-ticket').style.display  = 'block';
-    window.scrollTo(0, 0);
+        if (!res.ok) throw new Error('Erreur serveur (' + res.status + ')');
+
+        const ticket = await res.json();
+        const now = new Date();
+
+        // Numero includes prefix (e.g. "V001"), use as-is
+        document.getElementById('receipt-number').textContent  = ticket.numero || '???';
+        document.getElementById('receipt-service').textContent = ticket.serviceNom || nom;
+        document.getElementById('receipt-date').textContent    =
+            days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+        document.getElementById('receipt-time').textContent    =
+            String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+        document.getElementById('receipt-rank').textContent    = '#' + ticket.id;
+
+        document.getElementById('view-select').style.display = 'none';
+        document.getElementById('view-ticket').style.display  = 'block';
+        window.scrollTo(0, 0);
+
+        // Replace history so back button cannot go back to this page
+        history.replaceState(null, '', '/gfa/ticket/done');
+
+    } catch (e) {
+        document.querySelectorAll('.service-btn').forEach(b => b.disabled = false);
+        alert('Impossible de créer le ticket. Veuillez réessayer.');
+    }
 }
 </script>
 </body>

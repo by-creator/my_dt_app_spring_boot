@@ -3,14 +3,19 @@ package sn.dakarterminal.dt.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sn.dakarterminal.dt.dto.TicketDto;
 import sn.dakarterminal.dt.entity.GuichetEntity;
 import sn.dakarterminal.dt.entity.ServiceEntity;
 import sn.dakarterminal.dt.entity.Agent;
 import sn.dakarterminal.dt.repository.AgentRepository;
 import sn.dakarterminal.dt.repository.GuichetRepository;
 import sn.dakarterminal.dt.repository.ServiceRepository;
+import sn.dakarterminal.dt.service.ScanTokenService;
+import sn.dakarterminal.dt.service.TicketService;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +28,8 @@ public class GfaApiController {
     private final ServiceRepository serviceRepository;
     private final GuichetRepository guichetRepository;
     private final AgentRepository agentRepository;
+    private final TicketService ticketService;
+    private final ScanTokenService scanTokenService;
 
     // ── SERVICES ────────────────────────────────────────────────
 
@@ -215,6 +222,113 @@ public class GfaApiController {
         if (!guichetRepository.existsById(id)) return ResponseEntity.notFound().build();
         guichetRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // ── GUICHET ACTIONS (session auth) ───────────────────────────
+
+    @GetMapping("/guichet/{guichetId}/info")
+    @Transactional(readOnly = true)
+    public ResponseEntity<Map<String, Object>> getGuichetInfo(@PathVariable Long guichetId) {
+        return guichetRepository.findById(guichetId).map(g -> {
+            Map<String, Object> info = new java.util.HashMap<>();
+            info.put("id", g.getId());
+            info.put("numero", g.getNumero());
+            info.put("serviceId",  g.getService() != null ? g.getService().getId()  : null);
+            info.put("serviceNom", g.getService() != null ? g.getService().getNom() : null);
+            return ResponseEntity.ok(info);
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/guichet/{guichetId}/waiting")
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<TicketDto>> getWaitingForGuichet(@PathVariable Long guichetId) {
+        return guichetRepository.findById(guichetId).map(g -> {
+            if (g.getService() == null) return ResponseEntity.ok(List.<TicketDto>of());
+            return ResponseEntity.ok(ticketService.findWaitingByService(g.getService().getId()));
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/guichet/{guichetId}/current")
+    @Transactional(readOnly = true)
+    public ResponseEntity<TicketDto> getCurrentForGuichet(@PathVariable Long guichetId) {
+        TicketDto current = ticketService.getCurrentForGuichet(guichetId);
+        if (current == null) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(current);
+    }
+
+    @PostMapping("/guichet/call-next")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_U','FACTURATION')")
+    public ResponseEntity<?> callNextForGuichet(@RequestBody Map<String, Object> body) {
+        if (body.get("guichetId") == null) return ResponseEntity.badRequest().body(Map.of("error", "guichetId requis"));
+        Long guichetId = Long.valueOf(String.valueOf(body.get("guichetId")));
+        try {
+            return ResponseEntity.ok(ticketService.callNextForGuichet(guichetId));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/guichet/recall")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_U','FACTURATION')")
+    public ResponseEntity<?> recallTicket(@RequestBody Map<String, Object> body) {
+        if (body.get("ticketId") == null) return ResponseEntity.badRequest().body(Map.of("error", "ticketId requis"));
+        Long ticketId = Long.valueOf(String.valueOf(body.get("ticketId")));
+        try {
+            return ResponseEntity.ok(ticketService.recallTicket(ticketId));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PatchMapping("/guichet/ticket/{id}/termine")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_U','FACTURATION')")
+    public ResponseEntity<TicketDto> termineTicket(@PathVariable Long id) {
+        return ResponseEntity.ok(ticketService.close(id));
+    }
+
+    @PatchMapping("/guichet/ticket/{id}/incomplet")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_U','FACTURATION')")
+    public ResponseEntity<TicketDto> incompletTicket(@PathVariable Long id) {
+        return ResponseEntity.ok(ticketService.markIncomplet(id));
+    }
+
+    @PatchMapping("/guichet/ticket/{id}/absent")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_U','FACTURATION')")
+    public ResponseEntity<TicketDto> absentTicket(@PathVariable Long id) {
+        return ResponseEntity.ok(ticketService.markAbsent(id));
+    }
+
+    // ── SCAN TOKEN (public) ───────────────────────────────────────
+
+    @GetMapping("/scan-token")
+    public ResponseEntity<Map<String, String>> generateScanToken() {
+        String token = scanTokenService.generateToken();
+        return ResponseEntity.ok(Map.of("token", token));
+    }
+
+    // ── TICKETS (public — no auth required) ──────────────────────
+
+    @PostMapping("/tickets")
+    @Transactional
+    public ResponseEntity<?> createTicketPublic(@RequestBody Map<String, Object> body,
+                                                Authentication authentication) {
+        if (body.get("serviceId") == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // Unauthenticated clients (anonymous QR scan) must provide a valid scan token
+        boolean isAnonymous = authentication == null || authentication instanceof AnonymousAuthenticationToken;
+        if (isAnonymous) {
+            String scanToken = body.get("scanToken") != null ? String.valueOf(body.get("scanToken")) : null;
+            if (!scanTokenService.useToken(scanToken)) {
+                return ResponseEntity.status(403).body(Map.of("error", "Token invalide ou expiré. Veuillez scanner le QR code à nouveau."));
+            }
+        }
+
+        Long serviceId = Long.valueOf(String.valueOf(body.get("serviceId")));
+        String nomClient = body.get("nomClient") != null ? String.valueOf(body.get("nomClient")) : null;
+        String motif     = body.get("motif")     != null ? String.valueOf(body.get("motif"))     : null;
+        return ResponseEntity.ok(ticketService.createTicket(serviceId, nomClient, motif));
     }
 
     private Map<String, Object> buildGuichetMap(GuichetEntity g) {

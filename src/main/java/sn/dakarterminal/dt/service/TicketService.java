@@ -42,7 +42,7 @@ public class TicketService {
         ServiceEntity service = serviceRepository.findById(serviceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Service not found: " + serviceId));
 
-        String numero = generateNextNumero();
+        String numero = generateNextNumero(service);
 
         Ticket ticket = Ticket.builder()
                 .service(service)
@@ -99,7 +99,75 @@ public class TicketService {
         Ticket ticket = ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new ResourceNotFoundException("Ticket not found: " + ticketId));
         ticket.setStatut(StatutTicket.ABSENT);
-        return toDto(ticketRepository.save(ticket));
+        ticket.setClosedAt(LocalDateTime.now());
+        if (ticket.getCalledAt() != null) {
+            ticket.setProcessingTime(ChronoUnit.SECONDS.between(ticket.getCalledAt(), ticket.getClosedAt()));
+        }
+        Ticket saved = ticketRepository.save(ticket);
+        eventPublisher.publishEvent(new TicketClosedEvent(this, saved));
+        return toDto(saved);
+    }
+
+    public TicketDto markIncomplet(Long ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ticket not found: " + ticketId));
+        ticket.setStatut(StatutTicket.INCOMPLET);
+        ticket.setClosedAt(LocalDateTime.now());
+        if (ticket.getCalledAt() != null) {
+            ticket.setProcessingTime(ChronoUnit.SECONDS.between(ticket.getCalledAt(), ticket.getClosedAt()));
+        }
+        Ticket saved = ticketRepository.save(ticket);
+        eventPublisher.publishEvent(new TicketClosedEvent(this, saved));
+        return toDto(saved);
+    }
+
+    public TicketDto callNextForGuichet(Long guichetId) {
+        GuichetEntity guichet = guichetRepository.findById(guichetId)
+                .orElseThrow(() -> new ResourceNotFoundException("Guichet not found: " + guichetId));
+        if (guichet.getService() == null) {
+            throw new IllegalStateException("Guichet has no service assigned");
+        }
+        // Block if a ticket is already EN_COURS for this guichet
+        if (ticketRepository.findFirstByGuichetIdAndStatut(guichetId, StatutTicket.EN_COURS).isPresent()) {
+            throw new IllegalStateException("Un ticket est déjà en cours pour ce guichet. Veuillez le clôturer avant d'appeler le suivant.");
+        }
+        List<Ticket> waiting = ticketRepository.findByServiceIdAndStatut(
+                guichet.getService().getId(), StatutTicket.EN_ATTENTE);
+        if (waiting.isEmpty()) {
+            throw new IllegalStateException("Aucun ticket en attente pour ce service.");
+        }
+        Ticket ticket = waiting.get(0);
+        ticket.setStatut(StatutTicket.EN_COURS);
+        ticket.setGuichet(guichet);
+        ticket.setCalledAt(LocalDateTime.now());
+        agentRepository.findFirstByGuichetIdAndActifTrue(guichetId).ifPresent(ticket::setAgent);
+        Ticket saved = ticketRepository.save(ticket);
+        eventPublisher.publishEvent(new TicketCalledEvent(this, saved));
+        return toDto(saved);
+    }
+
+    public TicketDto recallTicket(Long ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ticket not found: " + ticketId));
+        if (ticket.getStatut() != StatutTicket.EN_COURS) {
+            throw new IllegalStateException("Ticket is not EN_COURS");
+        }
+        eventPublisher.publishEvent(new TicketCalledEvent(this, ticket));
+        return toDto(ticket);
+    }
+
+    @Transactional(readOnly = true)
+    public TicketDto getCurrentForGuichet(Long guichetId) {
+        return ticketRepository.findFirstByGuichetIdAndStatut(guichetId, StatutTicket.EN_COURS)
+                .map(this::toDto)
+                .orElse(null);
+    }
+
+    @Transactional(readOnly = true)
+    public TicketDto toDtoById(Long ticketId) {
+        return ticketRepository.findById(ticketId)
+                .map(this::toDto)
+                .orElse(null);
     }
 
     @Transactional(readOnly = true)
@@ -116,10 +184,11 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
-    private String generateNextNumero() {
+    private String generateNextNumero(ServiceEntity service) {
         LocalDateTime startOfDay = LocalDateTime.now().with(LocalTime.MIDNIGHT);
-        int maxNumero = ticketRepository.findMaxNumeroToday(startOfDay).orElse(0);
-        return String.format("%03d", maxNumero + 1);
+        int count = ticketRepository.countTodayByService(service.getId(), startOfDay);
+        String prefix = service.getCode() != null ? service.getCode() : "";
+        return prefix + String.format("%03d", count + 1);
     }
 
     public TicketDto toDto(Ticket t) {
@@ -127,6 +196,7 @@ public class TicketService {
                 .id(t.getId())
                 .serviceId(t.getService() != null ? t.getService().getId() : null)
                 .serviceNom(t.getService() != null ? t.getService().getNom() : null)
+                .servicePrefixe(t.getService() != null ? t.getService().getCode() : null)
                 .agentId(t.getAgent() != null ? t.getAgent().getId() : null)
                 .agentNom(t.getAgent() != null ? t.getAgent().getNom() + " " + t.getAgent().getPrenom() : null)
                 .guichetId(t.getGuichet() != null ? t.getGuichet().getId() : null)

@@ -8,21 +8,20 @@
 
 <th:block layout:fragment="styles">
 <style>
-    /* ── Guichet Page ── */
     .guichet-header-card {
         background: #fff;
         border-radius: 12px;
         box-shadow: 0 2px 12px rgba(0,0,0,.06);
-        padding: 36px 24px 28px;
+        padding: 28px 24px 22px;
         text-align: center;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
     }
     .guichet-selects {
         display: flex;
         flex-wrap: wrap;
         gap: 14px;
         justify-content: center;
-        margin-bottom: 18px;
+        margin-bottom: 16px;
     }
     .guichet-selects select {
         border: 1px solid #d0d0e8;
@@ -32,23 +31,34 @@
         font-family: inherit;
         color: #343a40;
         background: #fff;
-        min-width: 200px;
+        min-width: 220px;
         cursor: pointer;
         outline: none;
         transition: border-color .2s;
     }
     .guichet-selects select:focus { border-color: #4B49AC; }
-    .guichet-header-card .client-en-cours {
-        font-size: 30px;
+
+    .client-en-cours {
+        font-size: 26px;
         font-weight: 800;
         color: #191C24;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
+        transition: color .3s;
     }
-    .guichet-header-card .client-attente-msg {
-        font-size: 14px;
-        color: #9e9e9e;
+    .client-en-cours.active { color: #4B49AC; }
+    .client-attente-msg { font-size: 13px; color: #9e9e9e; }
+    .service-badge {
+        display: inline-block;
+        background: #f0f0fb;
+        color: #4B49AC;
+        border-radius: 6px;
+        padding: 3px 12px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
     }
-    /* alert banner */
+
     .guichet-alert {
         display: none;
         background: #fff3cd;
@@ -62,7 +72,6 @@
     }
     .guichet-alert.show { display: block; }
 
-    /* Action buttons row */
     .action-buttons {
         display: flex;
         flex-wrap: wrap;
@@ -83,23 +92,21 @@
         color: #fff;
         transition: opacity .2s, transform .1s;
     }
-    .action-buttons .btn-action:hover  { opacity: .88; transform: translateY(-1px); }
-    .action-buttons .btn-action:active { transform: translateY(0); }
+    .action-buttons .btn-action:disabled { opacity: .45; cursor: not-allowed; transform: none !important; }
+    .action-buttons .btn-action:not(:disabled):hover  { opacity: .88; transform: translateY(-1px); }
+    .action-buttons .btn-action:not(:disabled):active { transform: translateY(0); }
     .btn-suivant    { background: #4B49AC; }
     .btn-rappel     { background: #6c757d; }
     .btn-termine    { background: #28a745; }
     .btn-incomplet  { background: #ffc107; color: #212529 !important; }
     .btn-absent     { background: #dc3545; }
 
-    /* Bottom grid */
     .guichet-bottom {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
     }
-    @media (max-width: 768px) {
-        .guichet-bottom { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 768px) { .guichet-bottom { grid-template-columns: 1fr; } }
 
     .queue-card, .guide-card {
         background: #fff;
@@ -107,14 +114,13 @@
         box-shadow: 0 2px 12px rgba(0,0,0,.06);
         padding: 24px;
     }
-    .queue-card .queue-title {
+    .queue-title {
         font-size: 14px;
         font-weight: 700;
         color: #191C24;
         margin-bottom: 14px;
     }
 
-    /* Tabs */
     .guichet-tabs {
         display: flex;
         gap: 0;
@@ -134,23 +140,12 @@
         border-right: none;
         transition: .2s;
     }
-    .guichet-tabs .tab-item.active {
-        color: #4B49AC;
-        border-bottom-color: #4B49AC;
-    }
+    .guichet-tabs .tab-item.active { color: #4B49AC; border-bottom-color: #4B49AC; }
     .tab-pane { display: none; }
     .tab-pane.active { display: block; }
 
-    .tab-empty-msg {
-        font-size: 13px;
-        color: #9e9e9e;
-        margin-bottom: 12px;
-    }
-    .ticket-info {
-        font-size: 13px;
-        color: #555;
-        margin-bottom: 14px;
-    }
+    .tab-empty-msg { font-size: 13px; color: #9e9e9e; margin-bottom: 12px; }
+    .ticket-info { font-size: 13px; color: #555; margin-bottom: 14px; }
     .btn-ticket {
         background: #4B49AC;
         color: #fff;
@@ -159,37 +154,43 @@
         padding: 9px 20px;
         font-size: 13px;
         font-weight: 700;
-        letter-spacing: .5px;
         cursor: pointer;
         transition: .2s;
     }
     .btn-ticket:hover { background: #3e3d99; }
+    .btn-ticket:disabled { opacity: .45; cursor: not-allowed; }
 
-    .guide-card .guide-title {
-        font-size: 14px;
-        font-weight: 700;
-        color: #191C24;
-        margin-bottom: 14px;
-    }
-    .guide-card ul {
-        list-style: none;
-        padding: 0; margin: 0;
-    }
-    .guide-card ul li {
-        font-size: 13px;
-        color: #555;
-        padding: 5px 0;
+    /* Queue list */
+    .queue-list { list-style: none; padding: 0; margin: 0; }
+    .queue-item {
         display: flex;
-        align-items: flex-start;
-        gap: 6px;
+        align-items: center;
+        gap: 10px;
+        padding: 7px 0;
+        border-bottom: 1px solid #f2f2f7;
+        font-size: 13px;
     }
-    .guide-card ul li::before {
-        content: '•';
-        color: #4B49AC;
-        font-weight: 700;
-        flex-shrink: 0;
+    .queue-item:last-child { border-bottom: none; }
+    .queue-item .q-num { font-weight: 700; color: #4B49AC; min-width: 50px; }
+    .queue-item .q-time { color: #aaa; font-size: 11px; }
+
+    .guide-card .guide-title { font-size: 14px; font-weight: 700; color: #191C24; margin-bottom: 14px; }
+    .guide-card ul { list-style: none; padding: 0; margin: 0; }
+    .guide-card ul li {
+        font-size: 13px; color: #555; padding: 5px 0;
+        display: flex; align-items: flex-start; gap: 6px;
     }
+    .guide-card ul li::before { content: '•'; color: #4B49AC; font-weight: 700; flex-shrink: 0; }
     .guide-card ul li strong { color: #191C24; }
+
+    /* WS status dot */
+    .ws-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        display: inline-block; margin-right: 4px; background: #dc3545;
+        transition: background .3s;
+    }
+    .ws-dot.connected { background: #28a745; }
+    .ws-status { font-size: 11px; color: #aaa; text-align: center; margin-top: 8px; }
 </style>
 </th:block>
 
@@ -202,46 +203,46 @@
     <!-- Header card -->
     <div class="guichet-header-card">
         <div class="guichet-selects">
-            <select id="sel-guichet" onchange="checkSelection()">
+            <select id="sel-guichet" onchange="onGuichetChange()">
                 <option value="">-- Sélectionner un guichet --</option>
             </select>
         </div>
-        <div class="client-en-cours">Client en cours : &mdash;</div>
-        <div class="client-attente-msg">Aucun client en attente</div>
+        <div id="service-badge-display" class="service-badge" style="display:none"></div>
+        <div class="client-en-cours" id="client-en-cours">Client en cours : &mdash;</div>
+        <div class="client-attente-msg" id="attente-msg">Aucun client en attente</div>
+        <div class="ws-status"><span class="ws-dot" id="ws-dot"></span><span id="ws-label">Non connecté</span></div>
     </div>
 
     <!-- Alert -->
     <div id="guichet-alert" class="guichet-alert">
         <i class="fas fa-exclamation-triangle mr-1"></i>
-        Veuillez sélectionner un guichet avant d'utiliser les boutons.
+        <span id="alert-msg">Veuillez sélectionner un guichet avant d'utiliser les boutons.</span>
     </div>
 
     <!-- Action buttons -->
     <div class="action-buttons">
-        <button class="btn-action btn-suivant"   onclick="handleAction(event)"><i class="fas fa-bell"></i> Suivant</button>
-        <button class="btn-action btn-rappel"    onclick="handleAction(event)"><i class="fas fa-redo"></i> Rappel</button>
-        <button class="btn-action btn-termine"   onclick="handleAction(event)"><i class="fas fa-check-square"></i> Terminé</button>
-        <button class="btn-action btn-incomplet" onclick="handleAction(event)"><i class="fas fa-exclamation"></i> Incomplet</button>
-        <button class="btn-action btn-absent"    onclick="handleAction(event)"><i class="fas fa-times-circle"></i> Absent</button>
+        <button id="btn-suivant"   class="btn-action btn-suivant"   onclick="actionSuivant()"  disabled><i class="fas fa-bell"></i> Suivant</button>
+        <button id="btn-rappel"    class="btn-action btn-rappel"    onclick="actionRappel()"   disabled><i class="fas fa-redo"></i> Rappel</button>
+        <button id="btn-termine"   class="btn-action btn-termine"   onclick="actionTermine()"  disabled><i class="fas fa-check-square"></i> Terminé</button>
+        <button id="btn-incomplet" class="btn-action btn-incomplet" onclick="actionIncomplet()" disabled><i class="fas fa-exclamation"></i> Incomplet</button>
+        <button id="btn-absent"    class="btn-action btn-absent"    onclick="actionAbsent()"   disabled><i class="fas fa-times-circle"></i> Absent</button>
     </div>
 
     <!-- Bottom grid -->
     <div class="guichet-bottom">
-
-        <!-- Queue card -->
         <div class="queue-card">
-            <div class="queue-title">CLIENT(S) EN ATTENTE : 0</div>
-
+            <div class="queue-title" id="queue-title">CLIENT(S) EN ATTENTE : 0</div>
             <div class="guichet-tabs">
-                <button class="tab-item active" onclick="switchTab(event, 'tab-client')">Client</button>
-                <button class="tab-item"        onclick="switchTab(event, 'tab-personnel')">Personnel</button>
-                <button class="tab-item"        onclick="switchTab(event, 'tab-rapports')">Rapports</button>
+                <button class="tab-item active" onclick="switchTab(event,'tab-client')">Client</button>
+                <button class="tab-item"        onclick="switchTab(event,'tab-personnel')">Personnel</button>
+                <button class="tab-item"        onclick="switchTab(event,'tab-rapports')">Rapports</button>
             </div>
-
             <div id="tab-client" class="tab-pane active">
-                <p class="tab-empty-msg">Aucun client en attente</p>
-                <p class="ticket-info">Pour les clients qui ne peuvent pas scanner, cliquez sur le bouton ci-dessous :</p>
-                <button class="btn-ticket">TICKET</button>
+                <ul class="queue-list" id="queue-list">
+                    <li><p class="tab-empty-msg">Aucun client en attente</p></li>
+                </ul>
+                <p class="ticket-info mt-3">Pour les clients qui ne peuvent pas scanner :</p>
+                <button class="btn-ticket" id="btn-ticket" onclick="createManualTicket()" disabled>TICKET</button>
             </div>
             <div id="tab-personnel" class="tab-pane">
                 <p class="tab-empty-msg">Aucun personnel en attente.</p>
@@ -251,70 +252,258 @@
             </div>
         </div>
 
-        <!-- Guide card -->
         <div class="guide-card">
             <div class="guide-title">Guide d'utilisation</div>
             <ul>
                 <li><span><strong>Suivant</strong> : appeler le prochain client</span></li>
-                <li><span><strong>Rappel</strong> : rappeler le client</span></li>
+                <li><span><strong>Rappel</strong> : rappeler le client en cours</span></li>
                 <li><span><strong>Incomplet</strong> : dossier incomplet</span></li>
                 <li><span><strong>Terminé</strong> : traitement terminé</span></li>
                 <li><span><strong>Absent</strong> : client absent</span></li>
             </ul>
         </div>
-
     </div>
 
 </div>
 
 <th:block layout:fragment="scripts">
+<!-- SockJS + STOMP -->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 <script>
-    function switchTab(e, tabId) {
-        document.querySelectorAll('.guichet-tabs .tab-item').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-        e.currentTarget.classList.add('active');
-        document.getElementById(tabId).classList.add('active');
+// ── State ─────────────────────────────────────────────────────
+let _guichetId   = null;
+let _serviceId   = null;
+let _currentTicket = null;  // ticket EN_COURS pour ce guichet
+let _stompClient = null;
+let _queueSub    = null;
+let _alertTimer  = null;
+
+// ── Init ──────────────────────────────────────────────────────
+(async function init() {
+    const res = await fetch('/gfa/api/guichets');
+    if (!res.ok) return;
+    const guichets = await res.json();
+    const sel = document.getElementById('sel-guichet');
+    guichets.forEach(g => {
+        const o = document.createElement('option');
+        o.value = g.id;
+        o.textContent = g.numero;
+        sel.appendChild(o);
+    });
+})();
+
+// ── Tab switch ────────────────────────────────────────────────
+function switchTab(e, tabId) {
+    document.querySelectorAll('.guichet-tabs .tab-item').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+}
+
+// ── Guichet selection ─────────────────────────────────────────
+async function onGuichetChange() {
+    const sel = document.getElementById('sel-guichet');
+    _guichetId = sel.value ? Number(sel.value) : null;
+
+    // Disconnect old WS subscription
+    if (_queueSub) { try { _queueSub.unsubscribe(); } catch(e){} _queueSub = null; }
+    _serviceId = null;
+    _currentTicket = null;
+    updateCurrentDisplay(null);
+    updateQueueDisplay([]);
+    setButtons(false);
+
+    if (!_guichetId) {
+        document.getElementById('service-badge-display').style.display = 'none';
+        return;
     }
 
-    // Populate selects from localStorage (shared with GFA admin)
-    (function() {
-        const agents   = JSON.parse(localStorage.getItem('gfa_agents')   || '[]');
-        const services = JSON.parse(localStorage.getItem('gfa_services') || '[]');
-        const selG = document.getElementById('sel-guichet');
-        const selS = document.getElementById('sel-service');
-        const guichets = [...new Set(agents.map(a => a.guichet))];
-        guichets.forEach(g => {
-            const o = document.createElement('option'); o.value = g; o.textContent = g; selG.appendChild(o);
+    // Load guichet info
+    const infoRes = await fetch('/gfa/api/guichet/' + _guichetId + '/info');
+    if (!infoRes.ok) return;
+    const info = await infoRes.json();
+    _serviceId = info.serviceId;
+
+    const badge = document.getElementById('service-badge-display');
+    if (info.serviceNom) {
+        badge.textContent = info.serviceNom;
+        badge.style.display = 'inline-block';
+    } else {
+        badge.style.display = 'none';
+    }
+
+    // Load current ticket
+    const curRes = await fetch('/gfa/api/guichet/' + _guichetId + '/current');
+    if (curRes.status === 200) {
+        _currentTicket = await curRes.json();
+        updateCurrentDisplay(_currentTicket);
+    }
+
+    // Load waiting queue
+    if (_serviceId) {
+        const wRes = await fetch('/gfa/api/guichet/' + _guichetId + '/waiting');
+        if (wRes.ok) updateQueueDisplay(await wRes.json());
+    }
+
+    setButtons(true);
+
+    // Subscribe to queue updates via WebSocket
+    if (_stompClient && _stompClient.connected && _serviceId) {
+        subscribeQueue();
+    }
+}
+
+// ── WebSocket ─────────────────────────────────────────────────
+function connectWS() {
+    const sock = new SockJS('/ws');
+    _stompClient = Stomp.over(sock);
+    _stompClient.debug = null; // silence logs
+    _stompClient.connect({}, function() {
+        document.getElementById('ws-dot').classList.add('connected');
+        document.getElementById('ws-label').textContent = 'Connecté';
+        if (_serviceId) subscribeQueue();
+    }, function() {
+        document.getElementById('ws-dot').classList.remove('connected');
+        document.getElementById('ws-label').textContent = 'Déconnecté — reconnexion...';
+        setTimeout(connectWS, 3000);
+    });
+}
+
+function subscribeQueue() {
+    if (!_serviceId || !_stompClient || !_stompClient.connected) return;
+    if (_queueSub) { try { _queueSub.unsubscribe(); } catch(e){} }
+    _queueSub = _stompClient.subscribe('/topic/service/' + _serviceId + '/queue', function(msg) {
+        const queue = JSON.parse(msg.body);
+        updateQueueDisplay(queue);
+    });
+}
+
+connectWS();
+
+// ── Display helpers ───────────────────────────────────────────
+function updateCurrentDisplay(ticket) {
+    const el = document.getElementById('client-en-cours');
+    const msg = document.getElementById('attente-msg');
+    if (ticket) {
+        el.textContent = 'Client en cours : ' + ticket.numero;
+        el.classList.add('active');
+        msg.textContent = ticket.nomClient || '';
+    } else {
+        el.innerHTML = 'Client en cours : &mdash;';
+        el.classList.remove('active');
+        msg.textContent = 'Aucun client en attente';
+    }
+    // Enable/disable action buttons based on current ticket
+    const hasTicket = !!ticket;
+    document.getElementById('btn-rappel').disabled    = !hasTicket || !_guichetId;
+    document.getElementById('btn-termine').disabled   = !hasTicket || !_guichetId;
+    document.getElementById('btn-incomplet').disabled = !hasTicket || !_guichetId;
+    document.getElementById('btn-absent').disabled    = !hasTicket || !_guichetId;
+}
+
+function updateQueueDisplay(queue) {
+    const count = Array.isArray(queue) ? queue.length : 0;
+    document.getElementById('queue-title').textContent = 'CLIENT(S) EN ATTENTE : ' + count;
+    document.getElementById('attente-msg').textContent =
+        _currentTicket ? (_currentTicket.nomClient || '') :
+        (count > 0 ? count + ' client(s) en attente' : 'Aucun client en attente');
+
+    const list = document.getElementById('queue-list');
+    if (!count) {
+        list.innerHTML = '<li><p class="tab-empty-msg">Aucun client en attente</p></li>';
+        return;
+    }
+    list.innerHTML = queue.map(t => `
+        <li class="queue-item">
+            <span class="q-num">${t.numero}</span>
+            <span>${t.nomClient || '—'}</span>
+            <span class="q-time">${t.createdAt ? new Date(t.createdAt).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}) : ''}</span>
+        </li>`).join('');
+}
+
+function setButtons(enabled) {
+    document.getElementById('btn-suivant').disabled = !enabled;
+    document.getElementById('btn-ticket').disabled  = !enabled;
+    // rappel/termine/incomplet/absent depend on currentTicket too
+    const hasTicket = enabled && !!_currentTicket;
+    document.getElementById('btn-rappel').disabled    = !hasTicket;
+    document.getElementById('btn-termine').disabled   = !hasTicket;
+    document.getElementById('btn-incomplet').disabled = !hasTicket;
+    document.getElementById('btn-absent').disabled    = !hasTicket;
+}
+
+function showAlert(msg) {
+    const el = document.getElementById('guichet-alert');
+    document.getElementById('alert-msg').textContent = msg;
+    el.classList.add('show');
+    clearTimeout(_alertTimer);
+    _alertTimer = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+// ── Actions ───────────────────────────────────────────────────
+async function actionSuivant() {
+    if (!_guichetId) { showAlert('Veuillez sélectionner un guichet.'); return; }
+    try {
+        const res = await fetch('/gfa/api/guichet/call-next', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ guichetId: _guichetId })
         });
-        services.forEach(s => {
-            const o = document.createElement('option'); o.value = s.nom; o.textContent = s.nom; selS.appendChild(o);
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            showAlert(err.error || 'Aucun ticket en attente.'); return;
+        }
+        _currentTicket = await res.json();
+        updateCurrentDisplay(_currentTicket);
+    } catch(e) { showAlert('Erreur de connexion.'); }
+}
+
+async function actionRappel() {
+    if (!_currentTicket) { showAlert('Aucun client en cours.'); return; }
+    try {
+        await fetch('/gfa/api/guichet/recall', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ ticketId: _currentTicket.id })
         });
-    })();
+    } catch(e) { showAlert('Erreur de connexion.'); }
+}
 
-    function isReady() {
-        return document.getElementById('sel-guichet').value !== ''
-            && document.getElementById('sel-service').value !== '';
-    }
-
-    function checkSelection() {
-        if (isReady()) {
-            document.getElementById('guichet-alert').classList.remove('show');
+async function actionTicketStatus(endpoint) {
+    if (!_currentTicket) { showAlert('Aucun client en cours.'); return; }
+    try {
+        const res = await fetch('/gfa/api/guichet/ticket/' + _currentTicket.id + '/' + endpoint, {
+            method: 'PATCH'
+        });
+        if (!res.ok) { showAlert('Erreur lors de la mise à jour.'); return; }
+        _currentTicket = null;
+        updateCurrentDisplay(null);
+        // Refresh queue
+        if (_guichetId) {
+            const wRes = await fetch('/gfa/api/guichet/' + _guichetId + '/waiting');
+            if (wRes.ok) updateQueueDisplay(await wRes.json());
         }
-    }
+    } catch(e) { showAlert('Erreur de connexion.'); }
+}
 
-    var alertTimer = null;
-    function handleAction(e) {
-        if (!isReady()) {
-            e.preventDefault();
-            var alert = document.getElementById('guichet-alert');
-            alert.classList.add('show');
-            clearTimeout(alertTimer);
-            alertTimer = setTimeout(function() {
-                alert.classList.remove('show');
-            }, 3500);
-        }
-        // si prêt : logique métier future ici
-    }
+function actionTermine()   { actionTicketStatus('termine');   }
+function actionIncomplet() { actionTicketStatus('incomplet'); }
+function actionAbsent()    { actionTicketStatus('absent');    }
+
+async function createManualTicket() {
+    if (!_serviceId) { showAlert('Aucun service associé à ce guichet.'); return; }
+    try {
+        const res = await fetch('/gfa/api/tickets', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ serviceId: _serviceId })
+        });
+        if (!res.ok) { showAlert('Impossible de créer le ticket.'); return; }
+        const t = await res.json();
+        showAlert('Ticket ' + t.numero + ' créé.');
+    } catch(e) { showAlert('Erreur de connexion.'); }
+}
 </script>
 </th:block>
 
