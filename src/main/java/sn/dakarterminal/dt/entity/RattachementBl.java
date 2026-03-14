@@ -34,6 +34,9 @@ public class RattachementBl {
     @Column(name = "email", length = 150)
     private String email;
 
+    @Column(name = "maison_transit", length = 150)
+    private String maisonTransit;
+
     @Column(name = "bl", nullable = false, length = 100)
     private String bl;
 
@@ -43,6 +46,9 @@ public class RattachementBl {
     @Column(name = "statut", length = 50)
     @Builder.Default
     private String statut = "EN_ATTENTE";
+
+    @Column(name = "motif_rejet", columnDefinition = "TEXT")
+    private String motifRejet;
 
     @Column(name = "time_elapsed")
     private Long timeElapsed;

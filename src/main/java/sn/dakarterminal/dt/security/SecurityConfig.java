@@ -98,6 +98,7 @@ public class SecurityConfig {
                 .ignoringRequestMatchers("/ws/**")
                 .ignoringRequestMatchers("/gfa/api/**")
                 .ignoringRequestMatchers("/demat/validation", "/demat/remise")
+                .ignoringRequestMatchers("/facturation/api/**")
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
             .authorizeHttpRequests(auth -> auth

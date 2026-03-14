@@ -3,19 +3,208 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/facturation}">
-<head><title>Gestion des validations</title></head>
+<head>
+    <title>Gestion des validations</title>
+    <style>
+        .filter-bar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:18px; }
+        .filter-bar select { border:1px solid #dee2e6; border-radius:7px; padding:7px 12px; font-size:13px; }
+        .badge-status { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:.4px; }
+        .badge-en_attente { background:#fff3cd; color:#856404; }
+        .badge-valide     { background:#d4edda; color:#155724; }
+        .badge-rejete     { background:#f8d7da; color:#721c24; }
+        .btn-valider { background:#28a745; color:#fff; border:none; border-radius:6px; padding:5px 12px; font-size:12px; font-weight:600; cursor:pointer; }
+        .btn-valider:hover { background:#218838; }
+        .btn-rejeter { background:#dc3545; color:#fff; border:none; border-radius:6px; padding:5px 12px; font-size:12px; font-weight:600; cursor:pointer; margin-left:4px; }
+        .btn-rejeter:hover { background:#c82333; }
+        .table-card { background:#fff; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.07); overflow:hidden; }
+        .table-card table { margin:0; }
+        .table-card thead th { background:#f8f9ff; font-size:12px; font-weight:700; color:#555; border-bottom:2px solid #e9ecef; white-space:nowrap; }
+        .table-card td { font-size:13px; vertical-align:middle; }
+        .empty-state { text-align:center; padding:48px; color:#aaa; }
+        /* Rejection modal */
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:9000; align-items:center; justify-content:center; }
+        .modal-overlay.open { display:flex; }
+        .modal-box { background:#fff; border-radius:12px; padding:28px; width:100%; max-width:440px; box-shadow:0 8px 40px rgba(0,0,0,.18); }
+        .modal-box h5 { font-weight:700; margin-bottom:14px; color:#dc3545; }
+        .modal-box textarea { width:100%; border:1px solid #dee2e6; border-radius:8px; padding:10px 12px; font-size:13px; resize:vertical; min-height:90px; }
+        .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:16px; }
+        .btn-cancel { background:#6c757d; color:#fff; border:none; border-radius:6px; padding:8px 18px; font-size:13px; cursor:pointer; }
+        .btn-confirm-reject { background:#dc3545; color:#fff; border:none; border-radius:6px; padding:8px 18px; font-size:13px; font-weight:600; cursor:pointer; }
+    </style>
+</head>
 <body>
 <div layout:fragment="content">
+
     <div class="page-header">
         <h1><i class="fas fa-check-double mr-2" style="color:#4B49AC"></i>Gestion des validations</h1>
     </div>
-    <div class="card">
-        <div class="card-body text-center py-5">
-            <i class="fas fa-check-double fa-4x mb-4" style="color:#4B49AC;opacity:.5"></i>
-            <h5 class="text-muted">Demandes de validation</h5>
-            <p class="text-muted" style="font-size:14px">Les demandes soumises via le formulaire public apparaîtront ici.</p>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+        <label style="font-size:13px;font-weight:600;color:#555;margin:0">Filtrer :</label>
+        <select id="filter-statut" onchange="loadDemandes()">
+            <option value="">Tous les statuts</option>
+            <option value="EN_ATTENTE">En attente</option>
+            <option value="VALIDE">Validé</option>
+            <option value="REJETE">Rejeté</option>
+        </select>
+        <button class="btn btn-sm" style="background:#4B49AC;color:#fff;border-radius:7px;font-size:13px" onclick="loadDemandes()">
+            <i class="fas fa-sync-alt mr-1"></i> Actualiser
+        </button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>N° BL</th>
+                    <th>Maison de transit</th>
+                    <th>Statut</th>
+                    <th>Motif rejet</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="demandes-tbody">
+                <tr>
+                    <td colspan="9" class="empty-state">
+                        <i class="fas fa-spinner fa-spin fa-2x mb-3" style="display:block;color:#ccc"></i>
+                        Chargement…
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+
+    <!-- Rejection modal -->
+    <div class="modal-overlay" id="reject-modal">
+        <div class="modal-box">
+            <h5><i class="fas fa-times-circle mr-2"></i>Motif du rejet</h5>
+            <p style="font-size:13px;color:#555;margin-bottom:10px">Veuillez préciser le motif du rejet :</p>
+            <textarea id="motif-input" placeholder="Saisissez le motif du rejet…"></textarea>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeRejectModal()">Annuler</button>
+                <button class="btn-confirm-reject" onclick="confirmReject()">Confirmer le rejet</button>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<th:block layout:fragment="scripts">
+<script>
+let rejectTargetId = null;
+
+function fmtDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('fr-FR') + ' ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+}
+
+function badgeHtml(statut) {
+    const map = {
+        'EN_ATTENTE': ['badge-en_attente', 'En attente'],
+        'VALIDE':     ['badge-valide',     'Validé'],
+        'REJETE':     ['badge-rejete',     'Rejeté']
+    };
+    const [cls, label] = map[statut] || ['badge-en_attente', statut];
+    return `<span class="badge-status ${cls}">${label}</span>`;
+}
+
+async function loadDemandes() {
+    const statut = document.getElementById('filter-statut').value;
+    const url = '/facturation/api/rattachements' + (statut ? '?statut=' + encodeURIComponent(statut) : '');
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        renderTable(data);
+    } catch(e) {
+        document.getElementById('demandes-tbody').innerHTML =
+            '<tr><td colspan="9" class="empty-state text-danger"><i class="fas fa-exclamation-triangle mr-2"></i>Erreur lors du chargement.</td></tr>';
+    }
+}
+
+function renderTable(rows) {
+    const tbody = document.getElementById('demandes-tbody');
+    if (!rows || rows.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="empty-state">' +
+            '<i class="fas fa-inbox fa-2x mb-3" style="display:block;color:#ccc"></i>' +
+            'Aucune demande trouvée.</td></tr>';
+        return;
+    }
+    tbody.innerHTML = rows.map(r => {
+        const isPending = r.statut === 'EN_ATTENTE';
+        const actions = isPending
+            ? `<button class="btn-valider" onclick="valider(${r.id})"><i class="fas fa-check mr-1"></i>Valider</button>` +
+              `<button class="btn-rejeter" onclick="openRejectModal(${r.id})"><i class="fas fa-times mr-1"></i>Rejeter</button>`
+            : '—';
+        return `<tr>
+            <td>${fmtDate(r.createdAt)}</td>
+            <td>${r.nom || '—'}</td>
+            <td>${r.prenom || '—'}</td>
+            <td>${r.email || '—'}</td>
+            <td>${r.bl || '—'}</td>
+            <td>${r.maisonTransit || '—'}</td>
+            <td>${badgeHtml(r.statut)}</td>
+            <td style="max-width:180px;word-break:break-word">${r.motifRejet || '—'}</td>
+            <td style="white-space:nowrap">${actions}</td>
+        </tr>`;
+    }).join('');
+}
+
+async function valider(id) {
+    if (!confirm('Confirmer la validation de cette demande ?')) return;
+    try {
+        const res = await fetch(`/facturation/api/rattachements/${id}/valider`, { method: 'PATCH' });
+        if (res.ok) loadDemandes();
+        else alert('Erreur lors de la validation.');
+    } catch(e) {
+        alert('Erreur de connexion.');
+    }
+}
+
+function openRejectModal(id) {
+    rejectTargetId = id;
+    document.getElementById('motif-input').value = '';
+    document.getElementById('reject-modal').classList.add('open');
+    document.getElementById('motif-input').focus();
+}
+
+function closeRejectModal() {
+    rejectTargetId = null;
+    document.getElementById('reject-modal').classList.remove('open');
+}
+
+async function confirmReject() {
+    const motif = document.getElementById('motif-input').value.trim();
+    if (!motif) { alert('Veuillez saisir un motif de rejet.'); return; }
+    try {
+        const res = await fetch(`/facturation/api/rattachements/${rejectTargetId}/rejeter`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ motif })
+        });
+        if (res.ok) { closeRejectModal(); loadDemandes(); }
+        else alert('Erreur lors du rejet.');
+    } catch(e) {
+        alert('Erreur de connexion.');
+    }
+}
+
+// Close modal on overlay click
+document.getElementById('reject-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeRejectModal();
+});
+
+// Initial load
+loadDemandes();
+</script>
+</th:block>
 </body>
 </html>
