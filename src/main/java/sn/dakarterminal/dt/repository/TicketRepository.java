@@ -18,5 +18,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Query("SELECT COUNT(t) FROM Ticket t WHERE t.service.id = :serviceId AND t.createdAt >= :startOfDay")
     int countTodayByService(@org.springframework.data.repository.query.Param("serviceId") Long serviceId,
                             @org.springframework.data.repository.query.Param("startOfDay") LocalDateTime startOfDay);
+    Optional<Ticket> findFirstByGuichetIdAndStatut(Long guichetId, StatutTicket statut);
     List<Ticket> findByCreatedAtBetween(LocalDateTime debut, LocalDateTime fin);
 }

@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Écran d'affichage — Dakar Terminal</title>
     <link rel="icon" type="image/png" href="/img/image.png"/>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
-
     <style>
         :root {
             --primary: #4B49AC;
@@ -21,9 +19,7 @@
             --surface-alt: #f7f9ff;
             --border-soft: rgba(31, 42, 68, .12);
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
             font-family: 'Overpass', sans-serif;
             background: linear-gradient(180deg, #ffffff 0%, #f4f7ff 100%);
@@ -43,25 +39,17 @@
             border-bottom: 1px solid var(--border-soft);
             box-shadow: 0 4px 14px rgba(17, 34, 68, .06);
         }
-        .display-topbar img {
-            height: 40px;
-            width: auto;
-            object-fit: contain;
-            filter: none;
+        .display-topbar img { height: 40px; width: auto; object-fit: contain; }
+        .dt-clock { font-size: 22px; font-weight: 700; color: var(--text-primary); letter-spacing: 2px; font-variant-numeric: tabular-nums; }
+        .dt-date  { font-size: 13px; color: var(--text-secondary); text-align: right; margin-top: 2px; }
+
+        /* ── WS status ── */
+        .ws-indicator {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 11px; color: var(--text-secondary);
         }
-        .display-topbar .dt-clock {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: 2px;
-            font-variant-numeric: tabular-nums;
-        }
-        .display-topbar .dt-date {
-            font-size: 13px;
-            color: var(--text-secondary);
-            text-align: right;
-            margin-top: 2px;
-        }
+        .ws-dot { width: 8px; height: 8px; border-radius: 50%; background: #dc3545; transition: background .3s; }
+        .ws-dot.connected { background: #28a745; }
 
         /* ── MAIN DISPLAY ── */
         .display-area {
@@ -71,7 +59,6 @@
             justify-content: center;
             padding: 32px 32px 16px;
         }
-
         .display-card {
             background: var(--surface);
             border: 1px solid var(--border-soft);
@@ -85,124 +72,81 @@
             align-items: center;
             justify-content: center;
             gap: 28px;
+            transition: box-shadow .4s;
         }
-
+        .display-card.flash {
+            box-shadow: 0 0 0 6px rgba(75,73,172,.25), 0 16px 42px rgba(17,34,68,.08);
+        }
         .display-now-serving {
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--text-secondary);
+            font-size: 13px; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--text-secondary);
         }
-
         .display-ticket-badge {
             background: linear-gradient(135deg, var(--secondary), var(--info));
-            border-radius: 16px;
-            padding: 6px 28px;
-            font-size: 15px;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: 2px;
-            display: inline-block;
+            border-radius: 16px; padding: 6px 28px;
+            font-size: 15px; font-weight: 700; color: #fff;
+            letter-spacing: 2px; display: inline-block;
         }
-
         .display-ticket-number {
-            font-size: 120px;
-            font-weight: 900;
-            color: var(--text-primary);
-            letter-spacing: -4px;
-            line-height: 1;
+            font-size: 120px; font-weight: 900;
+            color: var(--text-primary); letter-spacing: -4px; line-height: 1;
             text-shadow: 0 4px 24px rgba(36,138,253,.18);
+            transition: color .3s;
         }
-
+        .display-ticket-number.highlight { color: var(--primary); }
         .display-divider {
-            width: 80px;
-            height: 3px;
+            width: 80px; height: 3px;
             background: linear-gradient(90deg, var(--secondary), var(--info));
             border-radius: 2px;
         }
-
-        .display-agent-row {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        .display-agent-row { display: flex; align-items: center; gap: 20px; }
         .display-guichet-badge {
             background: var(--surface-alt);
             border: 1px solid var(--border-soft);
-            border-radius: 10px;
-            padding: 10px 20px;
-            text-align: center;
+            border-radius: 10px; padding: 10px 20px; text-align: center;
         }
         .display-guichet-badge .gb-label {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
+            font-size: 10px; font-weight: 700; letter-spacing: 2px;
+            color: var(--text-secondary); text-transform: uppercase;
         }
-        .display-guichet-badge .gb-value {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-top: 2px;
-        }
-        .display-agent-name {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
+        .display-guichet-badge .gb-value { font-size: 18px; font-weight: 800; color: var(--text-primary); margin-top: 2px; }
+        .display-agent-name { font-size: 22px; font-weight: 700; color: var(--text-primary); }
 
         /* ── QR SECTION ── */
-        .qr-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            padding: 0 32px 32px;
-        }
-
+        .qr-section { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 0 32px 32px; }
         .qr-card {
-            background: var(--surface);
-            border: 1px solid var(--border-soft);
-            border-radius: 16px;
-            padding: 20px 24px;
-            display: flex;
-            align-items: center;
-            gap: 18px;
+            background: var(--surface); border: 1px solid var(--border-soft);
+            border-radius: 16px; padding: 20px 24px;
+            display: flex; align-items: center; gap: 18px;
         }
-        .qr-card img {
-            width: 80px;
-            height: 80px;
-            flex-shrink: 0;
-            border-radius: 10px;
-            background: #fff;
-            padding: 4px;
-        }
-        .qr-card .qr-step {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-        .qr-card .qr-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
+        .qr-card img { width: 80px; height: 80px; flex-shrink: 0; border-radius: 10px; background: #fff; padding: 4px; }
+        .qr-card .qr-step { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px; }
+        .qr-card .qr-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
         .qr-card .qr-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
+            width: 36px; height: 36px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; flex-shrink: 0;
         }
-        .qr-icon-wifi  { background: rgba(36,138,253,.3); color: #248AFD; }
+        .qr-icon-wifi   { background: rgba(36,138,253,.3);  color: #248AFD; }
         .qr-icon-ticket { background: rgba(121,120,233,.3); color: #7978E9; }
+
+        /* ── Activate overlay ── */
+        .activate-overlay {
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(75,73,172,.92);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 20px; color: #fff; text-align: center;
+        }
+        .activate-overlay h2 { font-size: 28px; font-weight: 800; }
+        .activate-overlay p  { font-size: 15px; opacity: .8; }
+        .btn-activate {
+            background: #fff; color: var(--primary);
+            border: none; border-radius: 12px;
+            padding: 14px 36px; font-size: 16px; font-weight: 700;
+            cursor: pointer; transition: opacity .2s;
+        }
+        .btn-activate:hover { opacity: .88; }
 
         @media (max-width: 576px) {
             .display-ticket-number { font-size: 80px; }
@@ -214,18 +158,32 @@
 </head>
 <body>
 
+<!-- Activate overlay (required for audio/TTS permission) -->
+<div class="activate-overlay" id="activate-overlay">
+    <i class="fas fa-volume-up" style="font-size:48px;opacity:.8"></i>
+    <h2>Écran d'affichage GFA</h2>
+    <p>Cliquez pour activer le son et les annonces vocales</p>
+    <button class="btn-activate" onclick="activateAudio()">
+        <i class="fas fa-play mr-2"></i> Démarrer l'affichage
+    </button>
+</div>
+
 <!-- Topbar -->
 <div class="display-topbar">
     <img src="/img/image.png" alt="Dakar Terminal"/>
+    <div class="ws-indicator">
+        <span class="ws-dot" id="ws-dot"></span>
+        <span id="ws-label">Connexion...</span>
+    </div>
     <div style="text-align:right">
         <div class="dt-clock" id="clock">00:00:00</div>
-        <div class="dt-date" id="date-display"></div>
+        <div class="dt-date"  id="date-display"></div>
     </div>
 </div>
 
 <!-- Main display -->
 <div class="display-area">
-    <div class="display-card">
+    <div class="display-card" id="display-card">
         <div class="display-now-serving">Appel en cours</div>
         <div class="display-ticket-badge" id="service-badge">— SERVICE —</div>
         <div class="display-ticket-number" id="ticket-number">—</div>
@@ -244,18 +202,16 @@
 <div class="qr-section">
     <div class="qr-card">
         <div class="qr-icon qr-icon-wifi"><i class="fas fa-wifi"></i></div>
-        <img th:src="|https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${wifiQrData}|"alt="QR Code WiFi"/>
+        <img th:src="|https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${wifiQrData}|" alt="QR Code WiFi"/>
         <div>
             <div class="qr-step">Étape 1</div>
             <div class="qr-title">Connexion au réseau Wi-Fi</div>
-            <div class="qr-subtitle" th:text="|SSID: ${wifiSsid}|">SSID: DakarTerminal_WiFi</div>
-            <div class="qr-subtitle" th:text="|Mot de passe: ${wifiPassword}|">Mot de passe: </div>
+            <div th:text="|SSID : ${wifiSsid}|" style="font-size:12px;color:#888;margin-top:3px"></div>
         </div>
     </div>
     <div class="qr-card">
         <div class="qr-icon qr-icon-ticket"><i class="fas fa-ticket-alt"></i></div>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://dakarterminal.sn/gfa/ticket"
-             alt="QR Code Ticket"/>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=http://localhost:8080/gfa/ticket" alt="QR Ticket"/>
         <div>
             <div class="qr-step">Étape 2</div>
             <div class="qr-title">Prendre un ticket</div>
@@ -263,21 +219,121 @@
     </div>
 </div>
 
+<!-- SockJS + STOMP -->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 <script>
+// ── Clock ─────────────────────────────────────────────────────
+const DAYS   = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const MONTHS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
 function updateClock() {
     const now = new Date();
-    const hh = String(now.getHours()).padStart(2, '0');
-    const mm = String(now.getMinutes()).padStart(2, '0');
-    const ss = String(now.getSeconds()).padStart(2, '0');
-    document.getElementById('clock').textContent = hh + ':' + mm + ':' + ss;
-
-    const days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-    const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    document.getElementById('clock').textContent =
+        String(now.getHours()).padStart(2,'0') + ':' +
+        String(now.getMinutes()).padStart(2,'0') + ':' +
+        String(now.getSeconds()).padStart(2,'0');
     document.getElementById('date-display').textContent =
-        days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+        DAYS[now.getDay()] + ' ' + now.getDate() + ' ' + MONTHS[now.getMonth()] + ' ' + now.getFullYear();
 }
 updateClock();
 setInterval(updateClock, 1000);
+
+// ── Audio context (created on user gesture) ────────────────────
+let _audioCtx = null;
+let _audioReady = false;
+
+function activateAudio() {
+    document.getElementById('activate-overlay').style.display = 'none';
+    _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    _audioReady = true;
+    // Pre-load voices
+    window.speechSynthesis.getVoices();
+    connectWS();
+}
+
+// ── Chime sound (Web Audio API) ───────────────────────────────
+function playChime() {
+    if (!_audioCtx) return;
+    // Three-tone chime: do-mi-sol
+    const tones = [523.25, 659.25, 783.99];
+    tones.forEach((freq, i) => {
+        const osc  = _audioCtx.createOscillator();
+        const gain = _audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(_audioCtx.destination);
+        osc.type = 'sine';
+        const t = _audioCtx.currentTime + i * 0.25;
+        osc.frequency.setValueAtTime(freq, t);
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.35, t + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.6);
+        osc.start(t);
+        osc.stop(t + 0.65);
+    });
+}
+
+// ── French TTS ────────────────────────────────────────────────
+function announce(numero, guichet) {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+
+    // Spell out digits in ticket number if preceded by letters (e.g. "V001" → "V 001")
+    const text = `Ticket ${numero}, veuillez vous présenter au ${guichet}`;
+
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang  = 'fr-FR';
+    utter.rate  = 0.88;
+    utter.pitch = 1.0;
+
+    const voices = window.speechSynthesis.getVoices();
+    const frVoice = voices.find(v => v.lang === 'fr-FR') ||
+                    voices.find(v => v.lang.startsWith('fr'));
+    if (frVoice) utter.voice = frVoice;
+
+    window.speechSynthesis.speak(utter);
+}
+
+// ── Display update ────────────────────────────────────────────
+function updateDisplay(ticket) {
+    document.getElementById('service-badge').textContent = ticket.serviceNom || '— SERVICE —';
+    document.getElementById('ticket-number').textContent = ticket.numero    || '—';
+    document.getElementById('guichet-name').textContent  = ticket.guichetNumero || '—';
+    document.getElementById('agent-name').textContent    = ticket.agentNom  || '';
+
+    // Flash animation
+    const card  = document.getElementById('display-card');
+    const numEl = document.getElementById('ticket-number');
+    card.classList.add('flash');
+    numEl.classList.add('highlight');
+    setTimeout(() => { card.classList.remove('flash'); numEl.classList.remove('highlight'); }, 2000);
+}
+
+// ── WebSocket ─────────────────────────────────────────────────
+function connectWS() {
+    const sock = new SockJS('/ws');
+    const client = Stomp.over(sock);
+    client.debug = null;
+
+    client.connect({}, function() {
+        document.getElementById('ws-dot').classList.add('connected');
+        document.getElementById('ws-label').textContent = 'En ligne';
+
+        // Listen for any ticket call
+        client.subscribe('/topic/tickets/called', function(msg) {
+            const ticket = JSON.parse(msg.body);
+            updateDisplay(ticket);
+            // Play chime then TTS after chime ends (~0.9s)
+            playChime();
+            const guichet = ticket.guichetNumero || 'guichet';
+            setTimeout(() => announce(ticket.numero, guichet), 950);
+        });
+
+    }, function() {
+        document.getElementById('ws-dot').classList.remove('connected');
+        document.getElementById('ws-label').textContent = 'Déconnecté';
+        setTimeout(connectWS, 3000);
+    });
+}
 </script>
 </body>
 </html>
