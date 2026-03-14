@@ -93,7 +93,7 @@ public class SecurityConfig {
     @Order(2)
     public SecurityFilterChain webFilterChain(HttpSecurity http) throws Exception {
         http
-            .securityMatcher("/", "/admin/**", "/facturation/**", "/demat/**", "/login", "/logout", "/ws/**")
+            .securityMatcher("/", "/admin/**", "/facturation/**", "/demat/**", "/gfa/**", "/login", "/logout", "/ws/**")
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers("/ws/**")
             )
@@ -102,6 +102,7 @@ public class SecurityConfig {
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/ws/**").permitAll()
                 .requestMatchers("/demat/**").permitAll()
+                .requestMatchers("/gfa/display/**").permitAll()
                 .requestMatchers("/facturation/**").hasAnyRole("ADMIN", "SUPER_U", "FACTURATION")
                 .requestMatchers("/", "/admin/**").hasAnyRole("ADMIN", "SUPER_U")
                 .anyRequest().authenticated()

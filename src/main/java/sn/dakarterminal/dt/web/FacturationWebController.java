@@ -22,4 +22,11 @@ public class FacturationWebController {
         model.addAttribute("pageTitle", "Guichet");
         return "facturation/guichet/index";
     }
+
+    @GetMapping("/gfa-admin")
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_U')")
+    public String gfaAdmin(Model model) {
+        model.addAttribute("pageTitle", "Gfa Admin");
+        return "facturation/gfa-admin/index";
+    }
 }

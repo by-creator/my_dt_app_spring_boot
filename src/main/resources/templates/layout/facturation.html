@@ -162,12 +162,19 @@
     <nav>
         <div class="nav-section-title">Facturation</div>
         <a th:href="@{/facturation/dashboard}"
-           th:classappend="${!currentUri.contains('/guichet') and currentUri.contains('/facturation')} ? 'active'">
+           th:classappend="${!currentUri.contains('/guichet') and !currentUri.contains('/gfa-admin') and currentUri.contains('/facturation')} ? 'active'">
             <i class="fas fa-file-invoice-dollar"></i> Tableau de bord
         </a>
         <a th:href="@{/facturation/guichet}"
            th:classappend="${currentUri.contains('/guichet')} ? 'active'">
             <i class="fas fa-desktop"></i> Guichet
+        </a>
+
+        <div class="nav-section-title" sec:authorize="hasAnyRole('ADMIN','SUPER_U')">Administration</div>
+        <a th:href="@{/facturation/gfa-admin}"
+           sec:authorize="hasAnyRole('ADMIN','SUPER_U')"
+           th:classappend="${currentUri.contains('/gfa-admin')} ? 'active'">
+            <i class="fas fa-layer-group"></i> Gfa Admin
         </a>
     </nav>
 </aside>
