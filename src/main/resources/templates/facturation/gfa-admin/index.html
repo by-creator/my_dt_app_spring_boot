@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/facturation}">
+<head><title>Gfa Admin</title></head>
+<body>
+
+<th:block layout:fragment="styles">
+<style>
+    /* ── Tab nav ── */
+    .gfa-tabs {
+        display: flex;
+        gap: 4px;
+        border-bottom: 2px solid #e8e8f0;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+    }
+    .gfa-tabs .gtab {
+        padding: 10px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #6c757d;
+        cursor: pointer;
+        background: none;
+        border: none;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+        transition: .2s;
+        display: flex; align-items: center; gap: 7px;
+    }
+    .gfa-tabs .gtab:hover   { color: #4B49AC; }
+    .gfa-tabs .gtab.active  { color: #4B49AC; border-bottom-color: #4B49AC; }
+    .gtab-pane { display: none; }
+    .gtab-pane.active { display: block; }
+
+    /* ── Vue globale ── */
+    .service-section { margin-bottom: 32px; }
+    .service-label {
+        font-size: 12px; font-weight: 700;
+        letter-spacing: 1.2px;
+        color: #4B49AC;
+        margin-bottom: 14px;
+    }
+    .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+    }
+    @media (max-width: 992px) { .stat-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 576px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .stat-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 18px 14px 14px;
+        text-align: center;
+        border: 2px solid;
+    }
+    .stat-card .stat-label {
+        font-size: 11px; color: #888;
+        margin-bottom: 8px;
+    }
+    .stat-card .stat-value {
+        font-size: 28px; font-weight: 700; color: #191C24;
+    }
+    .border-dark   { border-color: #343a40 !important; }
+    .border-yellow { border-color: #ffc107 !important; }
+    .border-green  { border-color: #28a745 !important; }
+    .border-teal   { border-color: #17a2b8 !important; }
+    .border-red    { border-color: #dc3545 !important; }
+
+    /* ── Tables ── */
+    .gfa-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,.06);
+        padding: 28px 24px;
+    }
+    .gfa-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 22px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .gfa-card-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #191C24;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .btn-new {
+        background: #4B49AC;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 9px 18px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex; align-items: center; gap: 6px;
+        transition: background .2s;
+    }
+    .btn-new:hover { background: #3e3d99; }
+
+    .gfa-table { width: 100%; border-collapse: collapse; }
+    .gfa-table thead tr {
+        background: #f8f9fa;
+    }
+    .gfa-table th {
+        padding: 12px 16px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #555;
+        text-align: left;
+        border-bottom: 1px solid #e8e8f0;
+    }
+    .gfa-table td {
+        padding: 14px 16px;
+        font-size: 13px;
+        color: #444;
+        border-bottom: 1px solid #f2f2f7;
+    }
+    .gfa-table tbody tr:hover { background: #fafafa; }
+    .gfa-table tbody tr:last-child td { border-bottom: none; }
+
+    .btn-icon {
+        border: none;
+        border-radius: 8px;
+        width: 34px; height: 34px;
+        display: inline-flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        font-size: 14px;
+        transition: opacity .2s;
+        margin-right: 4px;
+    }
+    .btn-icon:hover { opacity: .82; }
+    .btn-edit   { background: #fd7e14; color: #fff; }
+    .btn-delete { background: #dc3545; color: #fff; }
+
+    /* ── Tickets filters ── */
+    .ticket-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .ticket-filters select,
+    .ticket-filters input[type=date] {
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 7px 12px;
+        font-size: 13px;
+        color: #444;
+    }
+    .btn-filter {
+        border: none;
+        border-radius: 6px;
+        width: 34px; height: 34px;
+        display: inline-flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        font-size: 15px;
+        transition: opacity .2s;
+    }
+    .btn-filter:hover { opacity: .8; }
+    .btn-f-search { background: #17a2b8; color: #fff; }
+    .btn-f-reset  { background: #28a745; color: #fff; }
+    .btn-f-export { background: #fd7e14; color: #fff; }
+    .btn-f-clear  { background: #dc3545; color: #fff; }
+
+    .empty-table-msg {
+        text-align: center;
+        padding: 40px 0;
+        color: #aaa;
+        font-size: 13px;
+    }
+</style>
+</th:block>
+
+<div layout:fragment="content">
+
+    <div class="page-header">
+        <h1><i class="fas fa-layer-group mr-2" style="color:#4B49AC"></i>Gfa Admin</h1>
+    </div>
+
+    <!-- Tab navigation -->
+    <div class="gfa-tabs">
+        <button class="gtab active" onclick="gfaTab(event,'tab-vue-globale')">
+            <i class="fas fa-chart-bar"></i> Vue globale
+        </button>
+        <button class="gtab" onclick="gfaTab(event,'tab-agents')">
+            <i class="fas fa-user-tie"></i> Agents
+        </button>
+        <button class="gtab" onclick="gfaTab(event,'tab-services')">
+            <i class="fas fa-briefcase"></i> Services
+        </button>
+        <button class="gtab" onclick="gfaTab(event,'tab-tickets')">
+            <i class="fas fa-ticket-alt"></i> Tickets
+        </button>
+    </div>
+
+    <!-- ── TAB 1 : Vue globale ── -->
+    <div id="tab-vue-globale" class="gtab-pane active">
+        <h5 style="font-size:18px;font-weight:700;color:#191C24;margin-bottom:24px;">
+            <i class="fas fa-chart-bar mr-2" style="color:#4B49AC"></i>Informations générales
+        </h5>
+
+        <th:block th:each="service : ${ {'VALIDATION','FACTURATION','CAISSE','BAD'} }">
+        <div class="service-section">
+            <div class="service-label" th:text="${service}">SERVICE</div>
+            <div class="stat-grid">
+                <div class="stat-card border-dark">
+                    <div class="stat-label">En attente</div>
+                    <div class="stat-value">0</div>
+                </div>
+                <div class="stat-card border-yellow">
+                    <div class="stat-label">En cours</div>
+                    <div class="stat-value">0</div>
+                </div>
+                <div class="stat-card border-green">
+                    <div class="stat-label">Terminés</div>
+                    <div class="stat-value">0</div>
+                </div>
+                <div class="stat-card border-teal">
+                    <div class="stat-label">Incomplets</div>
+                    <div class="stat-value">0</div>
+                </div>
+                <div class="stat-card border-red">
+                    <div class="stat-label">Absents</div>
+                    <div class="stat-value">0</div>
+                </div>
+            </div>
+        </div>
+        </th:block>
+    </div>
+
+    <!-- ── TAB 2 : Agents ── -->
+    <div id="tab-agents" class="gtab-pane">
+        <div class="gfa-card">
+            <div class="gfa-card-header">
+                <div class="gfa-card-title">
+                    <i class="fas fa-user-tie" style="font-size:22px"></i> Agents
+                </div>
+                <button class="btn-new"><i class="fas fa-plus"></i> Nouvel agent</button>
+            </div>
+            <table class="gfa-table">
+                <thead>
+                    <tr>
+                        <th>Nom du guichet</th>
+                        <th>Infos du guichet</th>
+                        <th>Service</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Guichet 1</td><td>Mohamed NGOM</td><td>FACTURATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>Guichet 2</td><td>Mamadou DIOUF</td><td>BAD</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>Guichet 3</td><td>Aissata BA</td><td>VALIDATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>Guichet 4</td><td>Basile MANGA</td><td>FACTURATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>Guichet 5</td><td>Guichet 5</td><td>FACTURATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>Guichet 6</td><td>Maimouna FALL</td><td>FACTURATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>Guichet 7</td><td>Ababacar FALL</td><td>VALIDATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>Guichet 8</td><td>Guichet 8</td><td>FACTURATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>Guichet 9</td><td>Fatoumata Yaya GUEYE</td><td>VALIDATION</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>Guichet 10</td><td>Charles SARR</td><td>BAD</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>Guichet 11</td><td>Serigne NDIAYE</td><td>CAISSE</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ── TAB 3 : Services ── -->
+    <div id="tab-services" class="gtab-pane">
+        <div class="gfa-card">
+            <div class="gfa-card-header">
+                <div class="gfa-card-title">
+                    <i class="fas fa-briefcase" style="font-size:22px"></i> Services
+                </div>
+                <button class="btn-new"><i class="fas fa-plus"></i> Nouveau service</button>
+            </div>
+            <table class="gfa-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Préfixe</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>VALIDATION</td><td>V</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>FACTURATION</td><td>F</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>CAISSE</td><td>C</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                    <tr><td>BAD</td><td>B</td><td><button class="btn-icon btn-edit"><i class="fas fa-pen"></i></button><button class="btn-icon btn-delete"><i class="fas fa-trash"></i></button></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ── TAB 4 : Tickets ── -->
+    <div id="tab-tickets" class="gtab-pane">
+        <h5 style="font-size:18px;font-weight:700;color:#191C24;margin-bottom:20px;">
+            <i class="fas fa-chart-bar mr-2" style="color:#4B49AC"></i>Suivi des tickets
+        </h5>
+        <div class="gfa-card">
+            <div style="font-size:14px;font-weight:600;color:#191C24;margin-bottom:16px;">
+                Détail des tickets traités (par ticket)
+            </div>
+            <div class="ticket-filters">
+                <select>
+                    <option>Tous les guichets</option>
+                    <option>Guichet 1</option><option>Guichet 2</option><option>Guichet 3</option>
+                </select>
+                <select>
+                    <option>Tous statuts</option>
+                    <option>En attente</option><option>En cours</option>
+                    <option>Terminé</option><option>Incomplet</option><option>Absent</option>
+                </select>
+                <input type="date" placeholder="jj/mm/aaaa"/>
+                <button class="btn-filter btn-f-search"><i class="fas fa-search"></i></button>
+                <button class="btn-filter btn-f-reset"><i class="fas fa-sync-alt"></i></button>
+                <button class="btn-filter btn-f-export"><i class="fas fa-download"></i></button>
+                <button class="btn-filter btn-f-clear"><i class="fas fa-trash"></i></button>
+            </div>
+            <table class="gfa-table">
+                <thead>
+                    <tr>
+                        <th>Ticket</th>
+                        <th>Guichet</th>
+                        <th>Infos du guichet</th>
+                        <th>Temps d'attente</th>
+                        <th>Heure appel</th>
+                        <th>Heure fin</th>
+                        <th>Durée de traitement</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="8" class="empty-table-msg">
+                            <i class="fas fa-inbox fa-2x mb-2 d-block" style="color:#ddd"></i>
+                            Aucun ticket pour le moment
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<th:block layout:fragment="scripts">
+<script>
+    function gfaTab(e, paneId) {
+        document.querySelectorAll('.gfa-tabs .gtab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.gtab-pane').forEach(p => p.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+        document.getElementById(paneId).classList.add('active');
+    }
+</script>
+</th:block>
+
+</body>
+</html>

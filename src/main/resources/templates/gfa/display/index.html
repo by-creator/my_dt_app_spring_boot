@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Écran d'affichage — Dakar Terminal</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Overpass', sans-serif;
+            background: #f0f4f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── MAIN DISPLAY AREA ── */
+        .display-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px 20px;
+        }
+
+        .display-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 6px 40px rgba(0,0,0,.10);
+            padding: 48px 60px;
+            text-align: center;
+            width: 100%;
+            max-width: 860px;
+        }
+
+        .display-card .agent-line {
+            font-size: 22px;
+            font-weight: 700;
+            color: #3d3db4;
+            margin-bottom: 18px;
+            letter-spacing: .5px;
+        }
+
+        .display-card .client-line {
+            font-size: 52px;
+            font-weight: 900;
+            color: #191C24;
+            letter-spacing: -1px;
+        }
+
+        @media (max-width: 576px) {
+            .display-card { padding: 32px 20px; }
+            .display-card .client-line { font-size: 36px; }
+        }
+
+        /* ── QR SECTION ── */
+        .qr-section {
+            padding: 20px 24px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 960px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        @media (max-width: 576px) {
+            .qr-section { grid-template-columns: 1fr; }
+        }
+
+        .qr-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 3px 16px rgba(0,0,0,.08);
+            padding: 22px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .qr-card img {
+            width: 90px;
+            height: 90px;
+            flex-shrink: 0;
+            border-radius: 6px;
+        }
+
+        .qr-card .qr-info {}
+        .qr-card .qr-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #191C24;
+            margin-bottom: 5px;
+        }
+        .qr-card .qr-subtitle {
+            font-size: 12px;
+            color: #3d3db4;
+        }
+
+        @media (max-width: 576px) {
+            .qr-card { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Main display -->
+<div class="display-area">
+    <div class="display-card">
+        <div class="agent-line">Agent &mdash;</div>
+        <div class="client-line">Client &mdash;</div>
+    </div>
+</div>
+
+<!-- QR codes bottom -->
+<div class="qr-section">
+
+    <!-- WiFi QR -->
+    <div class="qr-card">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=WIFI:T:WPA;S:DakarTerminal_WiFi;P:;;"
+             alt="QR Code WiFi"/>
+        <div class="qr-info">
+            <div class="qr-title">Code QR pour se connecter au réseau WI-FI</div>
+            <div class="qr-subtitle">Étape 1 : Connexion à internet</div>
+        </div>
+    </div>
+
+    <!-- Ticket QR -->
+    <div class="qr-card">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://dakarterminal.sn/ticket"
+             alt="QR Code Ticket"/>
+        <div class="qr-info">
+            <div class="qr-title">Code QR pour prendre un ticket</div>
+            <div class="qr-subtitle">Étape 2 : Choix du ticket</div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
