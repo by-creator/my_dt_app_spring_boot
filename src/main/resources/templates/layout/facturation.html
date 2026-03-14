@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title th:text="${pageTitle} + ' | Dakar Terminal Admin'">Dakar Terminal Admin</title>
+    <title th:text="${pageTitle} + ' | Dakar Terminal'">Dakar Terminal</title>
 
     <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
@@ -49,7 +49,6 @@
             border-bottom: 1px solid #e8e8f0;
             display: flex; align-items: center; gap: 10px;
         }
-        .sidebar-brand img { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); }
         .sidebar-brand span { color: var(--dark-bg); font-weight: 700; font-size: 16px; }
         .nav-section-title {
             color: rgba(0,0,0,.38);
@@ -130,32 +129,6 @@
             border-radius: 10px 10px 0 0 !important;
             padding: 14px 20px;
         }
-        .stat-card {
-            border-radius: 10px; color: #fff;
-            padding: 22px 20px;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .stat-card .stat-icon {
-            font-size: 36px; opacity: .8;
-        }
-        .stat-card .stat-value { font-size: 32px; font-weight: 700; }
-        .stat-card .stat-label { font-size: 13px; opacity: .85; margin-top: 2px; }
-        .bg-primary-grad { background: linear-gradient(135deg, #4B49AC, #7978E9); }
-        .bg-success-grad { background: linear-gradient(135deg, #0AC282, #0DF3A3); color: #fff; }
-        .bg-warning-grad { background: linear-gradient(135deg, #FE5F75, #FC9842); }
-        .bg-info-grad    { background: linear-gradient(135deg, #11998e, #38ef7d); color: #fff; }
-
-        /* ── TABLE ── */
-        .table thead th {
-            background: #F8F9FA; border-top: none;
-            font-size: 12px; text-transform: uppercase;
-            letter-spacing: .5px; color: #888; font-weight: 600;
-        }
-        .table td { vertical-align: middle; font-size: 14px; }
-        .badge-role {
-            background: rgba(75,73,172,.12); color: var(--primary);
-            border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 600;
-        }
 
         /* ── ALERTS ── */
         .alert { border-radius: 8px; border: none; font-size: 14px; }
@@ -169,18 +142,6 @@
         .form-control { border-radius: 6px; font-size: 14px; border: 1px solid #dee2e6; }
         .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 .2rem rgba(75,73,172,.15); }
         .form-label { font-weight: 600; font-size: 13px; color: #555; }
-
-        /* ── AUDIT BADGE ── */
-        .action-badge {
-            border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600;
-        }
-        .action-CREATE  { background: #d4edda; color: #155724; }
-        .action-UPDATE  { background: #fff3cd; color: #856404; }
-        .action-DELETE  { background: #f8d7da; color: #721c24; }
-        .action-LOGIN   { background: #cce5ff; color: #004085; }
-        .action-LOGOUT  { background: #e2e3e5; color: #383d41; }
-        .action-DEACTIVATE { background: #ffeeba; color: #856404; }
-        .action-TOGGLE  { background: #d1ecf1; color: #0c5460; }
 
         @media (max-width: 768px) {
             .sidebar { width: 0; overflow: hidden; }
@@ -199,32 +160,19 @@
     </div>
 
     <nav>
-        <div class="nav-section-title">Principal</div>
-        <a th:href="@{/admin/dashboard}" th:classappend="${currentUri.contains('/dashboard')} ? 'active'">
-            <i class="fas fa-tachometer-alt"></i> Tableau de bord
-        </a>
-
-        <div class="nav-section-title">Administration</div>
-        <a th:href="@{/admin/roles}" th:classappend="${currentUri.contains('/roles')} ? 'active'">
-            <i class="fas fa-shield-alt"></i> Rôles
-        </a>
-        <a th:href="@{/admin/users}" th:classappend="${currentUri.contains('/users')} ? 'active'">
-            <i class="fas fa-users"></i> Utilisateurs
-        </a>
-
-        <div class="nav-section-title">Sécurité</div>
-        <a th:href="@{/admin/audit}" th:classappend="${currentUri.contains('/audit')} ? 'active'">
-            <i class="fas fa-clipboard-list"></i> Journaux d'audit
+        <div class="nav-section-title">Facturation</div>
+        <a th:href="@{/facturation/dashboard}" th:classappend="${currentUri.contains('/facturation')} ? 'active'">
+            <i class="fas fa-file-invoice-dollar"></i> Tableau de bord
         </a>
     </nav>
 </aside>
 
 <!-- TOPBAR -->
 <header class="topbar">
-    <span class="topbar-title" th:text="${pageTitle}">Tableau de bord</span>
+    <span class="topbar-title" th:text="${pageTitle}">Facturation</span>
     <div class="topbar-right">
         <div class="user-badge">
-            <div class="avatar" sec:authentication="name" th:text="${#strings.substring(#authentication.name, 0, 1).toUpperCase()}">A</div>
+            <div class="avatar" th:text="${#strings.substring(#authentication.name, 0, 1).toUpperCase()}">F</div>
             <span sec:authentication="name">Utilisateur</span>
         </div>
         <form th:action="@{/logout}" method="post" style="margin:0">

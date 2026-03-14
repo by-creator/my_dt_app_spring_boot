@@ -1,14 +1,6 @@
 INSERT IGNORE INTO roles (name) VALUES
     ('ADMIN'),
-    ('SUPER_U'),
-    ('FACTURATION'),
-    ('CLIENT_FACTURATION'),
-    ('OPERATIONS'),
-    ('PLANIFICATION'),
-    ('INFORMATIQUE'),
-    ('DOUANE'),
-    ('GFA'),
-    ('IPAKI');
+    ('SUPER_U');
 
 -- Initial admin user (password: Admin@2024! - BCrypt hash)
 INSERT IGNORE INTO users (name, email, password, role_id, two_factor_enabled, actif, created_at, updated_at)
