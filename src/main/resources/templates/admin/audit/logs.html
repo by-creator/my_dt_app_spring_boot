@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<head><title>Journaux d'Audit</title></head>
+<body>
+<div layout:fragment="content">
+
+    <div class="page-header">
+        <h1><i class="fas fa-clipboard-list mr-2" style="color:#4B49AC"></i>Journaux d'Audit</h1>
+        <span class="text-muted" style="font-size:13px">Traçabilité complète des actions</span>
+    </div>
+
+    <!-- Filtres -->
+    <div class="card mb-4">
+        <div class="card-header"><i class="fas fa-filter mr-2"></i>Filtres de recherche</div>
+        <div class="card-body">
+            <form th:action="@{/admin/audit}" method="get">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group mb-2">
+                            <label class="form-label">Utilisateur (email)</label>
+                            <input type="text" name="userEmail" class="form-control form-control-sm"
+                                   th:value="${filterUser}" placeholder="email@domain.com"/>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mb-2">
+                            <label class="form-label">Action</label>
+                            <select name="action" class="form-control form-control-sm">
+                                <option value="">Toutes</option>
+                                <option th:each="a : ${actions}"
+                                        th:value="${a}"
+                                        th:text="${a}"
+                                        th:selected="${a == filterAction}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group mb-2">
+                            <label class="form-label">Entité</label>
+                            <select name="entityType" class="form-control form-control-sm">
+                                <option value="">Toutes</option>
+                                <option th:each="e : ${entities}"
+                                        th:value="${e}"
+                                        th:text="${e}"
+                                        th:selected="${e == filterEntity}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary btn-sm mb-2 btn-block">
+                            <i class="fas fa-search mr-1"></i> Rechercher
+                        </button>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <a th:href="@{/admin/audit}" class="btn btn-outline-secondary btn-sm mb-2 btn-block">
+                            <i class="fas fa-times mr-1"></i> Effacer
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span>
+                <i class="fas fa-history mr-2"></i>Résultats
+                <span class="badge badge-secondary ml-1" th:text="${logs.totalElements}">0</span>
+            </span>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" style="font-size:13px">
+                    <thead>
+                        <tr>
+                            <th style="width:145px">Date / Heure</th>
+                            <th>Utilisateur</th>
+                            <th style="width:110px">Action</th>
+                            <th style="width:90px">Entité</th>
+                            <th>Détails</th>
+                            <th style="width:110px">IP</th>
+                            <th style="width:80px">Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="log : ${logs.content}">
+                            <td th:text="${#temporals.format(log.createdAt, 'dd/MM/yy HH:mm:ss')}"></td>
+                            <td>
+                                <div th:text="${log.userName != null ? log.userName : log.userEmail}"></div>
+                                <small class="text-muted" th:text="${log.userEmail}"></small>
+                            </td>
+                            <td>
+                                <span class="action-badge"
+                                      th:classappend="'action-' + ${log.action}"
+                                      th:text="${log.action}"></span>
+                            </td>
+                            <td th:text="${log.entityType != null ? log.entityType : '—'}"></td>
+                            <td th:text="${log.details != null ? log.details : '—'}"
+                                style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+                                th:title="${log.details}"></td>
+                            <td><small th:text="${log.ipAddress != null ? log.ipAddress : '—'}"></small></td>
+                            <td>
+                                <span th:if="${log.status == 'SUCCESS'}" class="badge badge-success">OK</span>
+                                <span th:unless="${log.status == 'SUCCESS'}" class="badge badge-danger"
+                                      th:text="${log.status}"></span>
+                            </td>
+                        </tr>
+                        <tr th:if="${logs.isEmpty()}">
+                            <td colspan="7" class="text-center text-muted py-5">
+                                <i class="fas fa-clipboard fa-2x mb-2 d-block"></i>
+                                Aucun journal correspondant à vos critères.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="card-footer d-flex justify-content-between align-items-center" th:if="${totalPages > 1}">
+            <small class="text-muted">
+                Page <span th:text="${currentPage + 1}">1</span> sur <span th:text="${totalPages}">1</span>
+            </small>
+            <nav>
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/admin/audit(page=${currentPage - 1}, userEmail=${filterUser}, action=${filterAction}, entityType=${filterEntity})}">
+                            &laquo;
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                        th:classappend="${i == currentPage} ? 'active'">
+                        <a class="page-link"
+                           th:href="@{/admin/audit(page=${i}, userEmail=${filterUser}, action=${filterAction}, entityType=${filterEntity})}"
+                           th:text="${i + 1}">1</a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/admin/audit(page=${currentPage + 1}, userEmail=${filterUser}, action=${filterAction}, entityType=${filterEntity})}">
+                            &raquo;
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

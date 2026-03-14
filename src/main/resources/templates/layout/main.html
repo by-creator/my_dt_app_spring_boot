@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title th:text="${pageTitle} + ' | Dakar Terminal Admin'">Dakar Terminal Admin</title>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+
+    <style>
+        :root {
+            --primary:   #4B49AC;
+            --secondary: #7978E9;
+            --success:   #57B657;
+            --danger:    #F2726F;
+            --warning:   #F5A623;
+            --info:      #248AFD;
+            --dark-bg:   #191C24;
+            --sidebar-w: 240px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Overpass', sans-serif;
+            background: #F5F7FF;
+            color: #343a40;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            position: fixed; top: 0; left: 0;
+            width: var(--sidebar-w); height: 100vh;
+            background: var(--dark-bg);
+            display: flex; flex-direction: column;
+            overflow-y: auto; z-index: 100;
+            transition: width .25s;
+        }
+        .sidebar-brand {
+            padding: 20px 16px;
+            border-bottom: 1px solid rgba(255,255,255,.07);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .sidebar-brand img { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); }
+        .sidebar-brand span { color: #fff; font-weight: 700; font-size: 16px; }
+        .nav-section-title {
+            color: rgba(255,255,255,.4);
+            font-size: 11px; letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 18px 20px 6px;
+        }
+        .sidebar nav a {
+            display: flex; align-items: center; gap: 12px;
+            padding: 11px 20px;
+            color: rgba(255,255,255,.65);
+            text-decoration: none; font-size: 14px;
+            border-left: 3px solid transparent;
+            transition: all .2s;
+        }
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            color: #fff;
+            background: rgba(255,255,255,.06);
+            border-left-color: var(--secondary);
+        }
+        .sidebar nav a i { width: 20px; text-align: center; font-size: 16px; }
+
+        /* ── TOPBAR ── */
+        .topbar {
+            position: fixed; top: 0;
+            left: var(--sidebar-w);
+            right: 0; height: 60px;
+            background: #fff;
+            box-shadow: 0 1px 6px rgba(0,0,0,.08);
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 0 24px; z-index: 99;
+        }
+        .topbar-title { font-size: 18px; font-weight: 600; color: var(--dark-bg); }
+        .topbar-right { display: flex; align-items: center; gap: 16px; }
+        .user-badge {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 14px; color: #555;
+        }
+        .user-badge .avatar {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: 700; font-size: 14px;
+        }
+        .btn-logout {
+            background: transparent; border: 1px solid #ddd;
+            color: #888; border-radius: 6px;
+            padding: 5px 12px; font-size: 13px; cursor: pointer;
+            transition: .2s;
+        }
+        .btn-logout:hover { background: #f5f5f5; color: #333; }
+
+        /* ── MAIN CONTENT ── */
+        .main-content {
+            margin-left: var(--sidebar-w);
+            padding-top: 60px;
+            min-height: 100vh;
+        }
+        .page-body { padding: 28px 24px; }
+        .page-header {
+            margin-bottom: 24px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .page-header h1 { font-size: 22px; font-weight: 700; color: var(--dark-bg); }
+
+        /* ── CARDS ── */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+        }
+        .card-header {
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            font-weight: 600; font-size: 15px;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 14px 20px;
+        }
+        .stat-card {
+            border-radius: 10px; color: #fff;
+            padding: 22px 20px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .stat-card .stat-icon {
+            font-size: 36px; opacity: .8;
+        }
+        .stat-card .stat-value { font-size: 32px; font-weight: 700; }
+        .stat-card .stat-label { font-size: 13px; opacity: .85; margin-top: 2px; }
+        .bg-primary-grad { background: linear-gradient(135deg, #4B49AC, #7978E9); }
+        .bg-success-grad { background: linear-gradient(135deg, #0AC282, #0DF3A3); color: #fff; }
+        .bg-warning-grad { background: linear-gradient(135deg, #FE5F75, #FC9842); }
+        .bg-info-grad    { background: linear-gradient(135deg, #11998e, #38ef7d); color: #fff; }
+
+        /* ── TABLE ── */
+        .table thead th {
+            background: #F8F9FA; border-top: none;
+            font-size: 12px; text-transform: uppercase;
+            letter-spacing: .5px; color: #888; font-weight: 600;
+        }
+        .table td { vertical-align: middle; font-size: 14px; }
+        .badge-role {
+            background: rgba(75,73,172,.12); color: var(--primary);
+            border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 600;
+        }
+
+        /* ── ALERTS ── */
+        .alert { border-radius: 8px; border: none; font-size: 14px; }
+
+        /* ── BUTTONS ── */
+        .btn { border-radius: 6px; font-size: 13px; font-weight: 500; }
+        .btn-primary { background: var(--primary); border-color: var(--primary); }
+        .btn-primary:hover { background: #3e3d99; border-color: #3e3d99; }
+
+        /* ── FORMS ── */
+        .form-control { border-radius: 6px; font-size: 14px; border: 1px solid #dee2e6; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 .2rem rgba(75,73,172,.15); }
+        .form-label { font-weight: 600; font-size: 13px; color: #555; }
+
+        /* ── AUDIT BADGE ── */
+        .action-badge {
+            border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600;
+        }
+        .action-CREATE  { background: #d4edda; color: #155724; }
+        .action-UPDATE  { background: #fff3cd; color: #856404; }
+        .action-DELETE  { background: #f8d7da; color: #721c24; }
+        .action-LOGIN   { background: #cce5ff; color: #004085; }
+        .action-LOGOUT  { background: #e2e3e5; color: #383d41; }
+        .action-DEACTIVATE { background: #ffeeba; color: #856404; }
+        .action-TOGGLE  { background: #d1ecf1; color: #0c5460; }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 0; overflow: hidden; }
+            .main-content, .topbar { left: 0; margin-left: 0; }
+        }
+    </style>
+    <th:block layout:fragment="styles"></th:block>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-brand">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">D</div>
+        <span>DakarTerminal</span>
+    </div>
+
+    <nav>
+        <div class="nav-section-title">Principal</div>
+        <a th:href="@{/admin/dashboard}" th:classappend="${#httpServletRequest.requestURI.contains('/dashboard')} ? 'active'">
+            <i class="fas fa-tachometer-alt"></i> Tableau de bord
+        </a>
+
+        <div class="nav-section-title">Administration</div>
+        <a th:href="@{/admin/roles}" th:classappend="${#httpServletRequest.requestURI.contains('/roles')} ? 'active'">
+            <i class="fas fa-shield-alt"></i> Rôles
+        </a>
+        <a th:href="@{/admin/users}" th:classappend="${#httpServletRequest.requestURI.contains('/users')} ? 'active'">
+            <i class="fas fa-users"></i> Utilisateurs
+        </a>
+
+        <div class="nav-section-title">Sécurité</div>
+        <a th:href="@{/admin/audit}" th:classappend="${#httpServletRequest.requestURI.contains('/audit')} ? 'active'">
+            <i class="fas fa-clipboard-list"></i> Journaux d'audit
+        </a>
+    </nav>
+</aside>
+
+<!-- TOPBAR -->
+<header class="topbar">
+    <span class="topbar-title" th:text="${pageTitle}">Tableau de bord</span>
+    <div class="topbar-right">
+        <div class="user-badge">
+            <div class="avatar" sec:authentication="name" th:text="${#strings.substring(#authentication.name, 0, 1).toUpperCase()}">A</div>
+            <span sec:authentication="name">Utilisateur</span>
+        </div>
+        <form th:action="@{/logout}" method="post" style="margin:0">
+            <button type="submit" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </button>
+        </form>
+    </div>
+</header>
+
+<!-- MAIN -->
+<div class="main-content">
+    <div class="page-body">
+        <!-- Flash messages -->
+        <div th:if="${successMsg}" class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span th:text="${successMsg}"></span>
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        </div>
+        <div th:if="${errorMsg}" class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            <span th:text="${errorMsg}"></span>
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        </div>
+
+        <div layout:fragment="content"></div>
+    </div>
+</div>
+
+<!-- jQuery + Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<th:block layout:fragment="scripts"></th:block>
+</body>
+</html>
