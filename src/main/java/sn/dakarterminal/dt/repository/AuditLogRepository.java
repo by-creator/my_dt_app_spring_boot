@@ -38,6 +38,23 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
         Pageable pageable
     );
 
+    @Query("""
+        SELECT a FROM AuditLog a
+        WHERE (:userEmail IS NULL OR LOWER(a.userEmail) LIKE LOWER(CONCAT('%', :userEmail, '%')))
+          AND (:action IS NULL OR a.action = :action)
+          AND (:entityType IS NULL OR a.entityType = :entityType)
+          AND (:dateFrom IS NULL OR a.createdAt >= :dateFrom)
+          AND (:dateTo IS NULL OR a.createdAt <= :dateTo)
+        ORDER BY a.createdAt DESC
+    """)
+    List<AuditLog> searchAll(
+        @Param("userEmail") String userEmail,
+        @Param("action") String action,
+        @Param("entityType") String entityType,
+        @Param("dateFrom") LocalDateTime dateFrom,
+        @Param("dateTo") LocalDateTime dateTo
+    );
+
     List<AuditLog> findTop10ByOrderByCreatedAtDesc();
 
     long countByAction(String action);

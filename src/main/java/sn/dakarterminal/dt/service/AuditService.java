@@ -115,6 +115,13 @@ public class AuditService {
     }
 
     @Transactional(readOnly = true)
+    public java.util.List<AuditLogDto> searchAll(String userEmail, String action, String entityType,
+                                                  LocalDateTime dateFrom, LocalDateTime dateTo) {
+        return auditLogRepository.searchAll(userEmail, action, entityType, dateFrom, dateTo)
+                .stream().map(this::toDto).toList();
+    }
+
+    @Transactional(readOnly = true)
     public Page<AuditLogDto> findAll(Pageable pageable) {
         return auditLogRepository.findAll(pageable).map(this::toDto);
     }

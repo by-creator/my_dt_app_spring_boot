@@ -200,7 +200,7 @@
 
     <nav>
         <div class="nav-section-title">Principal</div>
-        <a th:href="@{/admin/dashboard}" th:classappend="${currentUri.contains('/dashboard')} ? 'active'">
+        <a th:href="@{/admin/dashboard}" th:classappend="${currentUri.contains('/admin/dashboard')} ? 'active'">
             <i class="fas fa-tachometer-alt"></i> Tableau de bord
         </a>
 
@@ -210,6 +210,12 @@
         </a>
         <a th:href="@{/admin/users}" th:classappend="${currentUri.contains('/users')} ? 'active'">
             <i class="fas fa-users"></i> Utilisateurs
+        </a>
+
+        <div class="nav-section-title">Modules</div>
+        <a th:href="@{/facturation/dashboard}"
+           th:classappend="${currentUri.contains('/facturation')} ? 'active'">
+            <i class="fas fa-file-invoice-dollar"></i> Facturation
         </a>
 
         <div class="nav-section-title">Sécurité</div>
